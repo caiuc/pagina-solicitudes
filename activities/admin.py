@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import (Activity, Space, Equipment)
 
-# Register your models here.
+admin.site.register(Activity)
+admin.site.register(Space)
+admin.site.register(Equipment)

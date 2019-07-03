@@ -15,6 +15,7 @@ class Space(models.Model):
     """
 
     name = models.CharField(max_length=200)
+    objects = models.Manager()
 
     def __str__(self):
         return self.name
@@ -36,6 +37,7 @@ class Equipment(models.Model):
     """
 
     name = models.CharField(max_length=200)
+    objects = models.Manager()
 
     def __str__(self):
         return self.name
