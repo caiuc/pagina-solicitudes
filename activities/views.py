@@ -9,7 +9,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 
 
-# limita permisos para el usuario creador
+# Limits the permissions of viewing and modifying any of the activities that
+# the user is not the owner
 class PermissionMixin(object):
     def get_object(self, *args, **kwargs):
         obj = super(PermissionMixin, self).get_object(*args, **kwargs)
