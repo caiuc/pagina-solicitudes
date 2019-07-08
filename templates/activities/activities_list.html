@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+
+
+{% block title %}Mis actividades{% endblock %}
+
+{% block content %}
+    <h2>Activities</h2>
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Estado</th>
+            <th>Descripción</th>
+            <th>Espacio</th>
+            <th>Equipamiento</th>
+            <th>Fecha inicio</th>
+            <th>Fecha término</th>
+            <th>A cargo</th>
+            <th>Acciones</th>
+        </tr>
+        {% for activity in object_list %}
+            <tr>
+                <td>{{ activity.name }}</td>
+                <td>{{ activity.state }}</td>
+                <td>{{ activity.description }}</td>
+                <td>{{ activity.space }}</td>
+                <td>{{ activity.equipment }}</td>
+                <td>{{ activity.date_start }}</td>
+                <td>{{ activity.date_finish }}</td>
+                <td>{{ activity.in_charge }}</td>
+                <td>Editar<br><a href="{% url 'delete_activity' activity.pk %}">Borrar</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'new_activity' %}">Nueva actividad</a>
+{% endblock %}
+
+
+
+<!-- state
+name
+description
+space
+equipment
+date_start
+date_finish
+in_charge
+creator -->
