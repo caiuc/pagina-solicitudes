@@ -21,17 +21,6 @@ class Space(models.Model):
         return self.name
 
 
-class SpaceRequest(models.Model):
-
-    space = models.ForeignKey(Space, on_delete=models.CASCADE)
-    request_link = models.CharField(max_length=2000, blank=True, null=True)
-    date_start = models.DateTimeField(blank=False)
-    date_finish = models.DateTimeField(blank=False)
-
-    def __str__(self):
-        return f'{self.space.name}'
-
-
 class Equipment(models.Model):
     """Equipment to use in activities
     """
@@ -41,17 +30,6 @@ class Equipment(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class EquipmentRequest(models.Model):
-
-    equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE)
-    amount = models.PositiveIntegerField()
-    date_start = models.DateTimeField(blank=False)
-    date_finish = models.DateTimeField(blank=False)
-
-    def __str__(self):
-        return f'{self.equipment.name} x {self.amount}'
 
 
 class Activity(models.Model):
@@ -75,9 +53,12 @@ class Activity(models.Model):
                              default=PENDING)
     name = models.CharField(max_length=200)
     description = models.TextField(max_length=20000)
-    space = models.ManyToManyField('SpaceRequest', related_name='activities')
-    equipment = models.ManyToManyField('EquipmentRequest',
-                                       related_name='activities')
+    space = models.ManyToManyField('Space',
+                                   related_name='activities',
+                                   blank=True)
+    equipment = models.ManyToManyField('Equipment',
+                                       related_name='activities',
+                                       blank=True)
     date_start = models.DateTimeField(blank=False)
     date_finish = models.DateTimeField(blank=False)
     in_charge = models.CharField(max_length=200)
