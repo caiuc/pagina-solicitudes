@@ -3,9 +3,10 @@ from django.views import generic
 from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.template import loader
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class NewActivity(generic.CreateView):
+class NewActivity(LoginRequiredMixin, generic.CreateView):
 
     def get(self, request):
         template = loader.get_template('new_activity.html')
