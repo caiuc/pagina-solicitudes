@@ -53,12 +53,14 @@ class Activity(models.Model):
                              default=PENDING)
     name = models.CharField(max_length=200)
     description = models.TextField(max_length=20000)
-    space = models.ManyToManyField('Space',
-                                   related_name='activities',
-                                   blank=True)
-    equipment = models.ManyToManyField('Equipment',
-                                       related_name='activities',
-                                       blank=True)
+    space = models.ForeignKey(Space,
+                              blank=True,
+                              null=True,
+                              on_delete=models.CASCADE)
+    equipment = models.ForeignKey(Equipment,
+                                  blank=True,
+                                  null=True,
+                                  on_delete=models.CASCADE)
     date_start = models.DateTimeField(blank=False)
     date_finish = models.DateTimeField(blank=False)
     in_charge = models.CharField(max_length=200)

@@ -6,8 +6,9 @@ from django.template import loader
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
+# LoginRequiredMixin acts as a decorator to make a login required
+# for certain pages
 class NewActivity(LoginRequiredMixin, generic.CreateView):
-
     def get(self, request):
         template = loader.get_template('new_activity.html')
         form = ActivityFrom(request.user)
