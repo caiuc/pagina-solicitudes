@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
 
-
-
 {% block title %}Mis actividades{% endblock %}
 
 {% block content %}
@@ -28,7 +26,7 @@
                 <td>{{ activity.date_start }}</td>
                 <td>{{ activity.date_finish }}</td>
                 <td>{{ activity.in_charge }}</td>
-                <td>Editar<br><a href="{% url 'delete_activity' activity.pk %}">Borrar</a></td>
+                <td><a href="{% url 'update_activity' activity.pk %}">Editar<br><a href="{% url 'delete_activity' activity.pk %}">Borrar</a></td>
             </tr>
         {% endfor %}
     </table>

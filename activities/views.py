@@ -47,3 +47,14 @@ class ActivityDelte(LoginRequiredMixin, PermissionMixin, generic.DeleteView):
     model = Activity
     template_name = 'activities/activity_confirm_delete.html'
     success_url = reverse_lazy('activities_list')
+
+
+class ActivityUpdate(LoginRequiredMixin, PermissionMixin, generic.UpdateView):
+
+    model = Activity
+    fields = [
+        'name', 'description', 'space', 'equipment', 'date_start',
+        'date_finish', 'in_charge'
+    ]
+    template_name = 'activities/new_activity.html'
+    success_url = reverse_lazy('activities_list')
