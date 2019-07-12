@@ -2,6 +2,7 @@ from django import forms
 from activities.models import Activity
 from activities.models import (Space, Equipment)
 from accounts.models import Profile
+from django.contrib.auth.models import User
 
 
 class ActivityFrom(forms.ModelForm):
@@ -23,7 +24,7 @@ class ActivityFrom(forms.ModelForm):
         super(ActivityFrom, self).__init__(*args, **kwargs)
         self.user = user
         self.fields['creator'] = forms.ModelChoiceField(
-            Profile.objects.all(),
+            User.objects.all(),
             widget=forms.HiddenInput(),
             initial=self.user)
 

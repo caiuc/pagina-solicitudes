@@ -1,5 +1,7 @@
 from django.db import models
-from accounts.models import Profile
+from django.conf import settings
+
+AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
 
 class Budget(models.Model):
@@ -64,7 +66,7 @@ class Activity(models.Model):
     date_start = models.DateTimeField(blank=False)
     date_finish = models.DateTimeField(blank=False)
     in_charge = models.CharField(max_length=200)
-    creator = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    creator = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

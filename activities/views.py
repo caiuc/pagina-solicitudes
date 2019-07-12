@@ -23,24 +23,26 @@ class PermissionMixin(object):
 # LoginRequiredMixin acts as a decorator to make a login required
 # for certain pages
 class NewActivity(LoginRequiredMixin, PermissionMixin, generic.CreateView):
-    def get(self, request):
-        template = loader.get_template('activities/new_activity.html')
-        form = ActivityFrom(request.user)
-        return HttpResponse(template.render({'form': form}, request))
 
     form_class = ActivityFrom
     success_url = reverse_lazy('home')
     template_name = 'activities/new_activity.html'
 
+    def get(self, request):
+        template = loader.get_template('activities/new_activity.html')
+        form = ActivityFrom(request.user)
+        return HttpResponse(template.render({'form': form}, request))
+
 
 class ActivitiesList(LoginRequiredMixin, generic.ListView):
-    def get_queryset(self):
-        creator = Profile.objects.get(pk=self.request.user.id)
-        queryset = Activity.objects.filter(creator=creator)
-        return queryset
 
     template_name = 'activities/activities_list.html'
     model = Activity
+
+    def get_queryset(self):
+        creator = self.request.user
+        queryset = Activity.objects.filter(creator=creator)
+        return queryset
 
 
 class ActivityDelte(LoginRequiredMixin, PermissionMixin, generic.DeleteView):
@@ -59,3 +61,13 @@ class ActivityUpdate(LoginRequiredMixin, PermissionMixin, generic.UpdateView):
     ]
     template_name = 'activities/new_activity.html'
     success_url = reverse_lazy('activities_list')
+
+
+class ActivityDetail(LoginRequiredMixin, PermissionMixin, generic.DetailView):
+
+    model = Activity
+    template_name = 'activities/detailed_view.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context

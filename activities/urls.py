@@ -7,7 +7,10 @@ urlpatterns = [
     re_path(r'^delete/(?P<pk>\d+)/$',
             views.ActivityDelte.as_view(),
             name='delete_activity'),
-    re_path(r'^update/(?P<pk>\d+)/$',
+    re_path(r'^edit/(?P<pk>\d+)/$',
             views.ActivityUpdate.as_view(),
             name='update_activity'),
+    re_path(r'^(?P<pk>\d+)/$',
+            views.ActivityDetail.as_view(),
+            name='activity_detail'),
 ]
