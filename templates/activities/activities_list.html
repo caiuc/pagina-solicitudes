@@ -26,7 +26,11 @@
                 <td>{{ activity.date_start }}</td>
                 <td>{{ activity.date_finish }}</td>
                 <td>{{ activity.in_charge }}</td>
-                <td><a href="{% url 'activity_detail' activity.pk %}">Ver<br><a href="{% url 'update_activity' activity.pk %}">Editar<br><a href="{% url 'delete_activity' activity.pk %}">Borrar</a></td>
+                <td>
+                    <a href="{% url 'activity_detail' activity.pk %}">Ver<br>
+                    <a href="{% url 'update_activity' activity.pk %}">Editar<br>
+                    <a href="{% url 'delete_activity' activity.pk %}">Borrar</a>
+                </td>
             </tr>
         {% endfor %}
     </table>
