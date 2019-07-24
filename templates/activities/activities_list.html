@@ -9,8 +9,8 @@
             <th>Nombre</th>
             <th>Estado</th>
             <th>Descripción</th>
-            <th>Espacio</th>
-            <th>Equipamiento</th>
+            <!-- <th>Espacio</th>
+            <th>Equipamiento</th> -->
             <th>Fecha inicio</th>
             <th>Fecha término</th>
             <th>A cargo</th>
@@ -21,15 +21,18 @@
                 <td>{{ activity.name }}</td>
                 <td>{{ activity.state }}</td>
                 <td>{{ activity.description }}</td>
-                <td>{{ activity.space }}</td>
-                <td>{{ activity.equipment }}</td>
+                <!-- <td>{{ activity.space }}</td>
+                <td>{{ activity.equipment }}</td> -->
                 <td>{{ activity.date_start }}</td>
                 <td>{{ activity.date_finish }}</td>
                 <td>{{ activity.in_charge }}</td>
                 <td>
                     <a href="{% url 'activity_detail' activity.pk %}">Ver<br>
                     <a href="{% url 'update_activity' activity.pk %}">Editar<br>
-                    <a href="{% url 'delete_activity' activity.pk %}">Borrar</a>
+                    <a href="{% url 'delete_activity' activity.pk %}">Borrar</a><br>
+                    {% if user.is_staff %}
+                        <a href="{% url 'update_activity_status' activity.pk %}">Cambiar estado</a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

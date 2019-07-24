@@ -13,4 +13,8 @@ urlpatterns = [
     re_path(r'^(?P<pk>\d+)/$',
             views.ActivityDetail.as_view(),
             name='activity_detail'),
+    re_path(r'^status/(?P<pk>\d+)/$',
+            views.ActivityChangeState.as_view(),
+            name='update_activity_status'),
+
 ]
