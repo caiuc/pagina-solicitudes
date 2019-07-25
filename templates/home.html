@@ -3,13 +3,18 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">logout</a></p>
-  <p><a href="{% url 'password_reset' %}">reset password</a></p>
-{% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">login</a>
-  <a href="{% url 'signup' %}">signup</a>
-{% endif %}
+  {% if user.is_authenticated %}
+    Hi {{ user.username }}!
+    <p><a href="{% url 'logout' %}">logout</a></p><br>
+    <a href="{% url 'new_activity' %}">new activity</a><br>
+    <a href="{% url 'activities_list' %}">my activities</a><br>
+    {% if user.is_staff %}
+      <a href="{% url 'activities_list_staff' %}">Rrequest</a>
+    {% endif %}
+  {% else %}
+    <p>You are not logged in</p>
+    <a href="{% url 'login' %}">login</a>
+    <a href="{% url 'signup' %}">signup</a>
+    <a href="{% url 'password_reset' %}">reset password</a>
+  {% endif %}
 {% endblock %}
