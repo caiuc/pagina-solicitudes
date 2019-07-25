@@ -14,10 +14,21 @@ from django.core.exceptions import PermissionDenied
 class PermissionMixin(object):
     def get_object(self, *args, **kwargs):
         obj = super(PermissionMixin, self).get_object(*args, **kwargs)
-        if not obj.creator.id == self.request.user.id:
+        if self.request.user.is_staff:
+            return obj
+        elif not obj.creator.id == self.request.user.id:
             raise PermissionDenied()
         else:
             return obj
+
+
+class PermissionMixinStaff(object):
+    def get_object(self, *args, **kwargs):
+        obj = super(PermissionMixin, self).get_object(*args, **kwargs)
+        if self.request.user.is_staff:
+            return obj
+        else:
+            raise PermissionDenied()
 
 
 # LoginRequiredMixin acts as a decorator to make a login required
@@ -49,6 +60,23 @@ class ActivitiesList(LoginRequiredMixin, generic.ListView):
         creator = self.request.user
         queryset = Activity.objects.filter(creator=creator)
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['staff_list'] = False
+        return context
+
+
+class ActivitiesListStaff(LoginRequiredMixin, PermissionMixinStaff,
+                          generic.ListView):
+
+    template_name = 'activities/activities_list.html'
+    model = Activity
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['staff_list'] = True
+        return context
 
 
 class ActivityDelte(LoginRequiredMixin, PermissionMixin, generic.DeleteView):
@@ -90,11 +118,12 @@ class ActivityChangeState(LoginRequiredMixin, PermissionMixin,
                           generic.UpdateView):
     model = Activity
     fields = ['state']
-    page_name = 'aaaaa'
-    template_name = 'activities/new_activity.html'
-    success_url = reverse_lazy('activities_list')
+    page_name = 'Cambio de estado de solicitud'
+    template_name = 'activities/activities_status_update_form.html'
+    success_url = reverse_lazy('activities_list_staff')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page_name'] = 'Cambio de estado de la solicitud'
         return context
+
