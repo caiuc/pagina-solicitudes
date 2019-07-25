@@ -3,6 +3,7 @@ Django==2.2.2
 django-heroku==0.3.1
 entrypoints==0.3
 flake8==3.7.7
+gunicorn==19.9.0
 mccabe==0.6.1
 psycopg2==2.8.3
 pycodestyle==2.5.0
