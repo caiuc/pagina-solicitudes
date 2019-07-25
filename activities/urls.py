@@ -19,4 +19,7 @@ urlpatterns = [
     re_path(r'^status/(?P<pk>\d+)/$',
             views.ActivityChangeState.as_view(),
             name='update_activity_status'),
+    re_path(r'^notify/(?P<pk>\d+)/$',
+            views.ActivityStatusNotification.as_view(),
+            name='send_email'),
 ]
