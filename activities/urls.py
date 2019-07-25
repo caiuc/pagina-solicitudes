@@ -4,6 +4,9 @@ from . import views
 urlpatterns = [
     path('new/', views.NewActivity.as_view(), name='new_activity'),
     path('', views.ActivitiesList.as_view(), name='activities_list'),
+    path('staff/',
+         views.ActivitiesListStaff.as_view(),
+         name='activities_list_staff'),
     re_path(r'^delete/(?P<pk>\d+)/$',
             views.ActivityDelte.as_view(),
             name='delete_activity'),
@@ -16,5 +19,7 @@ urlpatterns = [
     re_path(r'^status/(?P<pk>\d+)/$',
             views.ActivityChangeState.as_view(),
             name='update_activity_status'),
-
+    re_path(r'^notify/(?P<pk>\d+)/$',
+            views.ActivityStatusNotification.as_view(),
+            name='send_email'),
 ]

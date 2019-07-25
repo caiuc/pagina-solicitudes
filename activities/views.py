@@ -1,12 +1,13 @@
-from activities.forms import ActivityFrom
+from activities.forms import ActivityFrom, NotificationForm
 from activities.models import Activity
-from accounts.models import Profile
+from django.shortcuts import redirect
 from django.views import generic
 from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.contrib import messages
 
 
 # Limits the permissions of viewing and modifying any of the activities that
@@ -14,10 +15,21 @@ from django.core.exceptions import PermissionDenied
 class PermissionMixin(object):
     def get_object(self, *args, **kwargs):
         obj = super(PermissionMixin, self).get_object(*args, **kwargs)
-        if not obj.creator.id == self.request.user.id:
+        if self.request.user.is_staff:
+            return obj
+        elif not obj.creator.id == self.request.user.id:
             raise PermissionDenied()
         else:
             return obj
+
+
+class PermissionMixinStaff(object):
+    def get_object(self, *args, **kwargs):
+        obj = super(PermissionMixin, self).get_object(*args, **kwargs)
+        if self.request.user.is_staff:
+            return obj
+        else:
+            raise PermissionDenied()
 
 
 # LoginRequiredMixin acts as a decorator to make a login required
@@ -50,6 +62,23 @@ class ActivitiesList(LoginRequiredMixin, generic.ListView):
         queryset = Activity.objects.filter(creator=creator)
         return queryset
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['staff_list'] = False
+        return context
+
+
+class ActivitiesListStaff(LoginRequiredMixin, PermissionMixinStaff,
+                          generic.ListView):
+
+    template_name = 'activities/activities_list.html'
+    model = Activity
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['staff_list'] = True
+        return context
+
 
 class ActivityDelte(LoginRequiredMixin, PermissionMixin, generic.DeleteView):
 
@@ -58,7 +87,8 @@ class ActivityDelte(LoginRequiredMixin, PermissionMixin, generic.DeleteView):
     success_url = reverse_lazy('activities_list')
 
 
-class ActivityUpdate(LoginRequiredMixin, PermissionMixin, generic.UpdateView):
+class ActivityUpdate(LoginRequiredMixin, PermissionMixinStaff, PermissionMixin,
+                     generic.UpdateView):
 
     model = Activity
     page_name = 'updates'
@@ -86,15 +116,40 @@ class ActivityDetail(LoginRequiredMixin, PermissionMixin, generic.DetailView):
         return context
 
 
-class ActivityChangeState(LoginRequiredMixin, PermissionMixin,
-                          generic.UpdateView):
+class ActivityChangeState(LoginRequiredMixin, PermissionMixinStaff,
+                          PermissionMixin, generic.UpdateView):
     model = Activity
     fields = ['state']
-    page_name = 'aaaaa'
-    template_name = 'activities/new_activity.html'
-    success_url = reverse_lazy('activities_list')
+    page_name = 'Cambio de estado de solicitud'
+    template_name = 'activities/activities_status_update_form.html'
+
+    # success_url = reverse_lazy('send_email', kwargs={'pk': model.id})
+
+    def get_success_url(self):
+        return reverse_lazy('send_email', kwargs={'pk': self.kwargs['pk']})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page_name'] = 'Cambio de estado de la solicitud'
         return context
+
+
+class ActivityStatusNotification(LoginRequiredMixin, PermissionMixinStaff,
+                                 PermissionMixin, generic.FormView):
+
+    form_class = NotificationForm
+    model = Activity
+    page_name = 'Notificar cambio de estado'
+    template_name = 'activities/send_email.html'
+    # success_url = reverse_lazy('activities_list_staff')
+
+    def form_valid(self, form):
+        activity = Activity.objects.get(pk=self.kwargs['pk'])
+        form.send_email(
+            form.data['subject'],
+            form.data['body'],
+            'cai@caiuc.cl',
+            [activity.in_charge]
+        )
+        messages.info(self.request, f'Se ha enviado un correo a {activity.in_charge}')
+        return redirect('activities_list_staff')

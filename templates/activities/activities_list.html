@@ -6,36 +6,50 @@
     <h2>Actividades</h2>
     <table>
         <tr>
+            {% if staff_list %}
+                <th>Identificador</th>
+            {% endif %}
             <th>Nombre</th>
             <th>Estado</th>
             <th>Descripción</th>
-            <!-- <th>Espacio</th>
-            <th>Equipamiento</th> -->
-            <th>Fecha inicio</th>
-            <th>Fecha término</th>
-            <th>A cargo</th>
+            {% if not staff_list %}
+                <th>Fecha inicio</th>
+                <th>Fecha término</th>
+            {% endif %}
+            {% if staff_list %}
+                <th>A cargo</th>
+            {% endif %}
             <th>Acciones</th>
         </tr>
         {% for activity in object_list %}
             <tr>
+                {% if staff_list %}
+                    <td>{{ activity.id }}</td>
+                {% endif %}
                 <td>{{ activity.name }}</td>
                 <td>{{ activity.state }}</td>
                 <td>{{ activity.description }}</td>
-                <!-- <td>{{ activity.space }}</td>
-                <td>{{ activity.equipment }}</td> -->
-                <td>{{ activity.date_start }}</td>
-                <td>{{ activity.date_finish }}</td>
-                <td>{{ activity.in_charge }}</td>
+                {% if not staff_list %}
+                    <td>{{ activity.date_start }}</td>
+                    <td>{{ activity.date_finish }}</td>
+                {% endif %}
+                {% if staff_list %}
+                    <td>{{ activity.in_charge }}</td>
+                {% endif %}
                 <td>
-                    <a href="{% url 'activity_detail' activity.pk %}">Ver<br>
-                    <a href="{% url 'update_activity' activity.pk %}">Editar<br>
-                    <a href="{% url 'delete_activity' activity.pk %}">Borrar</a><br>
-                    {% if user.is_staff %}
+                    {% if staff_list %}
                         <a href="{% url 'update_activity_status' activity.pk %}">Cambiar estado</a>
+                    {% else %}
+                        <a href="{% url 'activity_detail' activity.pk %}">Ver<br>
+                        <a href="{% url 'update_activity' activity.pk %}">Editar<br>
+                        <a href="{% url 'delete_activity' activity.pk %}">Borrar</a><br>
                     {% endif %}
                 </td>
             </tr>
         {% endfor %}
     </table>
-    <a href="{% url 'new_activity' %}">Nueva actividad</a>
+    {% if not staff_list %}
+        <a href="{% url 'new_activity' %}">Nueva actividad</a><br>
+    {% endif %}
+    <a href="{% url 'home' %}">Inicio</a>
 {% endblock %}

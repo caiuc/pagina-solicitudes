@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ page_name }}{% endblock %}
+
+{% block content %}
+
+<h1>Actividad: {{ activity.name }}</h1>
+<h4>Encargado: {{ activity.in_charge }}</h4>
+<h3>Inicio: {{ activity.date_start }}</h3>
+<h3>Fin: {{ activity.date_finish }}</h3>
+<p>Descripción: {{ activity.description }}</p>
+
+<p>Espacio solicitado:
+{% if activity.space != None %}
+    {{ activity.space }}</p>
+{% elif activity.space == None %}
+    Ningúno</p>
+{% endif %}
+
+<p>Equipamiento solicitado:
+{% if activity.equipment != None %}
+    {{ activity.equipment }}</p>
+{% elif activity.equipment == None %}
+    Ninguno</p>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Actualizar">
+</form>
+{% endblock %}
