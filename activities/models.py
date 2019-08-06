@@ -16,6 +16,10 @@ class Space(models.Model):
     """Physical space of activities
     """
 
+    class Meta:
+        verbose_name = 'Espacio'
+        verbose_name_plural = 'Espacios'
+
     name = models.CharField(max_length=200)
     objects = models.Manager()
 
@@ -27,6 +31,10 @@ class Equipment(models.Model):
     """Equipment to use in activities
     """
 
+    class Meta:
+        verbose_name = 'Equipamiento'
+        verbose_name_plural = 'Equipamientos'
+
     name = models.CharField(max_length=200)
     objects = models.Manager()
 
@@ -37,6 +45,10 @@ class Equipment(models.Model):
 class Activity(models.Model):
     """Space request of a space and objects
     """
+
+    class Meta:
+        verbose_name = 'Actividad'
+        verbose_name_plural = 'Actividades'
 
     APPROVED = 'A'
     REJECTED = 'R'
@@ -52,7 +64,7 @@ class Activity(models.Model):
 
     state = models.CharField(max_length=2,
                              choices=VALID_STATES,
-                             default=PENDING)
+                             default=PENDING_CAI)
     name = models.CharField(max_length=200)
     description = models.TextField(max_length=20000)
     space = models.ForeignKey(Space,
