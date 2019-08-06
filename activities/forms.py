@@ -100,4 +100,5 @@ class NotificationForm(forms.Form):
                   text_content,
                   mailer,
                   emailed,
+                  fail_silently=False,
                   html_message=html_content)
