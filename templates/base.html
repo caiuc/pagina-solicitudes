@@ -2,16 +2,97 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
+  <link rel="icon" href="/static/img/cai.png">
+  <meta content='width=device-width, initial-scale=1' name='viewport'/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css"/>
+  <title>{% block title %}Home{% endblock %}</title>
 </head>
+
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="{% url 'activities_list' %}">
+      <img src="/static/img/cai.png" alt="logo cai" height="28"/>
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="{% url 'activities_list' %}">
+        Inicio
+      </a>
+
+      <a class="navbar-item" href="https://github.com/centro-de-alumnos-de-ingenieria/pagina-solicitudes">
+        Código fuente
+      </a>
+
+      {% if user.is_authenticated %}
+        <a class="navbar-item" href="/admin">
+          Modificar espacios y equipamiento
+        </a>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Solicitudes
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="{% url 'activities_list' %}">
+              Mis solicitudes
+            </a>
+            <a class="navbar-item" href="{% url 'new_activity' %}">
+              Nueva solicitud
+            </a>
+            {% if user.is_staff %}
+              <hr class="navbar-divider">
+              <a class="navbar-item" href="{% url 'activities_list_staff' %}">
+                Solicitudes pendientes
+              </a>
+            {% endif %}
+          </div>
+
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          {% if not user.is_authenticated %}
+            <a class="button is-primary" href="{% url 'signup' %}">
+              <strong>Registrarse</strong>
+            </a>
+            <a class="button is-light" href="{% url 'login' %}">
+              Entrar
+            </a>
+          {% else %}
+            <a class="button is-danger" href="{% url 'logout' %}">
+              Salir
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+</html>
+
 <body>
   <main>
     {% if messages %}
-      <ul class="messages">
-          {% for message in messages %}
-          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-          {% endfor %}
-      </ul>
+      <div class="notification is-primary">
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+      </div>
     {% endif %}
     {% block content %}
     {% endblock %}

@@ -9,17 +9,19 @@ class Profile(models.Model):
     STUDENT = 'S'
     TEACHER = 'T'
     FUNCTIONARY = 'F'
+    CAI = 'C'
 
     USER_TYPE = ((STUDENT, 'Estudiante'), (TEACHER, 'Profesor'),
-                 (FUNCTIONARY, 'Funcionario'))
+                 (FUNCTIONARY, 'Funcionario'), (CAI, 'CAi'))
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     rut = models.CharField(max_length=50)
     phone = models.CharField(max_length=50)
-    email_uc = models.EmailField()
     profile_type = models.CharField(max_length=2,
                                     choices=USER_TYPE,
                                     default=STUDENT)
+
+    objects = models.Manager()
 
 
 @receiver(post_save, sender=User)

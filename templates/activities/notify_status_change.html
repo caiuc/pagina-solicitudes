@@ -11,18 +11,23 @@
             <form method="post">
                 {% csrf_token %}
                 {% for non_field_error in form.non_field_errors %}
-                    <p class="help is-danger">{{ non_field_error }}</p>
+                    <p class="help is-is-danger">{{ non_field_error }}</p>
                 {% endfor %}
-                {% for field in form %}
+                {% for field in form.visible_fields %}
                     <div class="field">
                         <label for="{{ field.id_for_label }}" class="label">{{ field.label }}</label>
-                        {{ field }}
+                        {{ field }}<br>
+                    <p class="help is-is-info">{{ field.help_text }}</p>
                     {% for error in field.errors %}
                         <p class="help is-danger">{{ error }}</p>
                     {% endfor %}
                     </div>
                 {% endfor %}
-                <input type="submit" value="{{ button }}" class="button is-primary">
+                {% for hidden in form.hidden_fields %}
+                    {{ hidden.as_hidden }}
+                {% endfor %}
+                <a class="button is-info" href="/activities/staff">Omitir correo</a>
+                <input type="submit" value="{{ button }}" class="button is-success">
             </form>
         </div>
         <div class="column"></div>

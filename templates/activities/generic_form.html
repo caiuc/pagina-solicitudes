@@ -1,3 +1,4 @@
+
 <head>
 
   <!-- jQuery -->
@@ -19,27 +20,26 @@
     });
   </script>
 </head>
-
 {% extends 'base.html' %}
 
-{% block title %}Nueva Actividad{% endblock %}
+{% block title %}{{ page_name }}{% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="columns is-mobile">
         <div class="column"></div>
-        <div class="column is-three-fifths">
-            <h3 class="title is-size-3">Nueva Actividad</h3>
-            <img src="/static/img/mapa_ing.png">
+        <div class="column is-four-fifths">
+            <h3 class="title is-size-3">{{ page_name }}</h3>
             <form method="post">
                 {% csrf_token %}
                 {% for non_field_error in form.non_field_errors %}
-                    <p class="help is-danger">{{ non_field_error }}</p>
+                    <p class="help is-is-danger">{{ non_field_error }}</p>
                 {% endfor %}
                 {% for field in form.visible_fields %}
                     <div class="field">
                         <label for="{{ field.id_for_label }}" class="label">{{ field.label }}</label>
                         {{ field }}<br>
+                    <p class="help is-is-info">{{ field.help_text }}</p>
                     {% for error in field.errors %}
                         <p class="help is-danger">{{ error }}</p>
                     {% endfor %}
@@ -48,7 +48,7 @@
                 {% for hidden in form.hidden_fields %}
                     {{ hidden.as_hidden }}
                 {% endfor %}
-                <input type="submit" value="Crear" class="button is-success">
+                <input type="submit" value="{{ button }}" class="button is-success">
             </form>
         </div>
         <div class="column"></div>
