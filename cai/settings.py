@@ -139,14 +139,9 @@ LOGIN_REDIRECT_URL = 'activities_list'
 LOGOUT_REDIRECT_URL = 'activities_list'
 
 # emails
-# EMAIL_BACKEND = 'sgbackend.SendGridBackend'
+EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend'
+SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
+SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 
-SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
-
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
 
 django_heroku.settings(locals())
