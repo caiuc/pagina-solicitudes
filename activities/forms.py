@@ -99,23 +99,23 @@ class NotificationForm(forms.Form):
                                         {'body': body})
         text_content = strip_tags(html_content)
 
-        sendgrid_client = SendGridAPIClient(
-            api_key=settings.SENDGRID_API_KEY)
-        from_email = From('cai@caiuc.cl')
-        to_email = To('rihanuch@uc.cl')
-        subject = 'Sending with Twilio SendGrid is Fun'
-        plain_text_content = PlainTextContent(
-            'and easy to do anywhere, even with Python'
-        )
-        html_content = HtmlContent(
-            '<strong>and easy to do anywhere, even with Python</strong>'
-        )
-        message = Mail(from_email, to_email, subject, plain_text_content, html_content)
-        response = sendgrid_client.send(message=message)
+        # sendgrid_client = SendGridAPIClient(
+        #     api_key=settings.SENDGRID_API_KEY)
+        # from_email = From('cai@caiuc.cl')
+        # to_email = To('rihanuch@uc.cl')
+        # subject = 'Sending with Twilio SendGrid is Fun'
+        # plain_text_content = PlainTextContent(
+        #     'and easy to do anywhere, even with Python'
+        # )
+        # html_content = HtmlContent(
+        #     '<strong>and easy to do anywhere, even with Python</strong>'
+        # )
+        # message = Mail(from_email, to_email, subject, plain_text_content, html_content)
+        # response = sendgrid_client.send(message=message)
 
-        # send_mail(subject,
-        #           text_content,
-        #           mailer,
-        #           emailed,
-        #           fail_silently=False,
-        #           html_message=html_content)
+        send_mail(subject,
+                  text_content,
+                  mailer,
+                  emailed,
+                  fail_silently=False,
+                  html_message=html_content)
