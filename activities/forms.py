@@ -5,9 +5,7 @@ from django.contrib.auth.models import User
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import (From, To, PlainTextContent, HtmlContent, Mail)
-from django.conf import settings
+
 
 class ActivityForm(forms.ModelForm):
 
@@ -27,15 +25,17 @@ class ActivityForm(forms.ModelForm):
         widget=forms.Textarea(attrs={'class': 'textarea'}),
         required=True)
 
-    equipment = forms.ModelChoiceField(Equipment.objects.all(),
-                                       required=False,
-                                       label='Equipamiento',
-                                       widget=forms.Select(attrs={'class': 'select'}))
+    equipment = forms.ModelChoiceField(
+        Equipment.objects.all(),
+        required=False,
+        label='Equipamiento',
+        widget=forms.Select(attrs={'class': 'select'}))
 
-    space = forms.ModelChoiceField(Space.objects.all(),
-                                       required=False,
-                                       label='Espacio',
-                                       widget=forms.Select(attrs={'class': 'select'}))
+    space = forms.ModelChoiceField(
+        Space.objects.all(),
+        required=False,
+        label='Espacio',
+        widget=forms.Select(attrs={'class': 'select'}))
 
     date_start = forms.DateTimeField(
         input_formats=['%d/%m/%Y %H:%M'],
@@ -54,7 +54,7 @@ class ActivityForm(forms.ModelForm):
             'placeholder': 'dd/mm/aaaa hh:mm'
         }),
         required=True)
-        
+
     in_charge = forms.EmailField(
         label='Correo del encargado',
         widget=forms.TextInput(attrs={
@@ -98,20 +98,6 @@ class NotificationForm(forms.Form):
         html_content = render_to_string('emails/activity_status.html',
                                         {'body': body})
         text_content = strip_tags(html_content)
-
-        # sendgrid_client = SendGridAPIClient(
-        #     api_key=settings.SENDGRID_API_KEY)
-        # from_email = From('cai@caiuc.cl')
-        # to_email = To('rihanuch@uc.cl')
-        # subject = 'Sending with Twilio SendGrid is Fun'
-        # plain_text_content = PlainTextContent(
-        #     'and easy to do anywhere, even with Python'
-        # )
-        # html_content = HtmlContent(
-        #     '<strong>and easy to do anywhere, even with Python</strong>'
-        # )
-        # message = Mail(from_email, to_email, subject, plain_text_content, html_content)
-        # response = sendgrid_client.send(message=message)
 
         send_mail(subject,
                   text_content,

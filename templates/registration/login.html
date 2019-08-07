@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
-{% block title %}Login{% endblock %}
+{% block title %}Iniciar sesión{% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="columns is-mobile">
         <div class="column"></div>
         <div class="column is-four-fifths">
-            <h3 class="title is-size-3">Login</h3>
+            <h3 class="title is-size-3">Iniciar sesión</h3>
             <form method="post">
                 {% csrf_token %}
                 {% for non_field_error in form.non_field_errors %}

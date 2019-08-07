@@ -35,17 +35,17 @@ class RegistrationForm(UserCreationForm):
 
     password1 = forms.CharField(
         label='Contraseña',
-        help_text='La contraseña no puede ser solamente numérica, debe tener al menos 8 carácteres y no puede parecerse mucho al nombre de usuario.',
+        help_text=
+        'La contraseña no puede ser solamente numérica, debe tener al menos 8 carácteres y no puede parecerse mucho al nombre de usuario.',
         widget=forms.PasswordInput(attrs={
             'class': 'input',
         }))
 
-    password2 = forms.CharField(
-        label='Confirmar contraseña',
-        help_text='Repita la contraseña anterior.',
-        widget=forms.PasswordInput(attrs={
-            'class': 'input',
-        }))
+    password2 = forms.CharField(label='Confirmar contraseña',
+                                help_text='Repita la contraseña anterior.',
+                                widget=forms.PasswordInput(attrs={
+                                    'class': 'input',
+                                }))
 
     class Meta:
         model = User
@@ -57,8 +57,6 @@ class RegistrationForm(UserCreationForm):
             'password1',
             'password2',
         ]
-
-        help_texts = {'username': 'nombre de usuariooooo'}
 
         def save(self, commit=True):
             # stop from default saving, intervenes the save process
@@ -76,8 +74,27 @@ class RegistrationForm(UserCreationForm):
 
 class ProfileForm(forms.ModelForm):
 
-    rut = forms.CharField(required=True)
-    phone = forms.CharField(required=True)
+    rut = forms.CharField(required=True,
+                          label='RUT',
+                          widget=forms.TextInput(attrs={
+                              'class': 'input',
+                              'placeholder': '10.897.570-1'
+                          }))
+    phone = forms.CharField(
+        required=True,
+        label='Número telefónico',
+        help_text=
+        'Este servirá para contactarte en caso de que ocurra un inconveniente.',
+        widget=forms.TextInput(attrs={
+            'class': 'input',
+            'placeholder': '+56975186972'
+        }))
+
+    profile_type = forms.ChoiceField(
+        choices=Profile.USER_TYPE,
+        required=False,
+        label='Tipo de usuario',
+        widget=forms.Select(attrs={'class': 'select'}))
 
     class Meta:
         model = Profile
