@@ -5,6 +5,9 @@ from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+from django.conf import settings
 
 
 class ActivityForm(forms.ModelForm):
@@ -25,15 +28,17 @@ class ActivityForm(forms.ModelForm):
         widget=forms.Textarea(attrs={'class': 'textarea'}),
         required=True)
 
-    equipment = forms.ModelChoiceField(Equipment.objects.all(),
-                                       required=False,
-                                       label='Equipamiento',
-                                       widget=forms.Select(attrs={'class': 'select'}))
+    equipment = forms.ModelChoiceField(
+        Equipment.objects.all(),
+        required=False,
+        label='Equipamiento',
+        widget=forms.Select(attrs={'class': 'select'}))
 
-    space = forms.ModelChoiceField(Space.objects.all(),
-                                       required=False,
-                                       label='Espacio',
-                                       widget=forms.Select(attrs={'class': 'select'}))
+    space = forms.ModelChoiceField(
+        Space.objects.all(),
+        required=False,
+        label='Espacio',
+        widget=forms.Select(attrs={'class': 'select'}))
 
     date_start = forms.DateTimeField(
         input_formats=['%d/%m/%Y %H:%M'],
@@ -52,7 +57,7 @@ class ActivityForm(forms.ModelForm):
             'placeholder': 'dd/mm/aaaa hh:mm'
         }),
         required=True)
-        
+
     in_charge = forms.EmailField(
         label='Correo del encargado',
         widget=forms.TextInput(attrs={
@@ -96,9 +101,21 @@ class NotificationForm(forms.Form):
         html_content = render_to_string('emails/activity_status.html',
                                         {'body': body})
         text_content = strip_tags(html_content)
-        send_mail(subject,
-                  text_content,
-                  mailer,
-                  emailed,
-                  fail_silently=False,
-                  html_message=html_content)
+        message = Mail(from_email=mailer,
+                       to_emails=emailed,
+                       subject=subject,
+                       html_content=text_content)
+        try:
+            sg = SendGridAPIClient(settings.SENDGRID_API_KEY)
+            response = sg.send(message)
+            print(response.status_code)
+            print(response.body)
+            print(response.headers)
+        except Exception as e:
+            print(e.message)
+        # send_mail(subject,
+        #           text_content,
+        #           mailer,
+        #           emailed,
+        #           fail_silently=False,
+        #           html_message=html_content)
