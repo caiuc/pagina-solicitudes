@@ -1,1 +1,1 @@
-web: gunicorn cai.wsgi
+web: cd cai && gunicorn cai.wsgi
