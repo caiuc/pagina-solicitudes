@@ -1,15 +1,15 @@
 from activities.forms import ActivityForm, NotificationForm
-from activities.models import Activity
+from activities.models import Activity, Space
+from django.db.models import Q
 from django.shortcuts import redirect
 from django.views import generic
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.contrib import messages
 from accounts.models import Profile
-from pprint import pprint
 
 
 # Limits the permissions of viewing and modifying any of the activities that
@@ -48,10 +48,12 @@ class NewActivity(LoginRequiredMixin, FillInformation, PermissionMixin,
     def get(self, request):
         template = loader.get_template('activities/new_activity.html')
         form = ActivityForm(request.user)
-        return HttpResponse(template.render({'form': form}, request))
+        required_links = [name for name in Space.objects.filter(admin_required=True)]
+        return HttpResponse(template.render({'form': form, 'required_links': required_links}, request))
 
     def get_context_data(self, **kwargs):
         context = super(NewActivity, self).get_context_data(**kwargs)
+        context['required_links'] = [name for name in Space.objects.filter(admin_required=True)]
         context['page_name'] = 'Nueva actividad'
         context['button'] = 'Crear actividad'
         return context
@@ -76,11 +78,11 @@ class ActivitiesList(LoginRequiredMixin, FillInformation, generic.ListView):
 class ActivitiesListStaff(LoginRequiredMixin, FillInformation,
                           generic.ListView):
 
-    template_name = 'activities/activities_list.html'
+    template_name = 'activities/activities_list_staff.html'
     model = Activity
 
     def get_queryset(self):
-        return Activity.objects.all().order_by("-id")
+        return Activity.objects.filter(Q(state='PC') | Q(state='PA')).order_by("-id")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -88,7 +90,18 @@ class ActivitiesListStaff(LoginRequiredMixin, FillInformation,
         return context
 
 
-class ActivityDelte(LoginRequiredMixin, FillInformation, PermissionMixin,
+class ActivitiesListStaffAll(ActivitiesListStaff):
+
+    def get_queryset(self):
+        return Activity.objects.all().order_by("-id")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_name'] = 'Todas las solicitudes'
+        return context
+
+
+class ActivityDelete(LoginRequiredMixin, FillInformation, PermissionMixin,
                     generic.DeleteView):
 
     model = Activity
@@ -126,6 +139,7 @@ class ActivityDetail(LoginRequiredMixin, FillInformation, PermissionMixin,
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['creator'] = Profile.objects.get(user=kwargs['object'].creator)
         context['page_name'] = 'Detalle de la actividad'
         return context
 

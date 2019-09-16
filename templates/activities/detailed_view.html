@@ -28,6 +28,9 @@
             {% elif activity.equipment == None %}
                 Ninguno</p>
             {% endif %}
+            <p>RUT: {{ creator.rut }} </p>
+            <p>Numero teléfono: {{ creator.phone }} </p>
+            <p>Tipo de usuario: {{ creator.get_profile_type_display }} </p>
         </div>
         <div class="column"></div>
     </div>

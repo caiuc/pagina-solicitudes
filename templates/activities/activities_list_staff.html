@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ page_name }}{% endblock %}
+
+
+{% block content %}
+<br>
+<div class="container">
+    <div class="columns is-mobile">
+        <div class="column"></div>
+        <div class="column is-four-fifths">
+            <h3 class="title is-size-3">{{ page_name }}</h3>
+            {% for activity in object_list %}
+                    <div class="card">
+                        {% if activity.state == 'A' %}
+                        <div class="notification is-success">
+                        {% elif activity.state == 'R' %}
+                        <div class="notification is-danger">
+                        {% elif activity.state == 'PC' or activity.state == 'PA' %}
+                        <div class="notification is-warning">
+                        {% else %}
+                        <div class="notification is-info">
+                        {% endif %}
+                            <header class="card-header">
+                                    <p class="card-header-title">
+                                        {{ activity.name}} - {{ activity.get_state_display }}
+                                    </p>
+                                {% if user.is_staff %}
+                                    <a href="{% url 'update_activity_status' activity.pk %}" class="card-header-icon" aria-label="more options">
+                                        <span class="icon">
+                                            <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                        </span>
+                                        Cambiar estado
+                                    </a>
+                                {% endif %}
+                            </header>
+                        </div>
+
+                        <div class="card-content">
+                            <div class="content">
+                                {{ activity.description }}
+                            <br><br>
+                            <time datetime="{{ activity.date_start }}">{{ activity.date_start }}</time> - <time datetime="{{ activity.date_finish }}">{{ activity.date_finish }}</time>
+                            </div>
+                        </div>
+                    </div><br>
+            {% endfor %}
+        </div>
+        <div class="column"></div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -5,17 +5,12 @@ from django.contrib.auth.models import User
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
+from django.core.validators import URLValidator
 
 
 class ActivityForm(forms.ModelForm):
 
     # special fields used for personalization
-    space = forms.ModelChoiceField(
-        Space.objects.all(),
-        required=False,
-        label='Espacio',
-    )
-
     name = forms.CharField(label='Nombre de la actividad',
                            widget=forms.TextInput(attrs={'class': 'input'}),
                            required=True)
@@ -63,11 +58,31 @@ class ActivityForm(forms.ModelForm):
         }),
         required=True)
 
+    admin_link = forms.URLField(
+        label='Link a solicitud de administración del campus.',
+        widget=forms.TextInput(
+            attrs={
+                'class': 'input',
+                'placeholder': 'Este link es necesario para algunas áreas (detalladas más abajo).'
+            }),
+        required=False,
+    )
+
+    required_links = ['hola']
+
     def __init__(self, user=None, *args, **kwargs):
         super(ActivityForm, self).__init__(*args, **kwargs)
         self.user = user
         self.fields['creator'] = forms.ModelChoiceField(
             User.objects.all(), widget=forms.HiddenInput(), initial=self.user)
+
+    def clean_admin_link(self):
+        validate = URLValidator(message='Se debe rellenar con un link válido.')
+
+        space_instance = Space.objects.get(pk=int(self.data.get('space')))
+
+        if space_instance.admin_required:
+            validate(self.data.get('admin_link'))
 
     class Meta:
         model = Activity

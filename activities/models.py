@@ -21,6 +21,7 @@ class Space(models.Model):
         verbose_name_plural = 'Espacios'
 
     name = models.CharField(max_length=200)
+    admin_required = models.BooleanField()
     objects = models.Manager()
 
     def __str__(self):
@@ -78,6 +79,7 @@ class Activity(models.Model):
     date_start = models.DateTimeField(blank=False)
     date_finish = models.DateTimeField(blank=False)
     in_charge = models.CharField(max_length=200)
+    admin_link = models.URLField(blank=True, null=True)
     creator = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):

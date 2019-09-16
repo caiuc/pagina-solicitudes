@@ -48,6 +48,18 @@
                 {% for hidden in form.hidden_fields %}
                     {{ hidden.as_hidden }}
                 {% endfor %}
+                <article class="message is-info">
+                  <div class="message-header">
+                    <p>Espacios que requieren link de aministración del campus</p>
+                  </div>
+                  <div class="message-body">
+                    {% for name in required_links %}
+                      <li><p>{{ name }}</p>
+                    {% endfor %}
+                    <br>Para obtener el link puedes ir a <a href="http://gespacios.uc.cl/anonimo/nueva.php" target="_blank">página de solicitudes de aministración del campus</a>.
+                    <br><br>Luego de haber realizado la solicitud debes poner el link que se te envia a tu correo electrónico en el espacio de arriba.
+                  </div>
+                </article>
                 <input type="submit" value="Crear" class="button is-success">
             </form>
         </div>
