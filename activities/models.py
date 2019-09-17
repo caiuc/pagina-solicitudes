@@ -21,6 +21,7 @@ class Space(models.Model):
         verbose_name_plural = 'Espacios'
 
     name = models.CharField(max_length=200)
+    description = models.CharField(max_length=2000, blank=True, null=True)
     admin_required = models.BooleanField()
     objects = models.Manager()
 
@@ -60,18 +61,29 @@ class Activity(models.Model):
 
     VALID_STATES = ((APPROVED, 'Aprobada'), (REJECTED, 'Rechazada'),
                     (PENDING, 'Pendiente'), (CANCELLED, 'Cancelada'),
-                    (PENDING_ADMIN, 'Pendiente por administración'),
-                    (PENDING_CAI, 'Pendiente por CAi'))
+                    (PENDING_ADMIN, 'En revisión por Decanato'),
+                    (PENDING_CAI, 'En revisión por CAi'))
 
     state = models.CharField(max_length=2,
                              choices=VALID_STATES,
                              default=PENDING_CAI)
     name = models.CharField(max_length=200)
     description = models.TextField(max_length=20000)
-    space = models.ForeignKey(Space,
-                              blank=True,
-                              null=True,
-                              on_delete=models.CASCADE)
+    space_1 = models.ForeignKey(Space,
+                                blank=True,
+                                null=True,
+                                on_delete=models.CASCADE,
+                                related_name='space_1')
+    space_2 = models.ForeignKey(Space,
+                                blank=True,
+                                null=True,
+                                on_delete=models.CASCADE,
+                                related_name='space_2')
+    space_3 = models.ForeignKey(Space,
+                                blank=True,
+                                null=True,
+                                on_delete=models.CASCADE,
+                                related_name='space_3')
     equipment = models.ForeignKey(Equipment,
                                   blank=True,
                                   null=True,

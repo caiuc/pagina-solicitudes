@@ -26,10 +26,22 @@ class ActivityForm(forms.ModelForm):
         label='Equipamiento',
         widget=forms.Select(attrs={'class': 'select'}))
 
-    space = forms.ModelChoiceField(
+    space_1 = forms.ModelChoiceField(
         Space.objects.all(),
         required=False,
-        label='Espacio',
+        label='Espacio 1',
+        widget=forms.Select(attrs={'class': 'select'}))
+
+    space_2 = forms.ModelChoiceField(
+        Space.objects.all(),
+        required=False,
+        label='Espacio 2',
+        widget=forms.Select(attrs={'class': 'select'}))
+
+    space_3 = forms.ModelChoiceField(
+        Space.objects.all(),
+        required=False,
+        label='Espacio 3',
         widget=forms.Select(attrs={'class': 'select'}))
 
     date_start = forms.DateTimeField(
@@ -62,13 +74,13 @@ class ActivityForm(forms.ModelForm):
         label='Link a solicitud de administración del campus.',
         widget=forms.TextInput(
             attrs={
-                'class': 'input',
-                'placeholder': 'Este link es necesario para algunas áreas (detalladas más abajo).'
+                'class':
+                'input',
+                'placeholder':
+                'Este link es necesario para algunas áreas (detalladas más abajo).'
             }),
         required=False,
     )
-
-    required_links = ['hola']
 
     def __init__(self, user=None, *args, **kwargs):
         super(ActivityForm, self).__init__(*args, **kwargs)
@@ -79,16 +91,18 @@ class ActivityForm(forms.ModelForm):
     def clean_admin_link(self):
         validate = URLValidator(message='Se debe rellenar con un link válido.')
 
-        space_instance = Space.objects.get(pk=int(self.data.get('space')))
+        choices = [self.data.get(f'space_{i}') for i in range(1, 4)]
 
-        if space_instance.admin_required:
-            validate(self.data.get('admin_link'))
+        for choice in choices:
+            if str.isnumeric(choice):
+                if Space.objects.get(pk=int(choice)).admin_required:
+                    validate(self.data.get('admin_link'))
 
     class Meta:
         model = Activity
         fields = [
-            'name', 'description', 'space', 'equipment', 'date_start',
-            'date_finish', 'in_charge', 'creator'
+            'name', 'description', 'space_1', 'space_2', 'space_3',
+            'equipment', 'date_start', 'date_finish', 'in_charge', 'creator'
         ]
         labels = {
             'name': 'Nombre de la actividad',
@@ -96,7 +110,9 @@ class ActivityForm(forms.ModelForm):
             'date_start': 'Fecha de inicio',
             'date_finish': 'Fecha de término',
             'in_charge': 'Correo del encargado',
-            'space': 'Espacio',
+            'space_1': 'Espacio 1',
+            'space_2': 'Espacio 2',
+            'space_3': 'Espacio 3',
             'equipment': 'Equipamiento'
         }
 
