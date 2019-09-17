@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ page_name }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="columns is-mobile">
+        <div class="column"></div>
+        <div class="column is-four-fifths">
+            <form method="post">{% csrf_token %}
+                <h3 class="title is-size-3">¿Seguro que quieres eliminar el evento "{{ object }}"?</h3>
+
+                    <h1>Actividad: {{ activity.name }}</h1>
+                    <h4>Encargado: {{ activity.in_charge }}</h4>
+                    <h3>Inicio: {{ activity.date_start }}</h3>
+                    <h3>Fin: {{ activity.date_finish }}</h3>
+                    <p>Descripción: {{ activity.description }}</p>
+
+                    <p>Primer espacio solicitado:
+                    {% if activity.space_1 != None %}
+                        {{ activity.space_1 }}</p>
+                    {% elif activity.space_1 == None %}
+                        Ningúno</p>
+                    {% endif %}
+
+                    <p>Segundo espacio solicitado:
+                    {% if activity.space_2 != None %}
+                        {{ activity.space_2 }}</p>
+                    {% elif activity.space_2 == None %}
+                        Ningúno</p>
+                    {% endif %}
+
+                    <p>Tercer espacio solicitado:
+                    {% if activity.space_3 != None %}
+                        {{ activity.space_3 }}</p>
+                    {% elif activity.space_3 == None %}
+                        Ningúno</p>
+                    {% endif %}
+
+                    <p>Equipamiento solicitado:
+                    {% if activity.equipment != None %}
+                        {{ activity.equipment }}</p>
+                    {% elif activity.equipment == None %}
+                        Ninguno</p>
+                    {% endif %}
+
+                <input class="button is-danger" type="submit" value="{{ button }}">
+            </form>
+        </div>
+        <div class="column"></div>
+</div>
+{% endblock %}

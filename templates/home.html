@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+  <h2 class="title is-size-2">¡Hola, {{ user.username }}!</h2>
+
+  {% else %}
+  <div class="container">
+    <div class="columns is-mobile">
+      <div class="column"></div>
+      <div class="column is-four-fifths">
+        <h2 class="title is-size-2">No has iniciado sesión</h2><br>
+        <a href="{% url 'login' %}" class="button is-primary is-fullwidth">Entrar</a><br>
+        <a href="{% url 'signup' %}" class="button is-light is-fullwidth">Registrarse</a><br>
+        <a href="{% url 'password_reset' %}" class="button is-info is-fullwidth">Olvidé mi contraseña</a><br>
+      </div>
+      <div class="column"></div>
+    </div>
+  </div>
+  {% endif %}
+{% endblock %}

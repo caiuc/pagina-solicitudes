@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ page_name }}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="columns is-mobile">
+        <div class="column"></div>
+        <div class="column is-four-fifths">
+            <h3 class="title is-size-3">{{ page_name }}</h3>
+
+            <h1>Actividad: {{ activity.name }}</h1>
+            <h4>Encargado: {{ activity.in_charge }}</h4>
+            <h3>Inicio: {{ activity.date_start }}</h3>
+            <h3>Fin: {{ activity.date_finish }}</h3>
+            <p>Descripción: {{ activity.description }}</p>
+
+            <p>Primer espacio solicitado:
+            {% if activity.space_1 != None %}
+                {{ activity.space_1 }}</p>
+            {% elif activity.space_1 == None %}
+                Ningúno</p>
+            {% endif %}
+
+            <p>Segundo espacio solicitado:
+            {% if activity.space_2 != None %}
+                {{ activity.space_2 }}</p>
+            {% elif activity.space_2 == None %}
+                Ningúno</p>
+            {% endif %}
+
+            <p>Tercer espacio solicitado:
+            {% if activity.space_3 != None %}
+                {{ activity.space_3 }}</p>
+            {% elif activity.space_3 == None %}
+                Ningúno</p>
+            {% endif %}
+
+            <p>Equipamiento solicitado:
+            {% if activity.equipment != None %}
+                {{ activity.equipment }}</p>
+            {% elif activity.equipment == None %}
+                Ninguno</p>
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+                {% for non_field_error in form.non_field_errors %}
+                    <p class="help is-danger">{{ non_field_error }}</p>
+                {% endfor %}
+                {% for field in form.visible_fields %}
+                    <div class="field">
+                        <label for="{{ field.id_for_label }}" class="label">Estado</label>
+                        {{ field }}<br>
+                    {% for error in field.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                    {% endfor %}
+                    </div>
+                {% endfor %}
+                {% for hidden in form.hidden_fields %}
+                    {{ hidden.as_hidden }}
+                {% endfor %}
+                <input type="submit" value="{{ button }}" class="button is-primary">
+            </form>
+        </div>
+        <div class="column"></div>
+    </div>
+</div>
+{% endblock %}

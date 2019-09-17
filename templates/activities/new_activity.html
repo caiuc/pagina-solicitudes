@@ -1,0 +1,69 @@
+<head>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+  <!-- XDSoft DateTimePicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+  <script>
+    $(function () {
+      $("#id_date_start").datetimepicker({
+        format: 'd/m/Y H:i',
+      });
+    });
+    $(function () {
+      $("#id_date_finish").datetimepicker({
+        format: 'd/m/Y H:i',
+      });
+    });
+  </script>
+</head>
+
+{% extends 'base.html' %}
+
+{% block title %}Nueva Actividad{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="columns is-mobile">
+        <div class="column"></div>
+        <div class="column is-three-fifths">
+            <h3 class="title is-size-3">Nueva Actividad</h3>
+            <img src="/static/img/mapa_ing.png">
+            <form method="post">
+                {% csrf_token %}
+                {% for non_field_error in form.non_field_errors %}
+                    <p class="help is-danger">{{ non_field_error }}</p>
+                {% endfor %}
+                {% for field in form.visible_fields %}
+                    <div class="field">
+                        <label for="{{ field.id_for_label }}" class="label">{{ field.label }}</label>
+                        {{ field }}<br>
+                    {% for error in field.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                    {% endfor %}
+                    </div>
+                {% endfor %}
+                {% for hidden in form.hidden_fields %}
+                    {{ hidden.as_hidden }}
+                {% endfor %}
+                <article class="message is-info">
+                  <div class="message-header">
+                    <p>Espacios que requieren link de aministración del campus</p>
+                  </div>
+                  <div class="message-body">
+                    {% for name in required_links %}
+                      <li><p>{{ name }}</p>
+                    {% endfor %}
+                    <br>Para obtener el link puedes ir a <a href="http://gespacios.uc.cl/anonimo/nueva.php" target="_blank">página de solicitudes de administración del campus</a>.
+                    <br><br>Luego de haber realizado la solicitud debes poner el link que se te envia a tu correo electrónico en el espacio de arriba.
+                  </div>
+                </article>
+                <input type="submit" value="Crear" class="button is-success">
+            </form>
+        </div>
+        <div class="column"></div>
+    </div>
+</div>
+{% endblock %}
