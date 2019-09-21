@@ -110,6 +110,7 @@ class ActivityDelete(LoginRequiredMixin, FillInformation, PermissionMixin,
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['creator'] = Profile.objects.get(user=self.get_object().creator)
         context['page_name'] = 'Eliminar actividad'
         context['button'] = 'Eliminar'
         return context
@@ -126,6 +127,7 @@ class ActivityUpdate(LoginRequiredMixin, FillInformation, PermissionMixin,
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['creator'] = Profile.objects.get(user=self.get_object().creator)
         context['page_name'] = 'Actualizar actividad'
         context['button'] = 'Actualizar actividad'
         return context
@@ -139,7 +141,7 @@ class ActivityDetail(LoginRequiredMixin, FillInformation, PermissionMixin,
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['creator'] = Profile.objects.get(user=kwargs['object'].creator)
+        context['creator'] = Profile.objects.get(user=self.get_object().creator)
         context['page_name'] = 'Detalle de la actividad'
         return context
 
@@ -156,6 +158,7 @@ class ActivityChangeState(LoginRequiredMixin, FillInformation, PermissionMixin,
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['creator'] = Profile.objects.get(user=self.get_object().creator)
         context['page_name'] = 'Cambio de estado de la solicitud'
         context['button'] = 'Cambiar estado de actividad'
         return context
