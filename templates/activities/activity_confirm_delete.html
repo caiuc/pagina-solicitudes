@@ -13,95 +13,101 @@
                 <div class="content">
 
                     <h3>Encargado</h3>
-                        <table class="table is-fullwidth is-striped">
-                            <thead>
-                                <tr>
-                                    <th>Correo electrónico</th>
-                                    <th>RUT</th>
-                                    <th>Numero teléfono</th>
-                                    <th>TIpo de usuario</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><a href="mailto:{{ activity.in_charge }}">{{ activity.in_charge }}</a></td>
-                                    <td>{{ creator.rut }}</td>
-                                    <td>{{ creator.phone }}</td>
-                                    <td>{{ creator.get_profile_type_display }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="table-container">
+                            <table class="table is-fullwidth is-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Correo electrónico</th>
+                                        <th>RUT</th>
+                                        <th>Numero teléfono</th>
+                                        <th>TIpo de usuario</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><a href="mailto:{{ activity.in_charge }}">{{ activity.in_charge }}</a></td>
+                                        <td>{{ creator.rut }}</td>
+                                        <td>{{ creator.phone }}</td>
+                                        <td>{{ creator.get_profile_type_display }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
                     <h3>Descripción</h3>
                         {{ activity.description }}
 
                     <h3>Duración</h3>
-                        <table class="table is-fullwidth is-striped">
-                            <thead>
-                                <tr>
-                                    <th>Inicio</th>
-                                    <th>Fin</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{ activity.date_start }}</td>
-                                    <td>{{ activity.date_finish }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="table-container">
+                            <table class="table is-fullwidth is-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Inicio</th>
+                                        <th>Fin</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ activity.date_start }}</td>
+                                        <td>{{ activity.date_finish }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
                     <h3>Espacios y requerimientos</h3>
-                        <table class="table is-fullwidth is-striped">
-                            <thead>
-                                <tr>
-                                    <th>Primer espacio</th>
-                                    <th>Segundo espacio</th>
-                                    <th>Tercer espacio</th>
-                                    <th>Equipamiento</th>
-                                    <th>Link administración de campus</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        {% if activity.space_1 != None %}
-                                            {{ activity.space_1 }}
-                                        {% elif activity.space_1 == None %}
-                                            Ningúno
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        {% if activity.space_2 != None %}
-                                            {{ activity.space_2 }}
-                                        {% elif activity.space_2 == None %}
-                                            Ningúno
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        {% if activity.space_3 != None %}
-                                            {{ activity.space_3 }}
-                                        {% elif activity.space_3 == None %}
-                                            Ningúno
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        {% if activity.equipment != None %}
-                                            {{ activity.equipment }}
-                                        {% elif activity.equipment == None %}
-                                            Ninguno
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        {% if activity.admin_link != None %}
-                                            <a href="{{ activity.admin_link }}">{{ activity.admin_link }}</a>
-                                        {% elif activity.admin_link == None %}
-                                            No es necesario
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="table-container">
+                            <table class="table is-fullwidth is-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Primer espacio</th>
+                                        <th>Segundo espacio</th>
+                                        <th>Tercer espacio</th>
+                                        <th>Equipamiento</th>
+                                        <th>Link administración de campus</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            {% if activity.space_1 != None %}
+                                                {{ activity.space_1 }}
+                                            {% elif activity.space_1 == None %}
+                                                Ningúno
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if activity.space_2 != None %}
+                                                {{ activity.space_2 }}
+                                            {% elif activity.space_2 == None %}
+                                                Ningúno
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if activity.space_3 != None %}
+                                                {{ activity.space_3 }}
+                                            {% elif activity.space_3 == None %}
+                                                Ningúno
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if activity.equipment != None %}
+                                                {{ activity.equipment }}
+                                            {% elif activity.equipment == None %}
+                                                Ninguno
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if activity.admin_link != None %}
+                                                <a href="{{ activity.admin_link }}">{{ activity.admin_link }}</a>
+                                            {% elif activity.admin_link == None %}
+                                                No es necesario
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                 </div>
 
                 <input class="button is-danger" type="submit" value="{{ button }}">
