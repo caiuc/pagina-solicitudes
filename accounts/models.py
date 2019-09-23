@@ -20,8 +20,11 @@ class Profile(models.Model):
     profile_type = models.CharField(max_length=2,
                                     choices=USER_TYPE,
                                     default=STUDENT)
-
+    administrative = models.BooleanField(default=False)
     objects = models.Manager()
+
+    def __str__(self):
+        return self.user.username
 
 
 @receiver(post_save, sender=User)

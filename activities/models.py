@@ -94,5 +94,14 @@ class Activity(models.Model):
     admin_link = models.URLField(blank=True, null=True)
     creator = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
 
+    @property
+    def valid_spaces(self):
+        spaces = [self.space_1, self.space_2, self.space_3]
+        spaces = list(
+            map(lambda space: str(space),
+                filter(lambda space: space is not None, spaces)))
+        spaces = ', '.join(spaces)
+        return spaces
+
     def __str__(self):
         return self.name
