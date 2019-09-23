@@ -11,6 +11,8 @@ from django.core.exceptions import PermissionDenied
 from django.contrib import messages
 from accounts.models import Profile
 
+ACTIVITIES_PER_PAGE = 20
+
 
 # Limits the permissions of viewing and modifying any of the activities that
 # the user is not the owner and that the user dos not have permission to view
@@ -48,12 +50,20 @@ class NewActivity(LoginRequiredMixin, FillInformation, PermissionMixin,
     def get(self, request):
         template = loader.get_template('activities/new_activity.html')
         form = ActivityForm(request.user)
-        required_links = [name for name in Space.objects.filter(admin_required=True)]
-        return HttpResponse(template.render({'form': form, 'required_links': required_links}, request))
+        required_links = [
+            name for name in Space.objects.filter(admin_required=True)
+        ]
+        return HttpResponse(
+            template.render({
+                'form': form,
+                'required_links': required_links
+            }, request))
 
     def get_context_data(self, **kwargs):
         context = super(NewActivity, self).get_context_data(**kwargs)
-        context['required_links'] = [name for name in Space.objects.filter(admin_required=True)]
+        context['required_links'] = [
+            name for name in Space.objects.filter(admin_required=True)
+        ]
         context['page_name'] = 'Nueva actividad'
         context['button'] = 'Crear actividad'
         return context
@@ -63,11 +73,26 @@ class ActivitiesList(LoginRequiredMixin, FillInformation, generic.ListView):
 
     template_name = 'activities/activities_list.html'
     model = Activity
+    context_object_name = 'activities'
+    paginate_by = ACTIVITIES_PER_PAGE
 
     def get_queryset(self):
-        creator = self.request.user
-        queryset = Activity.objects.filter(creator=creator)
-        return queryset
+        maker = (Q(creator=self.request.user))
+        parameter = self.request.GET.get('search')
+
+        if parameter != '' and parameter is not None:
+            # searhch is by id
+            if str.isnumeric(parameter):
+                search = Q(id=int(parameter))
+
+            # search is by name
+            if str.isalpha(parameter):
+                search = (Q(name__icontains=parameter))
+
+            return Activity.objects.filter(search & maker).order_by("-id")
+
+        else:
+            return Activity.objects.filter(maker).order_by("-id")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -75,14 +100,27 @@ class ActivitiesList(LoginRequiredMixin, FillInformation, generic.ListView):
         return context
 
 
-class ActivitiesListStaff(LoginRequiredMixin, FillInformation,
-                          generic.ListView):
+class ActivitiesListStaff(ActivitiesList):
 
     template_name = 'activities/activities_list_staff.html'
-    model = Activity
 
     def get_queryset(self):
-        return Activity.objects.filter(Q(state='PC') | Q(state='PA')).order_by("-id")
+        state = (Q(state='PC') | Q(state='PA'))
+        parameter = self.request.GET.get('search')
+
+        if parameter != '' and parameter is not None:
+            # searhch is by id
+            if str.isnumeric(parameter):
+                search = Q(id=int(parameter))
+
+            # search is by name
+            if str.isalpha(parameter):
+                search = (Q(name__icontains=parameter))
+
+            return Activity.objects.filter(search & state).order_by("-id")
+
+        else:
+            return Activity.objects.filter(state).order_by("-id")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -93,7 +131,21 @@ class ActivitiesListStaff(LoginRequiredMixin, FillInformation,
 class ActivitiesListStaffAll(ActivitiesListStaff):
 
     def get_queryset(self):
-        return Activity.objects.all().order_by("-id")
+        parameter = self.request.GET.get('search')
+
+        if parameter != '' and parameter is not None:
+            # searhch is by id
+            if str.isnumeric(parameter):
+                search = Q(id=int(parameter))
+
+            # search is by name
+            if str.isalpha(parameter):
+                search = (Q(name__icontains=parameter))
+
+            return Activity.objects.filter(search).order_by("-id")
+
+        else:
+            return Activity.objects.all().order_by("-id")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -102,7 +154,7 @@ class ActivitiesListStaffAll(ActivitiesListStaff):
 
 
 class ActivityDelete(LoginRequiredMixin, FillInformation, PermissionMixin,
-                    generic.DeleteView):
+                     generic.DeleteView):
 
     model = Activity
     template_name = 'activities/activity_confirm_delete.html'
@@ -110,7 +162,8 @@ class ActivityDelete(LoginRequiredMixin, FillInformation, PermissionMixin,
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['creator'] = Profile.objects.get(user=self.get_object().creator)
+        context['creator'] = Profile.objects.get(
+            user=self.get_object().creator)
         context['page_name'] = 'Eliminar actividad'
         context['button'] = 'Eliminar'
         return context
@@ -127,7 +180,8 @@ class ActivityUpdate(LoginRequiredMixin, FillInformation, PermissionMixin,
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['creator'] = Profile.objects.get(user=self.get_object().creator)
+        context['creator'] = Profile.objects.get(
+            user=self.get_object().creator)
         context['page_name'] = 'Actualizar actividad'
         context['button'] = 'Actualizar actividad'
         return context
@@ -141,7 +195,8 @@ class ActivityDetail(LoginRequiredMixin, FillInformation, PermissionMixin,
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['creator'] = Profile.objects.get(user=self.get_object().creator)
+        context['creator'] = Profile.objects.get(
+            user=self.get_object().creator)
         context['page_name'] = 'Detalle de la actividad'
         return context
 
@@ -158,7 +213,8 @@ class ActivityChangeState(LoginRequiredMixin, FillInformation, PermissionMixin,
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['creator'] = Profile.objects.get(user=self.get_object().creator)
+        context['creator'] = Profile.objects.get(
+            user=self.get_object().creator)
         context['page_name'] = 'Cambio de estado de la solicitud'
         context['button'] = 'Cambiar estado de actividad'
         return context
