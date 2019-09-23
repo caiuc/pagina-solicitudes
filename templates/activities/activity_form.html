@@ -22,14 +22,14 @@
 
 {% extends 'base.html' %}
 
-{% block title %}Nueva Actividad{% endblock %}
+{% block title %}{{ page_name }}{% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="columns is-mobile">
         <div class="column"></div>
         <div class="column is-three-fifths">
-            <h3 class="title is-size-3">Nueva Actividad</h3>
+            <h3 class="title is-size-3">{{ page_name }}</h3>
             <img src="/static/img/mapa_ing.png">
             <form method="post">
                 {% csrf_token %}
@@ -60,7 +60,7 @@
                     <br><br>Luego de haber realizado la solicitud debes poner el link que se te envia a tu correo electrónico en el espacio de arriba.
                   </div>
                 </article>
-                <input type="submit" value="Crear" class="button is-success">
+                <input type="submit" value="{{ button }}" class="button is-success">
             </form>
         </div>
         <div class="column"></div>

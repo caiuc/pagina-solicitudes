@@ -39,9 +39,6 @@
                                     </p>
                                 {% if user.is_staff %}
                                     <a href="{% url 'update_activity_status' activity.pk %}" class="card-header-icon" aria-label="more options">
-                                        <span class="icon">
-                                            <i class="fas fa-angle-down" aria-hidden="true"></i>
-                                        </span>
                                         Cambiar estado
                                     </a>
                                 {% endif %}

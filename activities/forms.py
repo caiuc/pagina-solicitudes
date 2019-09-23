@@ -89,20 +89,22 @@ class ActivityForm(forms.ModelForm):
             User.objects.all(), widget=forms.HiddenInput(), initial=self.user)
 
     def clean_admin_link(self):
-        validate = URLValidator(message='Se debe rellenar con un link válido.')
-
         choices = [self.data.get(f'space_{i}') for i in range(1, 4)]
+        url_admin = self.cleaned_data.get('admin_link')
 
         for choice in choices:
             if str.isnumeric(choice):
                 if Space.objects.get(pk=int(choice)).admin_required:
-                    validate(self.data.get('admin_link'))
+                    URLValidator(self.cleaned_data.get('admin_link'))
+
+        return url_admin
 
     class Meta:
         model = Activity
         fields = [
             'name', 'description', 'space_1', 'space_2', 'space_3',
-            'equipment', 'date_start', 'date_finish', 'in_charge', 'creator'
+            'equipment', 'date_start', 'date_finish', 'in_charge', 'creator',
+            'admin_link'
         ]
         labels = {
             'name': 'Nombre de la actividad',
@@ -113,7 +115,8 @@ class ActivityForm(forms.ModelForm):
             'space_1': 'Espacio 1',
             'space_2': 'Espacio 2',
             'space_3': 'Espacio 3',
-            'equipment': 'Equipamiento'
+            'equipment': 'Equipamiento',
+            'admin_link': 'Link a solicitud de administración del campus.'
         }
 
 

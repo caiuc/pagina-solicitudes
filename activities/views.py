@@ -43,12 +43,12 @@ class NewActivity(LoginRequiredMixin, FillInformation, PermissionMixin,
                   generic.CreateView):
 
     form_class = ActivityForm
-    success_url = reverse_lazy('activities_list')
     page_name = 'new'
-    template_name = 'activities/new_activity.html'
+    template_name = 'activities/activity_form.html'
+    success_url = reverse_lazy('activities_list')
 
     def get(self, request):
-        template = loader.get_template('activities/new_activity.html')
+        template = loader.get_template('activities/activity_form.html')
         form = ActivityForm(request.user)
         required_links = [
             name for name in Space.objects.filter(admin_required=True)
@@ -56,11 +56,13 @@ class NewActivity(LoginRequiredMixin, FillInformation, PermissionMixin,
         return HttpResponse(
             template.render({
                 'form': form,
-                'required_links': required_links
+                'required_links': required_links,
+                'page_name': 'Nueva actividad',
+                'button': 'Crear actividad'
             }, request))
 
     def get_context_data(self, **kwargs):
-        context = super(NewActivity, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['required_links'] = [
             name for name in Space.objects.filter(admin_required=True)
         ]
@@ -177,13 +179,16 @@ class ActivityUpdate(LoginRequiredMixin, FillInformation, PermissionMixin,
     model = Activity
     form_class = ActivityForm
     page_name = 'updates'
-    template_name = 'activities/generic_form.html'
+    template_name = 'activities/activity_form.html'
     success_url = reverse_lazy('activities_list')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['creator'] = Profile.objects.get(
             user=self.get_object().creator)
+        context['required_links'] = [
+            name for name in Space.objects.filter(admin_required=True)
+        ]
         context['page_name'] = 'Actualizar actividad'
         context['button'] = 'Actualizar actividad'
         return context
