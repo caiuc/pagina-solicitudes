@@ -13,7 +13,13 @@
 
             {% comment %} search bar {% endcomment %}
             <div class="field">
+                {% comment %} search bar returns depending on view {% endcomment %}
+                {% if url_search == 'pending' %}
                 <form action="{% url 'activities_list_staff' %}" method="get">
+                {% else %}
+                <form action="{% url 'activities_list_staff_all' %}" method="get">
+                {% endif %}
+
                     <div class="control has-icons-left">
                         <input name="search" class="input is-rounded" type="text" placeholder="Búsqueda por número de solicitud o nombre">
                         <span class="icon is-left">

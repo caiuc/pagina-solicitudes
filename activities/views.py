@@ -124,6 +124,7 @@ class ActivitiesListStaff(ActivitiesList):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['url_search'] = 'pending'
         context['page_name'] = 'Solicitudes pendientes'
         return context
 
@@ -149,6 +150,7 @@ class ActivitiesListStaffAll(ActivitiesListStaff):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['url_search'] = 'all'
         context['page_name'] = 'Todas las solicitudes'
         return context
 
