@@ -6,6 +6,7 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.core.validators import URLValidator
+from django.core.exceptions import ValidationError
 
 
 class ActivityForm(forms.ModelForm):
@@ -90,12 +91,13 @@ class ActivityForm(forms.ModelForm):
 
     def clean_admin_link(self):
         choices = [self.data.get(f'space_{i}') for i in range(1, 4)]
+        validate = URLValidator()
         url_admin = self.cleaned_data.get('admin_link')
 
         for choice in choices:
             if str.isnumeric(choice):
                 if Space.objects.get(pk=int(choice)).admin_required:
-                    URLValidator(self.cleaned_data.get('admin_link'))
+                    validate(url_admin)
 
         return url_admin
 
