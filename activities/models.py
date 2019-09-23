@@ -5,6 +5,9 @@ AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
 
 class Budget(models.Model):
+    """
+    Deprecated.
+    """
 
     required_people = models.PositiveIntegerField()
     directed_to = models.CharField(max_length=2000)
@@ -20,9 +23,13 @@ class Space(models.Model):
         verbose_name = 'Espacio'
         verbose_name_plural = 'Espacios'
 
-    name = models.CharField(max_length=200)
-    description = models.CharField(max_length=2000, blank=True, null=True)
-    admin_required = models.BooleanField()
+    name = models.CharField(max_length=200, verbose_name='Nombre de espacio')
+    description = models.CharField(max_length=2000,
+                                   blank=True,
+                                   null=True,
+                                   verbose_name='Descripción de espacio')
+    admin_required = models.BooleanField(
+        verbose_name='¿Requiere de link de administración?')
     objects = models.Manager()
 
     def __str__(self):
@@ -37,7 +44,8 @@ class Equipment(models.Model):
         verbose_name = 'Equipamiento'
         verbose_name_plural = 'Equipamientos'
 
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200,
+                            verbose_name='Nombre de equipamiento')
     objects = models.Manager()
 
     def __str__(self):
@@ -66,9 +74,12 @@ class Activity(models.Model):
 
     state = models.CharField(max_length=2,
                              choices=VALID_STATES,
-                             default=PENDING_CAI)
-    name = models.CharField(max_length=200)
-    description = models.TextField(max_length=20000)
+                             default=PENDING_CAI,
+                             verbose_name='Estado de la solicitud')
+    name = models.CharField(max_length=200,
+                            verbose_name='Nombre de la actividad')
+    description = models.TextField(max_length=20000,
+                                   verbose_name='Descripción de la actividad')
     space_1 = models.ForeignKey(Space,
                                 blank=True,
                                 null=True,
@@ -88,10 +99,14 @@ class Activity(models.Model):
                                   blank=True,
                                   null=True,
                                   on_delete=models.CASCADE)
-    date_start = models.DateTimeField(blank=False)
-    date_finish = models.DateTimeField(blank=False)
-    in_charge = models.CharField(max_length=200)
-    admin_link = models.URLField(blank=True, null=True)
+    date_start = models.DateTimeField(blank=False,
+                                      verbose_name='Fecha de inicio')
+    date_finish = models.DateTimeField(blank=False,
+                                       verbose_name='Fecha de término')
+    in_charge = models.CharField(max_length=200,
+                                 verbose_name='Correo de encargado')
+    admin_link = models.URLField(
+        blank=True, null=True, verbose_name='Link a administración del campus')
     creator = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     @property

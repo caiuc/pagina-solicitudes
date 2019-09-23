@@ -5,6 +5,9 @@ from django.dispatch import receiver
 
 
 class Profile(models.Model):
+    class Meta:
+        verbose_name = 'Perfil de usuario'
+        verbose_name_plural = 'Perfiles de usuarios'
 
     STUDENT = 'S'
     TEACHER = 'T'
@@ -15,12 +18,14 @@ class Profile(models.Model):
                  (FUNCTIONARY, 'Funcionario'), (CAI, 'CAi'))
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    rut = models.CharField(max_length=50)
-    phone = models.CharField(max_length=50)
+    rut = models.CharField(max_length=50, verbose_name='RUT')
+    phone = models.CharField(max_length=50, verbose_name='Número telefónico')
     profile_type = models.CharField(max_length=2,
                                     choices=USER_TYPE,
-                                    default=STUDENT)
-    administrative = models.BooleanField(default=False)
+                                    default=STUDENT,
+                                    verbose_name='Tipo de usuario')
+    administrative = models.BooleanField(
+        default=False, verbose_name='¿Parte de administración?')
     objects = models.Manager()
 
     def __str__(self):
