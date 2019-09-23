@@ -98,9 +98,9 @@
                                             {% endif %}
                                         </td>
                                         <td>
-                                            {% if activity.admin_link != None %}
+                                            {% if activity.admin_link != None and activity.admin_link != '' %}
                                                 <a href="{{ activity.admin_link }}">{{ activity.admin_link }}</a>
-                                            {% elif activity.admin_link == None %}
+                                            {% else %}
                                                 No es necesario
                                             {% endif %}
                                         </td>
