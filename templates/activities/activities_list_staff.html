@@ -10,6 +10,19 @@
         <div class="column"></div>
         <div class="column is-four-fifths">
             <h3 class="title is-size-3">{{ page_name }}</h3>
+
+            {% comment %} search bar {% endcomment %}
+            <div class="field">
+                <form action="{% url 'activities_list_staff' %}" method="get">
+                    <div class="control has-icons-left">
+                        <input name="search" class="input is-rounded" type="text" placeholder="Búsqueda por número de solicitud o nombre">
+                        <span class="icon is-left">
+                            <i class="fas fa-search" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                </form>
+            </div>
+
             {% for activity in object_list %}
                     <div class="card">
                         {% if activity.state == 'A' %}
@@ -23,13 +36,10 @@
                         {% endif %}
                             <header class="card-header">
                                     <p class="card-header-title">
-                                        {{ activity.name}} - {{ activity.get_state_display }}
+                                        #{{ activity.id }}: {{ activity.name}} -  {{ activity.get_state_display }}
                                     </p>
                                 {% if user.is_staff %}
                                     <a href="{% url 'update_activity_status' activity.pk %}" class="card-header-icon" aria-label="more options">
-                                        <span class="icon">
-                                            <i class="fas fa-angle-down" aria-hidden="true"></i>
-                                        </span>
                                         Cambiar estado
                                     </a>
                                 {% endif %}
@@ -45,6 +55,33 @@
                         </div>
                     </div><br>
             {% endfor %}
+
+            {% if is_paginated %}
+                <nav class="pagination is-rounded is-centered" role="navigation" aria-label="pagination">
+                    
+                    {% if page_obj.has_previous %}
+                        <a class="pagination-previous" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                    {% else %}
+                        <a class="pagination-previous" disabled>Anterior</a>
+                    {% endif %}
+
+                    <ul class="pagination-list">
+                        {% for i in paginator.page_range %}
+                            {% if page_obj.number == i %}
+                                <li><a class="pagination-link is-current" aria-label="Page {{ i }}" aria-current="page">{{ i }}</a></li>
+                            {% else %}
+                                <li><a class="pagination-link" aria-label="Goto page {{ i }}" href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+
+                    {% if page_obj.has_next %}
+                        <a class="pagination-next" href="?page={{ page_obj.next_page_number }}">Próxima</a>
+                    {% else %}
+                        <a class="pagination-next" disabled>Próxima</a>
+                    {% endif %}
+                </nav>
+            {% endif %}
         </div>
         <div class="column"></div>
     </div>
