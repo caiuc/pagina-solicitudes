@@ -299,7 +299,7 @@ class Calendar(LoginRequiredMixin, FillInformation, PermissionMixin,
         for space in Space.objects.all():
             spaces.append(space)
         return HttpResponse(
-            template.render({'events': json.dumps(events), 'spaces': spaces}, request))
+            template.render({'events': json.dumps(events), 'spaces': spaces, 'page_name': 'Calendario de actividades'}, request))
 
 
 class HomeWithCalendar(LoginRequiredMixin, FillInformation, PermissionMixin,
