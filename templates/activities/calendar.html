@@ -1,0 +1,40 @@
+<head>
+    <style>
+        #calendar {
+            max-width: 75%;
+            margin: 1% auto;
+        }
+    </style>
+    <link href="https://unpkg.com/@fullcalendar/core@4.3.1/main.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/@fullcalendar/daygrid@4.3.0/main.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/@fullcalendar/timegrid@4.3.0/main.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/@fullcalendar/core@4.3.1/main.min.js"></script>
+    <script src="https://unpkg.com/@fullcalendar/interaction@4.3.0/main.min.js"></script>
+    <script src="https://unpkg.com/@fullcalendar/daygrid@4.3.0/main.min.js"></script>
+    <script src="https://unpkg.com/@fullcalendar/timegrid@4.3.0/main.min.js"></script>
+</head>
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <div id='calendar'></div>
+    <script>
+        var events = JSON.parse('{{ events | escapejs }}');
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                    plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
+                    defaultView: 'dayGridMonth',
+                    header: {
+                        left: 'prev, next today',
+                        center: 'title',
+                        right: 'dayGridMonth, timeGridWeek, timeGridDay'
+                    },
+                events: events
+            });
+
+            calendar.render();
+        })
+    </script>
+{% endblock %}
