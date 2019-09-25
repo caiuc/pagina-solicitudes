@@ -4,12 +4,12 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-        <h2 class="title is-size-2">Hola, {{ user.username }}, el calendario del mes con tus actividades es el que se encuentra a continuación</h2>
+        <h3 class="title is-size-3">Hola, {{ user.username }}, el calendario del mes con tus actividades es el que se encuentra a continuación</h3>
 
         {% include 'activities/calendar_template.html' %}
 
     {% else %}
-        <h2 class="title is-size-2">No has iniciado sesión</h2><br>
+        <h3 class="title is-size-3">No has iniciado sesión</h3><br>
         <a href="{% url 'login' %}" class="button is-primary is-fullwidth">Entrar</a><br>
         <a href="{% url 'signup' %}" class="button is-light is-fullwidth">Registrarse</a><br>
         <a href="{% url 'password_reset' %}" class="button is-info is-fullwidth">Olvidé mi contraseña</a><br>
