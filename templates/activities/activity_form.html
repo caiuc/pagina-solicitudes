@@ -25,55 +25,47 @@
 {% block title %}{{ page_name }}{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="columns is-mobile">
-        <div class="column"></div>
-        <div class="column is-three-fifths">
-            <h3 class="title is-size-3">{{ page_name }}</h3>
-            <img src="/static/img/mapa_ing.png">
-            <form method="post">
-                {% csrf_token %}
-                {% for non_field_error in form.non_field_errors %}
-                    <p class="help is-danger">{{ non_field_error }}</p>
-                {% endfor %}
-                {% for field in form.visible_fields %}
-                    <div class="field">
-                        <label for="{{ field.id_for_label }}" class="label">{{ field.label }}</label>
-                        {{ field }}<br>
-                    {% for error in field.errors %}
-                        <p class="help is-danger">{{ error }}</p>
-                    {% endfor %}
-                    </div>
-                {% endfor %}
-                {% for hidden in form.hidden_fields %}
-                    {{ hidden.as_hidden }}
-                {% endfor %}
+  <h3 class="title is-size-3">{{ page_name }}</h3>
+  <img src="/static/img/mapa_ing.png">
+  <form method="post">
+      {% csrf_token %}
+      {% for non_field_error in form.non_field_errors %}
+          <p class="help is-danger">{{ non_field_error }}</p>
+      {% endfor %}
+      {% for field in form.visible_fields %}
+          <div class="field">
+              <label for="{{ field.id_for_label }}" class="label">{{ field.label }}</label>
+              {{ field }}<br>
+          {% for error in field.errors %}
+              <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+          </div>
+      {% endfor %}
+      {% for hidden in form.hidden_fields %}
+          {{ hidden.as_hidden }}
+      {% endfor %}
 
-                <article class="message is-warning">
-                  <div class="message-header">
-                    <p>Actividades programadas</p>
-                  </div>
-                  <div class="message-body">
-                    Para evitar inconvenientes con topes de fechas y horarios, puedes revisar el <a href="{% url 'calendar' %}" target="_blank">calendario</a> con las fechas que ya están agendadas.
-                  </div>
-                </article>
-
-                <article class="message is-info">
-                  <div class="message-header">
-                    <p>Espacios que requieren link de aministración del campus</p>
-                  </div>
-                  <div class="message-body">
-                    {% for name in required_links %}
-                      <li><p>{{ name }}</p>
-                    {% endfor %}
-                    <br>Para obtener el link puedes ir a <a href="http://gespacios.uc.cl/anonimo/nueva.php" target="_blank">página de solicitudes de administración del campus</a>.
-                    <br><br>Luego de haber realizado la solicitud debes poner el link que se te envia a tu correo electrónico en el espacio de arriba.
-                  </div>
-                </article>
-                <input type="submit" value="{{ button }}" class="button is-success">
-            </form>
+      <article class="message is-warning">
+        <div class="message-header">
+          <p>Actividades programadas</p>
         </div>
-        <div class="column"></div>
-    </div>
-</div>
+        <div class="message-body">
+          Para evitar inconvenientes con topes de fechas y horarios, puedes revisar el <a href="{% url 'calendar' %}" target="_blank">calendario</a> con las fechas que ya están agendadas.
+        </div>
+      </article>
+
+      <article class="message is-info">
+        <div class="message-header">
+          <p>Espacios que requieren link de aministración del campus</p>
+        </div>
+        <div class="message-body">
+          {% for name in required_links %}
+            <li><p>{{ name }}</p>
+          {% endfor %}
+          <br>Para obtener el link puedes ir a <a href="http://gespacios.uc.cl/anonimo/nueva.php" target="_blank">página de solicitudes de administración del campus</a>.
+          <br><br>Luego de haber realizado la solicitud debes poner el link que se te envia a tu correo electrónico en el espacio de arriba.
+        </div>
+      </article>
+      <input type="submit" value="{{ button }}" class="button is-success">
+  </form>
 {% endblock %}
