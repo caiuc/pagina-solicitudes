@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+import datetime
 
 AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
@@ -30,6 +31,7 @@ class Space(models.Model):
                                    verbose_name='Descripción de espacio')
     admin_required = models.BooleanField(
         verbose_name='¿Requiere de link de administración?')
+    color = models.CharField(max_length=20, default='rgb(0,0,0)')
     objects = models.Manager()
 
     def __str__(self):
@@ -108,6 +110,25 @@ class Activity(models.Model):
     admin_link = models.URLField(
         blank=True, null=True, verbose_name='Link a administración del campus')
     creator = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    @staticmethod
+    def format_time_calendar(datetime_instance):
+        # 2019-09-16T16:00:00
+        return datetime_instance.strftime('%Y-%m-%dT%H:%M:%S')
+
+    @property
+    def activity_format_calendar(self):
+        activities = []
+        for space in [self.space_1, self.space_2, self.space_3]:
+            if space != '' and space is not None:
+                event = {
+                    'title': str(self.name),
+                    'start': Activity.format_time_calendar(self.date_start),
+                    'end': Activity.format_time_calendar(self.date_finish),
+                    'color': str(space.color)
+                }
+                activities.append(event)
+        return activities
 
     @property
     def valid_spaces(self):

@@ -25,4 +25,5 @@ urlpatterns = [
     re_path(r'^notify/(?P<pk>\d+)/$',
             views.ActivityStatusNotification.as_view(),
             name='send_email'),
+    path('calendar/', views.Calendar.as_view(), name='calendar'),
 ]

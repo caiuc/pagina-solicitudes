@@ -25,7 +25,7 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <a class="navbar-item" href="{% url 'activities_list' %}">
+      <a class="navbar-item" href="{% url 'home' %}">
         Inicio
       </a>
 
@@ -39,6 +39,10 @@
             Modificar espacios y equipamiento
           </a>
         {% endif %}
+
+        <a class="navbar-item" href="{% url 'calendar' %}">
+            Calendario de actividades
+        </a>
 
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">
