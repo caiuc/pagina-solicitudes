@@ -296,15 +296,16 @@ class Calendar(LoginRequiredMixin, FillInformation, PermissionMixin,
 
 
 class HomeWithCalendar(LoginRequiredMixin, FillInformation, PermissionMixin,
-               generic.TemplateView):
+                       generic.TemplateView):
 
-    page_name = 'calendar'
+    page_name = 'home'
     template_name = 'home.html'
 
     def get(self, request):
         template = loader.get_template('home.html')
         events = []
-        for activity in Activity.objects.filter(state='A'):
+        for activity in Activity.objects.filter(state='A',
+                                                creator=request.user):
             events.extend(activity.activity_format_calendar)
         return HttpResponse(
             template.render({'events': json.dumps(events)}, request))
