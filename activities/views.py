@@ -295,8 +295,11 @@ class Calendar(LoginRequiredMixin, FillInformation, PermissionMixin,
         events = []
         for activity in Activity.objects.filter(state='A'):
             events.extend(activity.activity_format_calendar)
+        spaces = []
+        for space in Space.objects.all():
+            spaces.append(space)
         return HttpResponse(
-            template.render({'events': json.dumps(events)}, request))
+            template.render({'events': json.dumps(events), 'spaces': spaces}, request))
 
 
 class HomeWithCalendar(LoginRequiredMixin, FillInformation, PermissionMixin,
@@ -311,5 +314,8 @@ class HomeWithCalendar(LoginRequiredMixin, FillInformation, PermissionMixin,
         for activity in Activity.objects.filter(state='A',
                                                 creator=request.user):
             events.extend(activity.activity_format_calendar)
+        spaces = []
+        for space in Space.objects.all():
+            spaces.append(space)
         return HttpResponse(
-            template.render({'events': json.dumps(events)}, request))
+            template.render({'events': json.dumps(events), 'spaces': spaces}, request))
