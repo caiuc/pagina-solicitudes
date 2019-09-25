@@ -1,3 +1,4 @@
+import json
 from activities.forms import ActivityForm, NotificationForm
 from activities.models import Activity, Space
 from django.db.models import Q
@@ -231,8 +232,9 @@ class ActivityChangeState(LoginRequiredMixin, FillInformation, PermissionMixin,
 
         send_mail(subject,
                   text_content,
-                  'contacto@cai.cl',
-                  ['administracion.csj@uc.cl', ],
+                  'contacto@cai.cl', [
+                      'administracion.csj@uc.cl',
+                  ],
                   fail_silently=False,
                   html_message=html_content)
 
@@ -276,3 +278,33 @@ class ActivityStatusNotification(LoginRequiredMixin, FillInformation,
         context['page_name'] = 'Notificar cambio de estado'
         context['button'] = 'Enviar correo'
         return context
+
+
+class Calendar(LoginRequiredMixin, FillInformation, PermissionMixin,
+               generic.TemplateView):
+
+    page_name = 'calendar'
+    template_name = 'activities/calendar.html'
+
+    def get(self, request):
+        template = loader.get_template('activities/calendar.html')
+        events = []
+        for activity in Activity.objects.filter(state='A'):
+            events.extend(activity.activity_format_calendar)
+        return HttpResponse(
+            template.render({'events': json.dumps(events)}, request))
+
+
+class HomeWithCalendar(LoginRequiredMixin, FillInformation, PermissionMixin,
+               generic.TemplateView):
+
+    page_name = 'calendar'
+    template_name = 'home.html'
+
+    def get(self, request):
+        template = loader.get_template('home.html')
+        events = []
+        for activity in Activity.objects.filter(state='A'):
+            events.extend(activity.activity_format_calendar)
+        return HttpResponse(
+            template.render({'events': json.dumps(events)}, request))

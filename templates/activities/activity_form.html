@@ -48,6 +48,16 @@
                 {% for hidden in form.hidden_fields %}
                     {{ hidden.as_hidden }}
                 {% endfor %}
+
+                <article class="message is-warning">
+                  <div class="message-header">
+                    <p>Actividades programadas</p>
+                  </div>
+                  <div class="message-body">
+                    Para evitar inconvenientes con topes de fechas y horarios, puedes revisar el <a href="{% url 'calendar' %}" target="_blank">calendario</a> con las fechas que ya están agendadas.
+                  </div>
+                </article>
+
                 <article class="message is-info">
                   <div class="message-header">
                     <p>Espacios que requieren link de aministración del campus</p>
