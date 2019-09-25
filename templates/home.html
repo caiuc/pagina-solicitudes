@@ -4,7 +4,7 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-        <h2 class="title is-size-2">Hola, {{ user.username }}, el calendario del mes es el que se encuentra a continuación</h2>
+        <h2 class="title is-size-2">Hola, {{ user.username }}, el calendario del mes con tus actividades es el que se encuentra a continuación</h2>
 
         {% include 'activities/calendar_template.html' %}
 
