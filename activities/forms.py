@@ -86,7 +86,7 @@ class ActivityForm(forms.ModelForm):
     participants_amount = forms.IntegerField(
         min_value=0,
         label='Número de participantes estimado',
-        widget=forms.TextInput(attrs={'class': 'input'}),
+        widget=forms.TextInput(attrs={'class': 'input', 'placeholder': '138'}),
         required=True)
 
     def __init__(self, user=None, *args, **kwargs):
