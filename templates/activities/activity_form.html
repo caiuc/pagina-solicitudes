@@ -18,6 +18,11 @@
       });
     });
   </script>
+  <style>
+    .select select {
+        text-rendering: auto !important;
+    }
+  </style>
 </head>
 
 {% extends 'base.html' %}
@@ -35,7 +40,22 @@
       {% for field in form.visible_fields %}
           <div class="field">
               <label for="{{ field.id_for_label }}" class="label">{{ field.label }}</label>
-              {{ field }}<br>
+              
+              {% comment %} render field with dropdown differently {% endcomment %}
+              {% if field.name == 'space_1' or  field.name == 'space_2' or field.name == 'space_3' or field.name == 'equipment' %}
+              
+                <div class="control">
+                  <div class="select">
+                    {{ field }}<br>
+                  </div>
+                </div>
+
+              {% else %}
+              
+                {{ field }}<br>
+              
+              {% endif %}
+
           {% for error in field.errors %}
               <p class="help is-danger">{{ error }}</p>
           {% endfor %}
