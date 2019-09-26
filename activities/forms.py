@@ -25,25 +25,25 @@ class ActivityForm(forms.ModelForm):
         Equipment.objects.all(),
         required=False,
         label='Equipamiento',
-        widget=forms.Select(attrs={'class': 'select'}))
+        widget=forms.Select(attrs={'class': 'control'}))
 
     space_1 = forms.ModelChoiceField(
         Space.objects.all(),
         required=False,
         label='Espacio 1',
-        widget=forms.Select(attrs={'class': 'select'}))
+        widget=forms.Select(attrs={'class': 'control'}))
 
     space_2 = forms.ModelChoiceField(
         Space.objects.all(),
         required=False,
         label='Espacio 2',
-        widget=forms.Select(attrs={'class': 'select'}))
+        widget=forms.Select(attrs={'class': 'control'}))
 
     space_3 = forms.ModelChoiceField(
         Space.objects.all(),
         required=False,
         label='Espacio 3',
-        widget=forms.Select(attrs={'class': 'select'}))
+        widget=forms.Select(attrs={'class': 'control'}))
 
     date_start = forms.DateTimeField(
         input_formats=['%d/%m/%Y %H:%M'],
@@ -72,7 +72,7 @@ class ActivityForm(forms.ModelForm):
         required=True)
 
     admin_link = forms.URLField(
-        label='Link a solicitud de administración del campus.',
+        label='Link a solicitud de administración del campus',
         widget=forms.TextInput(
             attrs={
                 'class':
@@ -82,6 +82,12 @@ class ActivityForm(forms.ModelForm):
             }),
         required=False,
     )
+
+    participants_amount = forms.IntegerField(
+        min_value=0,
+        label='Número de participantes estimado',
+        widget=forms.TextInput(attrs={'class': 'input'}),
+        required=True)
 
     def __init__(self, user=None, *args, **kwargs):
         super(ActivityForm, self).__init__(*args, **kwargs)
@@ -105,8 +111,8 @@ class ActivityForm(forms.ModelForm):
         model = Activity
         fields = [
             'name', 'description', 'space_1', 'space_2', 'space_3',
-            'equipment', 'date_start', 'date_finish', 'in_charge', 'creator',
-            'admin_link'
+            'equipment', 'participants_amount', 'date_start', 'date_finish',
+            'in_charge', 'creator', 'admin_link'
         ]
         labels = {
             'name': 'Nombre de la actividad',
@@ -118,11 +124,15 @@ class ActivityForm(forms.ModelForm):
             'space_2': 'Espacio 2',
             'space_3': 'Espacio 3',
             'equipment': 'Equipamiento',
-            'admin_link': 'Link a solicitud de administración del campus.'
+            'admin_link': 'Link a solicitud de administración del campus.',
+            'participants_amount': 'Número de participantes',
         }
 
 
 class NotificationForm(forms.Form):
+    """
+    Testing, temporarily disabled
+    """
 
     subject = forms.CharField(label='Título del correo',
                               widget=forms.TextInput(attrs={'class': 'input'}))
