@@ -60,19 +60,35 @@
               <p class="help is-danger">{{ error }}</p>
           {% endfor %}
           </div>
+
+          {% comment %} add message info after equipment field {% endcomment %}
+          {% if field.name == 'equipment' %}
+            <article class="message is-danger">
+                <div class="message-header">
+                    <p>Uso de espacios y ruido</p>
+                </div>
+                <div class="message-body">
+                    Recuerda que solamente se puede hacer ruido o poner música en los eventos entre las <strong>13:00 y las 14:00</strong> horas.
+                </div>
+            </article>
+          {% endif %}
+
+        {% comment %}  {% endcomment %}
+        {% if field.name == 'date_finish' %}
+            <article class="message is-warning">
+                <div class="message-header">
+                <p>Actividades programadas</p>
+                </div>
+                <div class="message-body">
+                Para evitar inconvenientes con topes de fechas y horarios, puedes <strong>revisar el <a href="{% url 'calendar' %}" target="_blank">calendario</a></strong> con las fechas que ya están agendadas.
+                </div>
+            </article>
+          {% endif %}
       {% endfor %}
+      
       {% for hidden in form.hidden_fields %}
           {{ hidden.as_hidden }}
       {% endfor %}
-
-      <article class="message is-warning">
-        <div class="message-header">
-          <p>Actividades programadas</p>
-        </div>
-        <div class="message-body">
-          Para evitar inconvenientes con topes de fechas y horarios, puedes revisar el <a href="{% url 'calendar' %}" target="_blank">calendario</a> con las fechas que ya están agendadas.
-        </div>
-      </article>
 
       <article class="message is-info">
         <div class="message-header">
@@ -80,10 +96,10 @@
         </div>
         <div class="message-body">
           {% for name in required_links %}
-            <li><p>{{ name }}</p>
+            <li>{{ name }}
           {% endfor %}
           <br>Para obtener el link puedes ir a <a href="http://gespacios.uc.cl/anonimo/nueva.php" target="_blank">página de solicitudes de administración del campus</a>.
-          <br><br>Luego de haber realizado la solicitud debes poner el link que se te envia a tu correo electrónico en el espacio de arriba.
+          <br><br>Luego de haber realizado la solicitud debes <strong>pegar el link que se te envia</strong> a tu correo electrónico en el espacio de arriba.
         </div>
       </article>
       <input type="submit" value="{{ button }}" class="button is-success">
