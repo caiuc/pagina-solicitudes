@@ -1,21 +1,25 @@
 <div class="content">
-    <h3>Encargado</h3>
+    <h3>Creador y encargado</h3>
         <div class="table-container">
             <table class="table is-fullwidth is-striped">
                 <thead>
                     <tr>
-                        <th>Correo electrónico</th>
-                        <th>RUT</th>
-                        <th>Numero teléfono</th>
-                        <th>TIpo de usuario</th>
+                        <th>Creador</th>
+                        <th>Correo creador</th>
+                        <th>Tipo de usuario creador</th>
+                        <th>RUT creador</th>
+                        <th>Teléfono creador</th>
+                        <th>Correo encargado</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><a href="mailto:{{ activity.in_charge }}">{{ activity.in_charge }}</a></td>
+                        <td>{{ creator.user.first_name }} {{ creator.user.last_name }}</td>
+                        <td><a href="mailto:{{ creator.user.email }}">{{ creator.user.email }}</a></td>
+                        <td>{{ creator.get_profile_type_display }}</td>
                         <td>{{ creator.rut }}</td>
                         <td>{{ creator.phone }}</td>
-                        <td>{{ creator.get_profile_type_display }}</td>
+                        <td><a href="mailto:{{ activity.in_charge }}">{{ activity.in_charge }}</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -24,19 +28,21 @@
     <h3>Descripción</h3>
         {{ activity.description }}
 
-    <h3>Duración</h3>
+    <h3>Duración y asistentes</h3>
         <div class="table-container">
             <table class="table is-fullwidth is-striped">
                 <thead>
                     <tr>
                         <th>Inicio</th>
                         <th>Fin</th>
+                        <th>Número estimado de personas</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>{{ activity.date_start }}</td>
                         <td>{{ activity.date_finish }}</td>
+                        <td>{{ activity.participants_amount }}</td>
                     </tr>
                 </tbody>
             </table>
