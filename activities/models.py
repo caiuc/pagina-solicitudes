@@ -1,19 +1,7 @@
 from django.db import models
 from django.conf import settings
-import datetime
 
 AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
-
-
-class Budget(models.Model):
-    """
-    Deprecated.
-    """
-
-    required_people = models.PositiveIntegerField()
-    directed_to = models.CharField(max_length=2000)
-    directed_to_amount = models.PositiveIntegerField()
-    required_money = models.PositiveIntegerField()
 
 
 class Space(models.Model):
@@ -105,8 +93,10 @@ class Activity(models.Model):
                                       verbose_name='Fecha de inicio')
     date_finish = models.DateTimeField(blank=False,
                                        verbose_name='Fecha de término')
-    in_charge = models.CharField(max_length=200,
-                                 verbose_name='Correo de encargado')
+    in_charge = models.EmailField(max_length=200,
+                                  verbose_name='Correo de encargado')
+    participants_amount = models.PositiveIntegerField(
+        default=0, verbose_name='Número de participantes')
     admin_link = models.URLField(
         blank=True, null=True, verbose_name='Link a administración del campus')
     creator = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
