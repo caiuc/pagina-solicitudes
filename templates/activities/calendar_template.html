@@ -69,13 +69,18 @@
         var calendarEl = document.getElementById('calendar');
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
-                plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
-                defaultView: 'dayGridMonth',
-                header: {
-                    left: 'prev, next today',
-                    center: 'title',
-                    right: 'dayGridMonth, timeGridWeek, timeGridDay'
-                },
+            plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
+            eventClick: function(info) {
+                var eventObj = info.event;
+                alert(eventObj.title + '\n' + 'Inicio: ' + eventObj.start + '\n' + 'Fin: ' + eventObj.end);
+            },
+            eventLimit: true,
+            defaultView: 'dayGridMonth',
+            header: {
+                left: 'prev, next today',
+                center: 'title',
+                right: 'dayGridMonth, timeGridWeek, timeGridDay'
+            },
             events: events
         });
 
