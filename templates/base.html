@@ -33,16 +33,16 @@
         Código fuente
       </a>
 
+      <a class="navbar-item" href="{% url 'calendar' %}">
+          Calendario de actividades
+      </a>
+
       {% if user.is_authenticated %}
         {% if user.is_staff %}
           <a class="navbar-item" href="/admin">
             Modificar espacios y equipamiento
           </a>
         {% endif %}
-
-        <a class="navbar-item" href="{% url 'calendar' %}">
-            Calendario de actividades
-        </a>
 
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">

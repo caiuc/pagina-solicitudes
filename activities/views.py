@@ -287,8 +287,7 @@ class ActivityStatusNotification(LoginRequiredMixin, FillInformation,
         return context
 
 
-class Calendar(LoginRequiredMixin, FillInformation, PermissionMixin,
-               generic.TemplateView):
+class Calendar(generic.TemplateView):
 
     page_name = 'calendar'
     template_name = 'activities/calendar.html'
@@ -310,7 +309,7 @@ class Calendar(LoginRequiredMixin, FillInformation, PermissionMixin,
                 }, request))
 
 
-class HomeWithCalendar(LoginRequiredMixin, FillInformation, PermissionMixin,
+class HomeWithCalendar(LoginRequiredMixin, FillInformation,
                        generic.TemplateView):
 
     page_name = 'home'
