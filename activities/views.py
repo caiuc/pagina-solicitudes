@@ -16,6 +16,8 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.conf import settings
 
+from .models import Coordinator
+
 DEBUG = getattr(settings, 'DEBUG')
 ACTIVITIES_PER_PAGE = 20
 
@@ -223,18 +225,26 @@ class ActivityChangeState(LoginRequiredMixin, FillInformation, PermissionMixin,
 
     def send_email(self, activity, mailed, template):
         subject = f'Solicitud de espacios aprobada "{activity.name}"'
+
+        coordinator = Coordinator.objects.all().first()
+
         html_content = render_to_string(
             f'emails/{template}', {
                 'name': activity.name,
                 'start_date': activity.date_start,
                 'finish_date': activity.date_finish,
                 'place': activity.valid_spaces,
+                'creator': activity.creator,
+                'description': activity.description,
+                'participants_amount': activity.participants_amount,
+                'in_charge': activity.in_charge,
+                'coordinator': coordinator,
             })
         text_content = strip_tags(html_content)
 
         send_mail(subject,
                   text_content,
-                  'contacto@cai.cl', [mailed],
+                  'contacto@cai.cl', ["rihanuch@uc.cl"],
                   fail_silently=False,
                   html_message=html_content)
 
