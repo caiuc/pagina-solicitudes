@@ -131,3 +131,15 @@ class Activity(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Coordinator(models.Model):
+
+    name = models.CharField(max_length=200)
+    email = models.EmailField()
+
+    objects = models.Manager()
+
+    class Meta:
+        verbose_name = "Coordinador CAi"
+        verbose_name_plural = "Coordinador CAi (solo tener 1)"
