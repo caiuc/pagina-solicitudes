@@ -244,7 +244,7 @@ class ActivityChangeState(LoginRequiredMixin, FillInformation, PermissionMixin,
 
         send_mail(subject,
                   text_content,
-                  'contacto@cai.cl', ["rihanuch@uc.cl"],
+                  'contacto@cai.cl', [mailed],
                   fail_silently=False,
                   html_message=html_content)
 
