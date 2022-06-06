@@ -8,6 +8,9 @@
         <div class="column"></div>
         <div class="column is-four-fifths">
             <h3 class="title is-size-3">Iniciar sesión</h3>
+            <p style="margin-bottom: 15px;">
+                <a href="https://www.cai.cl/solicitudes-espacios">Haz click aquí</a> para encontrar más información sobre esta plataforma y sus instrucciones.
+            </p>
             <form method="post">
                 {% csrf_token %}
                 {% for non_field_error in form.non_field_errors %}
