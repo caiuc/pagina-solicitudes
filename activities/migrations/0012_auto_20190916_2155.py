@@ -5,29 +5,46 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('activities', '0011_auto_20190916_2147'),
+        ("activities", "0011_auto_20190916_2147"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='activity',
-            name='space_2',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='space2', to='activities.Space'),
+            model_name="activity",
+            name="space_2",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="space2",
+                to="activities.Space",
+            ),
         ),
         migrations.AddField(
-            model_name='activity',
-            name='space_3',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='space3', to='activities.Space'),
+            model_name="activity",
+            name="space_3",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="space3",
+                to="activities.Space",
+            ),
         ),
         migrations.RemoveField(
-            model_name='activity',
-            name='space',
+            model_name="activity",
+            name="space",
         ),
         migrations.AddField(
-            model_name='activity',
-            name='space',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='space1', to='activities.Space'),
+            model_name="activity",
+            name="space",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="space1",
+                to="activities.Space",
+            ),
         ),
     ]

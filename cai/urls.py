@@ -17,12 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 from activities.views import HomeWithCalendar
 
-admin.site.site_url = '/activities/'
+admin.site.site_url = "/activities/"
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')),
-    path('activities/', include('activities.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('', HomeWithCalendar.as_view(), name='home'),
+    path("admin/", admin.site.urls),
+    path("accounts/", include("accounts.urls")),
+    path("activities/", include("activities.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),
+    path("", HomeWithCalendar.as_view(), name="home"),
 ]

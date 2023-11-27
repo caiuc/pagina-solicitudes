@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('activities', '0005_auto_20190813_1237'),
+        ("activities", "0005_auto_20190813_1237"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='activity',
-            name='admin_link',
+            model_name="activity",
+            name="admin_link",
             field=models.URLField(blank=True, null=True),
         ),
     ]

@@ -5,23 +5,24 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('activities', '0008_auto_20190916_2142'),
+        ("activities", "0008_auto_20190916_2142"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='space',
-            name='description',
+            model_name="space",
+            name="description",
         ),
         migrations.RemoveField(
-            model_name='activity',
-            name='space',
+            model_name="activity",
+            name="space",
         ),
         migrations.AddField(
-            model_name='activity',
-            name='space',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='activities.Space'),
+            model_name="activity",
+            name="space",
+            field=models.ForeignKey(
+                blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to="activities.Space"
+            ),
         ),
     ]

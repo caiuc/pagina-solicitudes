@@ -4,34 +4,38 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('accounts', '0004_profile_administrative'),
+        ("accounts", "0004_profile_administrative"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='profile',
-            options={'verbose_name': 'Perfil de usuario', 'verbose_name_plural': 'Perfiles de usuarios'},
+            name="profile",
+            options={"verbose_name": "Perfil de usuario", "verbose_name_plural": "Perfiles de usuarios"},
         ),
         migrations.AlterField(
-            model_name='profile',
-            name='administrative',
-            field=models.BooleanField(default=False, verbose_name='¿Parte de administración?'),
+            model_name="profile",
+            name="administrative",
+            field=models.BooleanField(default=False, verbose_name="¿Parte de administración?"),
         ),
         migrations.AlterField(
-            model_name='profile',
-            name='phone',
-            field=models.CharField(max_length=50, verbose_name='Número telefónico'),
+            model_name="profile",
+            name="phone",
+            field=models.CharField(max_length=50, verbose_name="Número telefónico"),
         ),
         migrations.AlterField(
-            model_name='profile',
-            name='profile_type',
-            field=models.CharField(choices=[('S', 'Estudiante'), ('T', 'Profesor'), ('F', 'Funcionario'), ('C', 'CAi')], default='S', max_length=2, verbose_name='Tipo de usuario'),
+            model_name="profile",
+            name="profile_type",
+            field=models.CharField(
+                choices=[("S", "Estudiante"), ("T", "Profesor"), ("F", "Funcionario"), ("C", "CAi")],
+                default="S",
+                max_length=2,
+                verbose_name="Tipo de usuario",
+            ),
         ),
         migrations.AlterField(
-            model_name='profile',
-            name='rut',
-            field=models.CharField(max_length=50, verbose_name='RUT'),
+            model_name="profile",
+            name="rut",
+            field=models.CharField(max_length=50, verbose_name="RUT"),
         ),
     ]

@@ -4,30 +4,29 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('activities', '0001_initial'),
+        ("activities", "0001_initial"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='spacerequest',
-            name='space',
+            model_name="spacerequest",
+            name="space",
         ),
         migrations.AlterField(
-            model_name='activity',
-            name='equipment',
-            field=models.ManyToManyField(related_name='activities', to='activities.Equipment'),
+            model_name="activity",
+            name="equipment",
+            field=models.ManyToManyField(related_name="activities", to="activities.Equipment"),
         ),
         migrations.AlterField(
-            model_name='activity',
-            name='space',
-            field=models.ManyToManyField(related_name='activities', to='activities.Space'),
+            model_name="activity",
+            name="space",
+            field=models.ManyToManyField(related_name="activities", to="activities.Space"),
         ),
         migrations.DeleteModel(
-            name='EquipmentRequest',
+            name="EquipmentRequest",
         ),
         migrations.DeleteModel(
-            name='SpaceRequest',
+            name="SpaceRequest",
         ),
     ]

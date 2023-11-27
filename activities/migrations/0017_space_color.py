@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('activities', '0016_auto_20190924_2242'),
+        ("activities", "0016_auto_20190924_2242"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='space',
-            name='color',
-            field=models.CharField(default='rgb(0,0,0)', max_length=20),
+            model_name="space",
+            name="color",
+            field=models.CharField(default="rgb(0,0,0)", max_length=20),
         ),
     ]
