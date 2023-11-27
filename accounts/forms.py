@@ -59,9 +59,9 @@ class RegistrationForm(UserCreationForm):
             # stop from default saving, intervenes the save process
             # and adds information
             user = super(RegistrationForm, self).save(commit=False)
-            user.first_name = self.cleanded_data["first_name"]
-            user.last_name = self.cleanded_data["last_name"]
-            user.email = self.cleanded_data["email"]
+            user.first_name = self.cleaned_data["first_name"]
+            user.last_name = self.cleaned_data["last_name"]
+            user.email = self.cleaned_data["email"]
 
             if commit:
                 user.save()
