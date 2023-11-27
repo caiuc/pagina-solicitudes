@@ -25,7 +25,8 @@ class RegistrationForm(UserCreationForm):
 
     password1 = forms.CharField(
         label="Contraseña",
-        help_text="La contraseña no puede ser solamente numérica, debe tener al menos 8 carácteres y no puede parecerse mucho al nombre de usuario.",
+        help_text="La contraseña no puede ser solamente numérica, debe tener al menos 8 carácteres y no puede parecerse\
+            mucho al nombre de usuario.",
         widget=forms.PasswordInput(
             attrs={
                 "class": "input",
