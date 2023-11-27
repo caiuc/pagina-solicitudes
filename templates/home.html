@@ -4,7 +4,8 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-        <h3 class="title is-size-3">Hola, {{ user.username }}, el calendario del mes con tus actividades es el que se encuentra a continuación</h3>
+    {% comment %} Use first name or username, whichever is available first {% endcomment %}
+        <h3 class="title is-size-3">Hola {{ user.first_name|default:user.username }}, este es tu calendario individual de actividades:</h3>
 
         {% include 'activities/calendar_template.html' %}
 
