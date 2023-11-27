@@ -31,7 +31,8 @@
 
 {% block content %}
   <h3 class="title is-size-3">{{ page_name }}</h3>
-  <img src="/static/img/mapa_ing.png">
+  {% load static %}
+  <img src="{% static "img/mapa_ing.png" %}" alt="Mapa de la Escuela" width="100%">
   <form method="post">
       {% csrf_token %}
       {% for non_field_error in form.non_field_errors %}

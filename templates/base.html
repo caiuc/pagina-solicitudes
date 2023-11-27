@@ -13,7 +13,8 @@
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item" href="{% url 'home' %}">
-      <img src="/static/img/cai.png" alt="logo cai" height="28"/>
+      {% load static %}
+      <img src="{% static "img/cai.png" %}" alt="logo cai" height="28"/>
     </a>
 
     <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
