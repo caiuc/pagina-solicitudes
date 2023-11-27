@@ -4,33 +4,43 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('activities', '0004_auto_20190708_1756'),
+        ("activities", "0004_auto_20190708_1756"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='activity',
-            options={'verbose_name': 'Actividad', 'verbose_name_plural': 'Actividades'},
+            name="activity",
+            options={"verbose_name": "Actividad", "verbose_name_plural": "Actividades"},
         ),
         migrations.AlterModelOptions(
-            name='equipment',
-            options={'verbose_name': 'Equipamiento', 'verbose_name_plural': 'Equipamientos'},
+            name="equipment",
+            options={"verbose_name": "Equipamiento", "verbose_name_plural": "Equipamientos"},
         ),
         migrations.AlterModelOptions(
-            name='space',
-            options={'verbose_name': 'Espacio', 'verbose_name_plural': 'Espacios'},
+            name="space",
+            options={"verbose_name": "Espacio", "verbose_name_plural": "Espacios"},
         ),
         migrations.AddField(
-            model_name='space',
-            name='admin_required',
+            model_name="space",
+            name="admin_required",
             field=models.BooleanField(default=False),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='activity',
-            name='state',
-            field=models.CharField(choices=[('A', 'Aprobada'), ('R', 'Rechazada'), ('P', 'Pendiente'), ('C', 'Cancelada'), ('PA', 'Pendiente por administración'), ('PC', 'Pendiente por CAi')], default='PC', max_length=2),
+            model_name="activity",
+            name="state",
+            field=models.CharField(
+                choices=[
+                    ("A", "Aprobada"),
+                    ("R", "Rechazada"),
+                    ("P", "Pendiente"),
+                    ("C", "Cancelada"),
+                    ("PA", "Pendiente por administración"),
+                    ("PC", "Pendiente por CAi"),
+                ],
+                default="PC",
+                max_length=2,
+            ),
         ),
     ]

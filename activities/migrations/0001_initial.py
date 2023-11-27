@@ -5,71 +5,87 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('accounts', '0001_initial'),
+        ("accounts", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Budget',
+            name="Budget",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('required_people', models.PositiveIntegerField()),
-                ('directed_to', models.CharField(max_length=2000)),
-                ('directed_to_amount', models.PositiveIntegerField()),
-                ('required_money', models.PositiveIntegerField()),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("required_people", models.PositiveIntegerField()),
+                ("directed_to", models.CharField(max_length=2000)),
+                ("directed_to_amount", models.PositiveIntegerField()),
+                ("required_money", models.PositiveIntegerField()),
             ],
         ),
         migrations.CreateModel(
-            name='Equipment',
+            name="Equipment",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=200)),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("name", models.CharField(max_length=200)),
             ],
         ),
         migrations.CreateModel(
-            name='Space',
+            name="Space",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=200)),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("name", models.CharField(max_length=200)),
             ],
         ),
         migrations.CreateModel(
-            name='SpaceRequest',
+            name="SpaceRequest",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('request_link', models.CharField(blank=True, max_length=2000, null=True)),
-                ('date_start', models.DateTimeField()),
-                ('date_finish', models.DateTimeField()),
-                ('space', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='activities.Space')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("request_link", models.CharField(blank=True, max_length=2000, null=True)),
+                ("date_start", models.DateTimeField()),
+                ("date_finish", models.DateTimeField()),
+                ("space", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="activities.Space")),
             ],
         ),
         migrations.CreateModel(
-            name='EquipmentRequest',
+            name="EquipmentRequest",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('amount', models.PositiveIntegerField()),
-                ('date_start', models.DateTimeField()),
-                ('date_finish', models.DateTimeField()),
-                ('equipment', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='activities.Equipment')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("amount", models.PositiveIntegerField()),
+                ("date_start", models.DateTimeField()),
+                ("date_finish", models.DateTimeField()),
+                (
+                    "equipment",
+                    models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="activities.Equipment"),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Activity',
+            name="Activity",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('state', models.CharField(choices=[('A', 'Aprobada'), ('R', 'Rechazada'), ('P', 'Pendiente'), ('C', 'Cancelada'), ('PA', 'Pendiente por administración'), ('PC', 'Pendiente por CAi')], default='P', max_length=2)),
-                ('name', models.CharField(max_length=200)),
-                ('description', models.TextField(max_length=20000)),
-                ('date_start', models.DateTimeField()),
-                ('date_finish', models.DateTimeField()),
-                ('in_charge', models.CharField(max_length=200)),
-                ('creator', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='accounts.Profile')),
-                ('equipment', models.ManyToManyField(related_name='activities', to='activities.EquipmentRequest')),
-                ('space', models.ManyToManyField(related_name='activities', to='activities.SpaceRequest')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "state",
+                    models.CharField(
+                        choices=[
+                            ("A", "Aprobada"),
+                            ("R", "Rechazada"),
+                            ("P", "Pendiente"),
+                            ("C", "Cancelada"),
+                            ("PA", "Pendiente por administración"),
+                            ("PC", "Pendiente por CAi"),
+                        ],
+                        default="P",
+                        max_length=2,
+                    ),
+                ),
+                ("name", models.CharField(max_length=200)),
+                ("description", models.TextField(max_length=20000)),
+                ("date_start", models.DateTimeField()),
+                ("date_finish", models.DateTimeField()),
+                ("in_charge", models.CharField(max_length=200)),
+                ("creator", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="accounts.Profile")),
+                ("equipment", models.ManyToManyField(related_name="activities", to="activities.EquipmentRequest")),
+                ("space", models.ManyToManyField(related_name="activities", to="activities.SpaceRequest")),
             ],
         ),
     ]

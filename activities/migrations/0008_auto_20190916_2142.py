@@ -4,19 +4,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('activities', '0007_space_description'),
+        ("activities", "0007_space_description"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='activity',
-            name='space',
+            model_name="activity",
+            name="space",
         ),
         migrations.AddField(
-            model_name='activity',
-            name='space',
-            field=models.ManyToManyField(blank=True, null=True, to='activities.Space'),
+            model_name="activity",
+            name="space",
+            field=models.ManyToManyField(blank=True, null=True, to="activities.Space"),
         ),
     ]

@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('activities', '0006_activity_admin_link'),
+        ("activities", "0006_activity_admin_link"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='space',
-            name='description',
+            model_name="space",
+            name="description",
             field=models.CharField(blank=True, max_length=2000, null=True),
         ),
     ]
