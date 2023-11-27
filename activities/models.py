@@ -8,7 +8,9 @@ class Space(models.Model):
     """Physical space of activities"""
 
     name = models.CharField(max_length=200, verbose_name="Nombre de espacio")
-    description = models.CharField(max_length=2000, blank=True, null=False, verbose_name="Descripción de espacio")
+    description = models.CharField(
+        max_length=2000, blank=True, null=False, verbose_name="Descripción de espacio", default=""
+    )
     admin_required = models.BooleanField(verbose_name="¿Requiere de link de administración?")
     color = models.CharField(max_length=20, default="rgb(0,0,0)")
     objects = models.Manager()
@@ -61,7 +63,7 @@ class Activity(models.Model):
         verbose_name="Estado de la solicitud",
     )
     name = models.CharField(max_length=200, verbose_name="Nombre de la actividad")
-    description = models.TextField(max_length=20000, verbose_name="Descripción de la actividad")
+    description = models.TextField(max_length=20000, verbose_name="Descripción de la actividad", blank=True, null=False)
     space_1 = models.ForeignKey(Space, blank=True, null=True, on_delete=models.CASCADE, related_name="space_1")
     space_2 = models.ForeignKey(Space, blank=True, null=True, on_delete=models.CASCADE, related_name="space_2")
     space_3 = models.ForeignKey(Space, blank=True, null=True, on_delete=models.CASCADE, related_name="space_3")
@@ -70,7 +72,7 @@ class Activity(models.Model):
     date_finish = models.DateTimeField(blank=False, verbose_name="Fecha de término")
     in_charge = models.EmailField(max_length=200, verbose_name="Correo de encargado")
     participants_amount = models.PositiveIntegerField(default=0, verbose_name="Número de participantes")
-    admin_link = models.URLField(blank=True, null=False, verbose_name="Link a administración del campus")
+    admin_link = models.URLField(blank=True, null=False, verbose_name="Link a administración del campus", default="")
     creator = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     class Meta:
