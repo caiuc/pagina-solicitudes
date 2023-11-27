@@ -14,7 +14,7 @@ class SignUp(generic.CreateView):
     template_name = 'activities/generic_form.html'
 
     def get_context_data(self, **kwargs):
-        context = super(SignUp, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['page_name'] = 'Nuevo usuario'
         context['button'] = 'Crear'
         return context
@@ -28,7 +28,7 @@ class ProfileUpdate(LoginRequiredMixin, generic.UpdateView):
     template_name = 'activities/generic_form.html'
 
     def get_context_data(self, **kwargs):
-        context = super(ProfileUpdate, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['page_name'] = 'Completar información de usuario'
         context['button'] = 'Completar'
         return context

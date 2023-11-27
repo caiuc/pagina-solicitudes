@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
+from typing import ClassVar
 
 
 class RegistrationForm(UserCreationForm):
@@ -49,7 +50,7 @@ class RegistrationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = [
+        fields: ClassVar[list[str]] = [
             'username',
             'first_name',
             'last_name',
@@ -98,12 +99,12 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = [
+        fields: ClassVar[list[str]] = [
             'rut',
             'phone',
             'profile_type',
         ]
-        labels = {
+        labels: ClassVar[dict[str, str]] = {
             'rut': 'RUT',
             'phone': 'Número de teléfono',
             'profile_type': 'Tipo de usuario'

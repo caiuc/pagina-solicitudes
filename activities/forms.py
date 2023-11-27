@@ -1,3 +1,4 @@
+from typing import ClassVar
 from django import forms
 from activities.models import Activity
 from activities.models import (Space, Equipment)
@@ -6,7 +7,6 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.core.validators import URLValidator
-from django.core.exceptions import ValidationError
 
 
 class ActivityForm(forms.ModelForm):
@@ -90,7 +90,7 @@ class ActivityForm(forms.ModelForm):
         required=True)
 
     def __init__(self, user=None, *args, **kwargs):
-        super(ActivityForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.user = user
         self.fields['creator'] = forms.ModelChoiceField(
             User.objects.all(), widget=forms.HiddenInput(), initial=self.user)
@@ -101,20 +101,19 @@ class ActivityForm(forms.ModelForm):
         url_admin = self.cleaned_data.get('admin_link')
 
         for choice in choices:
-            if str.isnumeric(choice):
-                if Space.objects.get(pk=int(choice)).admin_required:
-                    validate(url_admin)
+            if str.isnumeric(choice) and Space.objects.get(pk=int(choice)).admin_required:
+                validate(url_admin)
 
         return url_admin
 
     class Meta:
         model = Activity
-        fields = [
+        fields: ClassVar[list[str]]  = [
             'name', 'description', 'space_1', 'space_2', 'space_3',
             'equipment', 'participants_amount', 'date_start', 'date_finish',
             'in_charge', 'creator', 'admin_link'
         ]
-        labels = {
+        labels: ClassVar[dict[str, str]]  = {
             'name': 'Nombre de la actividad',
             'description': 'Descripción',
             'date_start': 'Fecha de inicio',
