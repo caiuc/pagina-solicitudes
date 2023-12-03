@@ -233,7 +233,7 @@ class ActivityChangeState(LoginRequiredMixin, FillInformation, PermissionMixin, 
         send_mail(
             subject,
             text_content,
-            "contacto@cai.cl",
+            "olguita.barriga@cai.cl",
             [mailed],
             fail_silently=False,
             html_message=html_content,
