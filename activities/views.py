@@ -233,7 +233,7 @@ class ActivityChangeState(LoginRequiredMixin, FillInformation, PermissionMixin, 
         send_mail(
             subject,
             text_content,
-            "olguita.barriga@cai.cl",
+            "olguita.barriga@caiuc.cl",
             [mailed],
             fail_silently=False,
             html_message=html_content,
@@ -272,7 +272,7 @@ class ActivityStatusNotification(LoginRequiredMixin, FillInformation, Permission
         form.send_email(
             form.data["subject"],
             form.data["body"],
-            "contacto@caiuc.cl",
+            "olguita.barriga@caiuc.cl",
             [activity.in_charge],
         )
         messages.info(self.request, f"Se ha enviado un correo a {activity.in_charge}")
