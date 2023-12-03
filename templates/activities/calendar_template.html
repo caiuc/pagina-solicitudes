@@ -72,7 +72,7 @@
             plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
             eventClick: function(info) {
                 var eventObj = info.event;
-                alert(eventObj.title + '\n' + 'Inicio: ' + eventObj.start + '\n' + 'Fin: ' + eventObj.end + 'Espacio:' );
+                alert(eventObj.title + '\n' + 'Inicio: ' + eventObj.start + '\n' + 'Fin: ' + eventObj.end + '\n'+ 'Espacio:' + eventObj.space );
             },
             eventLimit: true,
             defaultView: 'dayGridMonth',
