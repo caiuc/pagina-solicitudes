@@ -96,7 +96,7 @@ class Activity(models.Model):
                     "title": str(self.name),
                     "start": Activity.format_time_calendar(self.date_start),
                     "end": Activity.format_time_calendar(self.date_finish),
-                    "space": space,
+                    "space": self.space_1,
                 }
                 activities.append(event)
         return activities
