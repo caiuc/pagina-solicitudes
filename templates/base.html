@@ -98,10 +98,16 @@
           <div class="navbar-item">
             <div class="buttons">
               {% if not user.is_authenticated %}
-                <a class="button is-primary" href="{% url 'login' %}">
+                <a class="button is-black" href="{% url 'login' %}">
                   Entrar
                 </a>
-
+                <a class="button is-light" href="{% url 'signup' %}">
+                  Registrarse
+                </a>
+              {% else %}
+                <a class="button is-danger" href="{% url 'logout' %}">
+                  Salir
+                </a>
               {% endif %}
             </div>
           </div>
@@ -132,7 +138,7 @@
   
   <!-- Agrega el enlace "Código fuente" aquí -->
   <div class="container" style="margin-top: 20px;">
-    <a class="button is-link" href="https://github.com/centro-de-alumnos-de-ingenieria/pagina-solicitudes">
+    <a class="button is-link is-black" href="https://github.com/centro-de-alumnos-de-ingenieria/pagina-solicitudes">
       Código fuente
     </a>
   </div>
@@ -140,4 +146,5 @@
 
 </body>
 </html>
+
 
