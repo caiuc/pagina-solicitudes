@@ -4,39 +4,37 @@
 
 {% block content %}
 <section class="hero is-warning is-fullheight" style="background-image: url('https://github.com/caiuc/pagina-solicitudes/raw/master/img/campus.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-    <div class="hero-body">
-        <div class="container is-max-desktop has-background-warning py-6 px-4">
-            <div class="columns is-mobile is-centered">
-                <div class="column is-half">
-                    <h1 class="title is-2 has-text-centered has-text-black">Ingresa al Sistema de Gestión de Espacios del CAi</h1>
-                    <h2 class="subtitle is-4 has-text-centered">Iniciar sesión</h2>
-                    <p class="has-text-centered">
-                        <a href="https://www.cai.cl/solicitudes-espacios" class="button is-black is-rounded">Haz clic aquí</a>
-                        para encontrar más información sobre esta plataforma y sus instrucciones.
-                    </p>
-                    <form method="post">
-                        {% csrf_token %}
-                        {% for non_field_error in form.non_field_errors %}
-                            <p class="help is-danger has-text-centered">{{ non_field_error }}</p>
-                        {% endfor %}
-                        {% for field in form %}
-                            <div class="field">
-                                <label for="{{ field.id_for_label }}" class="label">{{ field.label }}</label>
-                                <div class="control">
-                                    <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" required="" class="input">
-                                </div>
-                                {% for error in field.errors %}
-                                    <p class="help is-danger has-text-centered">{{ error }}</p>
-                                {% endfor %}
-                            </div>
-                        {% endfor %}
-                        <div class="field has-text-centered">
+    <div class="hero-body has-background-warning py-6 px-4">
+        <div class="columns is-mobile is-centered">
+            <div class="column is-half">
+                <h1 class="title is-2 has-text-centered has-text-black">Ingresa al Sistema de Gestión de Espacios del CAi</h1>
+                <h2 class="subtitle is-4 has-text-centered">Iniciar sesión</h2>
+                <p class="has-text-centered">
+                    <a href="https://www.cai.cl/solicitudes-espacios" class="button is-black is-rounded">Haz clic aquí</a>
+                    para encontrar más información sobre esta plataforma y sus instrucciones.
+                </p>
+                <form method="post">
+                    {% csrf_token %}
+                    {% for non_field_error in form.non_field_errors %}
+                        <p class="help is-danger has-text-centered">{{ non_field_error }}</p>
+                    {% endfor %}
+                    {% for field in form %}
+                        <div class="field">
+                            <label for="{{ field.id_for_label }}" class="label">{{ field.label }}</label>
                             <div class="control">
-                                <input type="submit" value="Entrar" class="button is-black is-fullwidth has-text-white">
+                                <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" required="" class="input">
                             </div>
+                            {% for error in field.errors %}
+                                <p class="help is-danger has-text-centered">{{ error }}</p>
+                            {% endfor %}
                         </div>
-                    </form>
-                </div>
+                    {% endfor %}
+                    <div class="field has-text-centered">
+                        <div class="control">
+                            <input type="submit" value="Entrar" class="button is-black is-fullwidth has-text-white">
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
