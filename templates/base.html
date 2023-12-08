@@ -13,12 +13,14 @@
 
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" href="{% url 'home' %}">
-      {% load static %}
-      <img src="{% static "img/cai.png" %}" alt="logo cai" height="50"/>
+    <div class="navbar-item">
+      <a href="{% url 'home' %}">
+        {% load static %}
+        <img src="{% static "img/cai.png" %}" alt="logo cai" height="50"/>
+      </a>
       <p class="has-text-weight-bold is-size-6">Centro de Alumnos</p>
       <p class="is-size-7">Ingeniería UC</p>
-    </a>
+    </div>
 
     <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
       <span aria-hidden="true"></span>
