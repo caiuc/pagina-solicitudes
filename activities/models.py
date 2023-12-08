@@ -91,16 +91,17 @@ class Activity(models.Model):
     def activity_format_calendar(self):
         activities = []
         for space in [self.space_1, self.space_2, self.space_3]:
-            if space != "" and space is not None:
+            if space and space.name:
                 event = {
                     "title": str(self.name),
                     "start": Activity.format_time_calendar(self.date_start),
                     "end": Activity.format_time_calendar(self.date_finish),
                     "color": str(space.color),
-                    "space_1": str(space.name),
+                    "spaces": [str(space.name) for space in [self.space_1, self.space_2, self.space_3] if space and space.name],
                 }
                 activities.append(event)
         return activities
+
 
     @property
     def valid_spaces(self):
