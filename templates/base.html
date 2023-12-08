@@ -34,17 +34,16 @@
 
 <body>
 
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <div class="navbar-item">
-      <a href="{% url 'home' %}">
-        {% load static %}
-        <img src="{% static "img/cai.png" %}" alt="logo cai"/>
-      </a>
-    </div>
-    <div class="navbar-item">
-      <p class="has-text-weight-bold is-size-6">Centro de Alumnos</p>
-      <p class="is-size-7">Ingeniería UC</p>
+<div class="navbar-brand">
+    <div class="navbar-item has-text-centered">
+        <a href="{% url 'home' %}">
+            {% load static %}
+            <img src="{% static "img/cai.png" %}" alt="logo cai" style="max-height: 300px;"/>
+        </a>
+        <div>
+            <p class="has-text-weight-bold is-size-6">Centro de Alumnos</p>
+            <p class="is-size-7">Ingeniería UC</p>
+        </div>
     </div>
   </div>
 
