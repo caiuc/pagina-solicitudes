@@ -17,8 +17,12 @@
       margin: 0;
     }
 
-    .navbar-item img {
+    .navbar-brand .navbar-item img {
       height: 300px; /* Ajusta la altura del logo aquí */
+    }
+
+    .navbar-brand .navbar-item {
+      text-align: center;
     }
   </style>
 </head>
@@ -30,8 +34,10 @@
     <div class="navbar-item">
       <a href="{% url 'home' %}">
         {% load static %}
-        <img src="{% static "img/cai.png" %}" alt="logo cai"/> <!-- Elimina el estilo de altura aquí -->
+        <img src="{% static "img/cai.png" %}" alt="logo cai"/>
       </a>
+    </div>
+    <div class="navbar-item">
       <p class="has-text-weight-bold is-size-6">Centro de Alumnos</p>
       <p class="is-size-7">Ingeniería UC</p>
     </div>
