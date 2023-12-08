@@ -16,6 +16,10 @@
     .hero {
       margin: 0;
     }
+
+    .navbar-item img {
+      height: 300px; /* Ajusta la altura del logo aquí */
+    }
   </style>
 </head>
 
@@ -26,11 +30,12 @@
     <div class="navbar-item">
       <a href="{% url 'home' %}">
         {% load static %}
-        <img src="{% static "img/cai.png" %}" alt="logo cai" style="height: 200px;"/> <!-- Ajusta la altura aquí -->
+        <img src="{% static "img/cai.png" %}" alt="logo cai"/> <!-- Elimina el estilo de altura aquí -->
       </a>
       <p class="has-text-weight-bold is-size-6">Centro de Alumnos</p>
       <p class="is-size-7">Ingeniería UC</p>
     </div>
+  </div>
 
     <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
       <span aria-hidden="true"></span>
