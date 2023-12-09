@@ -36,16 +36,7 @@
                             </div>
                         </div>
                     </form>
-                    <div class="buttons has-text-centered">
-                        <a class="button is-light" href="{% url 'signup' %}">
-                            Registrarse
-                        </a>
-                        {% if not user.is_authenticated %}
-                            <a class="button is-danger" href="{% url 'logout' %}">
-                                Salir
-                            </a>
-                        {% endif %}
-                    </div>
+                    
                 </div>
             </div>
         </div>
