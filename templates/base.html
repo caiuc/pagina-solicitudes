@@ -104,7 +104,12 @@
                  <a class="button is-black" href="{% url 'signup' %}">
                 Registrarse
               </a>
+               {% else %}
+              <a class="button is-black" href="{% url 'logout' %}">
+                Salir
+              </a>
               {% endif %}
+              
             </div>
           </div>
         </div>
