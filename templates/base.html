@@ -19,6 +19,10 @@
       margin: 0;
     }
 
+    .navbar {
+      background-color: white; /* Fondo blanco para el navbar */
+    }
+
     .navbar-brand .navbar-item img {
       height: auto;
       max-height: 100px; /* Ajusta la altura máxima del logo aquí */
@@ -36,23 +40,25 @@
 
 <body>
 
-<div class="navbar-brand">
-    <div class="navbar-item has-text-centered">
-        <a href="{% url 'home' %}">
-            {% load static %}
-            <img src="{% static "img/cai.png" %}" alt="logo cai" style="max-height: 100px;"/>
-        </a>
-        <div>
-            <p class="has-text-weight-bold is-size-6">Centro de Alumnos</p>
-            <p class="is-size-7">Ingeniería UC</p>
+<div class="navbar">
+    <div class="navbar-brand">
+        <div class="navbar-item has-text-centered">
+            <a href="{% url 'home' %}">
+                {% load static %}
+                <img src="{% static "img/cai.png" %}" alt="logo cai" style="max-height: 100px;"/>
+            </a>
+            <div>
+                <p class="has-text-weight-bold is-size-6">Centro de Alumnos</p>
+                <p class="is-size-7">Ingeniería UC</p>
+            </div>
         </div>
-    </div>
 
-    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
+        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+    </div>
 
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
@@ -115,8 +121,8 @@
             </div>
           </div>
         </div>
-      </div>
-  </div>
+    </div>
+</div>
 
 <main>
   {% if messages %}
@@ -149,6 +155,7 @@
 
 </body>
 </html>
+
 
 
 
