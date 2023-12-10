@@ -27,6 +27,8 @@
     }
 
     .navbar-brand {
+      display: flex;
+      align-items: center;
       justify-content: flex-start;
       padding-left: 20px;
     }
@@ -36,7 +38,7 @@
       max-height: 100px;
     }
 
-    .navbar-brand .logo-text {
+    .logo-text {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -44,17 +46,17 @@
       text-align: center;
     }
 
-    .navbar-brand .logo-text p {
+    .logo-text p {
       margin: 0;
+      font-size: 1.2em;
     }
 
-    .navbar-brand .logo-text .main-text {
+    .logo-text .main-text {
       font-weight: bold;
-      font-size: 1.2em;
       color: black;
     }
 
-    .navbar-brand .logo-text .sub-text {
+    .logo-text .sub-text {
       font-size: 0.9em;
       color: black;
     }
@@ -66,10 +68,12 @@
     .logo-container {
       background-color: white;
       padding: 10px;
+    }
+
+    .navbar hr {
       margin: 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      width: 100%;
+      border-top: 1px solid black;
     }
 
     .container {
@@ -91,7 +95,7 @@
         <p class="sub-text">Ingeniería UC</p>
       </div>
     </div>
-    <hr style="border-top: 1px solid black; margin: 0; width: 100%;">
+    <hr>
   </div>
 
   <div class="navbar">
@@ -197,6 +201,7 @@
 </body>
 
 </html>
+
 
 
 
