@@ -22,7 +22,7 @@
     }
 
     .navbar {
-      background-color: white !important; /* Asegura que el fondo del navbar sea blanco */
+      background-color: white !important;
       border-bottom: 1px solid black;
       margin-bottom: 0;
       margin-right: 0;
@@ -52,7 +52,7 @@
     .logo-text p {
       margin: 0;
       font-size: 1.2em;
-      color: black; /* Asegura que el texto del logo sea negro */
+      color: black;
     }
 
     .logo-text .main-text {
@@ -121,85 +121,94 @@
 <body>
 
   <div class="container has-text-centered logo-container">
-    <div class="navbar-brand">
-      <a href="{% url 'home' %}">
-        {% load static %}
-        <img src="{% static "img/cai.png" %}" alt="logo cai" style="max-height: 100px;" />
-      </a>
-      <div class="logo-text">
-        <p class="main-text">Centro de Alumnos</p>
-        <p class="sub-text">Ingeniería UC</p>
+    <div class="columns is-mobile">
+      <div class="column">
+        <div class="navbar-brand">
+          <a href="{% url 'home' %}">
+            {% load static %}
+            <img src="{% static "img/cai.png" %}" alt="logo cai" style="max-height: 100px;" />
+          </a>
+          <div class="logo-text">
+            <p class="main-text">Centro de Alumnos</p>
+            <p class="sub-text">Ingeniería UC</p>
+          </div>
+        </div>
+        <hr>
       </div>
     </div>
-    <hr>
   </div>
 
   <div class="navbar">
-    <div class="navbar-brand">
-      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-    </div>
-
-    <div id="navbarBasicExample" class="navbar-menu">
-      <div class="navbar-start">
-        <a class="navbar-item" href="{% url 'home' %}">
-          Inicio
-        </a>
-
-        <a class="navbar-item" href="{% url 'calendar' %}">
-          Calendario de actividades
-        </a>
-
-        {% if user.is_authenticated %}
-        {% if user.is_staff %}
-        <a class="navbar-item" href="/admin">
-          Modificar espacios y equipamiento
-        </a>
-        {% endif %}
-
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
-            Solicitudes
+    <div class="columns is-mobile">
+      <div class="column">
+        <div class="navbar-brand">
+          <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
           </a>
-          <div class="navbar-dropdown">
-            <a class="navbar-item" href="{% url 'activities_list' %}">
-              Mis solicitudes
+        </div>
+      </div>
+      <div class="column is-four-fifths">
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item" href="{% url 'home' %}">
+              Inicio
             </a>
-            <a class="navbar-item" href="{% url 'new_activity' %}">
-              Nueva solicitud
+
+            <a class="navbar-item" href="{% url 'calendar' %}">
+              Calendario de actividades
             </a>
+
+            {% if user.is_authenticated %}
             {% if user.is_staff %}
-            <hr class="navbar-divider">
-            <a class="navbar-item" href="{% url 'activities_list_staff' %}">
-              Solicitudes pendientes
+            <a class="navbar-item" href="/admin">
+              Modificar espacios y equipamiento
             </a>
-            <a class="navbar-item" href="{% url 'activities_list_staff_all' %}">
-              Todas las solicitudes
-            </a>
+            {% endif %}
+
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                Solicitudes
+              </a>
+              <div class="navbar-dropdown">
+                <a class="navbar-item" href="{% url 'activities_list' %}">
+                  Mis solicitudes
+                </a>
+                <a class="navbar-item" href="{% url 'new_activity' %}">
+                  Nueva solicitud
+                </a>
+                {% if user.is_staff %}
+                <hr class="navbar-divider">
+                <a class="navbar-item" href="{% url 'activities_list_staff' %}">
+                  Solicitudes pendientes
+                </a>
+                <a class="navbar-item" href="{% url 'activities_list_staff_all' %}">
+                  Todas las solicitudes
+                </a>
+                {% endif %}
+              </div>
+            </div>
             {% endif %}
           </div>
-        </div>
-        {% endif %}
-      </div>
 
-      <div class="navbar-end">
-        <div class="navbar-item">
-          <div class="buttons">
-            {% if not user.is_authenticated %}
-            <a class="button is-black" href="{% url 'login' %}">
-              Entrar
-            </a>
-            <a class="button is-black" href="{% url 'signup' %}">
-              Registrarse
-            </a>
-            {% else %}
-            <a class="button is-black" href="{% url 'logout' %}">
-              Salir
-            </a>
-            {% endif %}
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                {% if not user.is_authenticated %}
+                <a class="button is-black" href="{% url 'login' %}">
+                  Entrar
+                </a>
+                <a class="button is-black" href="{% url 'signup' %}">
+                  Registrarse
+                </a>
+                {% else %}
+                <a class="button is-black" href="{% url 'logout' %}">
+                  Salir
+                </a>
+                {% endif %}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -243,6 +252,7 @@
 </body>
 
 </html>
+
 
 
 
