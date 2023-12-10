@@ -14,7 +14,7 @@
       padding: 0;
       background: url('https://github.com/caiuc/pagina-solicitudes/raw/master/img/campus1.jpg') no-repeat center center fixed;
       background-size: cover;
-      overflow-x: hidden; /* Evita la barra de desplazamiento horizontal */
+      overflow-x: hidden;
     }
 
     .hero {
@@ -23,63 +23,74 @@
 
     .navbar {
       background-color: white;
-      /* Fondo blanco para el navbar */
       border-bottom: 1px solid black;
-      /* Línea negra debajo del logo */
     }
 
     .navbar-brand {
-      justify-content: flex-start; /* Alinea la marca a la izquierda */
-      padding-left: 20px; /* Ajusta el espacio a la izquierda según sea necesario */
+      justify-content: flex-start;
+      padding-left: 20px;
     }
 
     .navbar-brand .navbar-item img {
       height: auto;
       max-height: 100px;
-      /* Ajusta la altura máxima del logo aquí */
     }
 
     .navbar-brand .logo-text {
-      margin-left: 10px; /* Ajusta el margen izquierdo según sea necesario */
-      text-align: left;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-left: 10px;
+      text-align: center;
+    }
+
+    .navbar-brand .logo-text p {
+      margin: 0;
+    }
+
+    .navbar-brand .logo-text .main-text {
+      font-weight: bold;
+      font-size: 1.2em;
+      color: black;
+    }
+
+    .navbar-brand .logo-text .sub-text {
+      font-size: 0.9em;
+      color: black;
     }
 
     .navbar-brand .navbar-item p {
       margin: 0;
-      /* Elimina el margen del párrafo */
     }
 
-    /* Agrega fondo blanco al área del logo */
     .logo-container {
       background-color: white;
-      padding: 10px; /* Ajusta el espaciado interior según sea necesario */
-      margin: 0; /* Elimina el margen del contenedor del logo */
+      padding: 10px;
+      margin: 0;
     }
 
     .container {
-      width: 100%; /* Ocupa todo el ancho de la pantalla */
+      width: 100%;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Agrega la sección del logo del Centro de Alumnos con fondo blanco -->
-  <div class="container has-text-left logo-container">
+  <div class="container has-text-centered logo-container">
     <div class="navbar-brand">
       <a href="{% url 'home' %}">
         {% load static %}
         <img src="{% static "img/cai.png" %}" alt="logo cai" style="max-height: 100px;" />
       </a>
       <div class="logo-text">
-        <p class="has-text-weight-bold is-size-6">Centro de Alumnos</p>
-        <p class="is-size-7">Ingeniería UC</p>
+        <p class="main-text">Centro de Alumnos</p>
+        <p class="sub-text">Ingeniería UC</p>
       </div>
     </div>
     <hr style="border-top: 1px solid black; margin-top: 5px; margin-bottom: 5px;">
   </div>
 
-  <!-- Agrega el navbar -->
   <div class="navbar">
     <div class="navbar-brand">
       <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
@@ -173,7 +184,6 @@
       </div>
     </div>
 
-    <!-- Agrega el enlace "Código fuente" aquí -->
     <div class="container" style="margin-top: 20px;">
       <a class="button is-white" href="https://github.com/caiuc/pagina-solicitudes">
         Código fuente
@@ -184,6 +194,7 @@
 </body>
 
 </html>
+
 
 
 
