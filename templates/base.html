@@ -31,7 +31,7 @@
       background-color: white;
       display: flex;
       align-items: center;
-      justify-content: center; /* Ajuste para centrar contenido en la barra */
+      justify-content: center;
     }
 
     .navbar-brand .navbar-item img {
@@ -77,7 +77,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-direction: column; /* Alinea los elementos verticalmente */
+      flex-direction: column;
     }
 
     .extra-text {
@@ -112,7 +112,7 @@
 
 <body>
 
-  <div class="container has-text-centered logo-container">
+  <div class="navbar">
     <div class="navbar-brand">
       <a href="{% url 'home' %}">
         {% load static %}
@@ -123,75 +123,72 @@
         <p class="sub-text">Ingeniería UC</p>
       </div>
     </div>
-    <hr>
-  </div>
-
-  <div class="navbar">
-    <div class="navbar-brand">
-      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
+    <div class="navbar-end">
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+        data-target="navbarBasicExample"
+        onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
       </a>
-    </div>
-
-    <div id="navbarBasicExample" class="navbar-menu">
-      <div class="navbar-start">
-        <a class="navbar-item" href="{% url 'home' %}">
-          Inicio
-        </a>
-
-        <a class="navbar-item" href="{% url 'calendar' %}">
-          Calendario de actividades
-        </a>
-
-        {% if user.is_authenticated %}
-        {% if user.is_staff %}
-        <a class="navbar-item" href="/admin">
-          Modificar espacios y equipamiento
-        </a>
-        {% endif %}
-
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
-            Solicitudes
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item" href="{% url 'home' %}">
+            Inicio
           </a>
-          <div class="navbar-dropdown">
-            <a class="navbar-item" href="{% url 'activities_list' %}">
-              Mis solicitudes
-            </a>
-            <a class="navbar-item" href="{% url 'new_activity' %}">
-              Nueva solicitud
-            </a>
-            {% if user.is_staff %}
-            <hr class="navbar-divider">
-            <a class="navbar-item" href="{% url 'activities_list_staff' %}">
-              Solicitudes pendientes
-            </a>
-            <a class="navbar-item" href="{% url 'activities_list_staff_all' %}">
-              Todas las solicitudes
-            </a>
-            {% endif %}
-          </div>
-        </div>
-        {% endif %}
-      </div>
 
-      <div class="navbar-end">
-        <div class="navbar-item">
-          <div class="buttons">
-            {% if not user.is_authenticated %}
-            <a class="button is-black" href="{% url 'login' %}">
-              Entrar
+          <a class="navbar-item" href="{% url 'calendar' %}">
+            Calendario de actividades
+          </a>
+
+          {% if user.is_authenticated %}
+          {% if user.is_staff %}
+          <a class="navbar-item" href="/admin">
+            Modificar espacios y equipamiento
+          </a>
+          {% endif %}
+
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              Solicitudes
             </a>
-            <a class="button is-black" href="{% url 'signup' %}">
-              Registrarse
-            </a>
-            {% else %}
-            <a class="button is-black" href="{% url 'logout' %}">
-              Salir
-            </a>
-            {% endif %}
+            <div class="navbar-dropdown">
+              <a class="navbar-item" href="{% url 'activities_list' %}">
+                Mis solicitudes
+              </a>
+              <a class="navbar-item" href="{% url 'new_activity' %}">
+                Nueva solicitud
+              </a>
+              {% if user.is_staff %}
+              <hr class="navbar-divider">
+              <a class="navbar-item" href="{% url 'activities_list_staff' %}">
+                Solicitudes pendientes
+              </a>
+              <a class="navbar-item" href="{% url 'activities_list_staff_all' %}">
+                Todas las solicitudes
+              </a>
+              {% endif %}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              {% if not user.is_authenticated %}
+              <a class="button is-black" href="{% url 'login' %}">
+                Entrar
+              </a>
+              <a class="button is-black" href="{% url 'signup' %}">
+                Registrarse
+              </a>
+              {% else %}
+              <a class="button is-black" href="{% url 'logout' %}">
+                Salir
+              </a>
+              {% endif %}
+            </div>
           </div>
         </div>
       </div>
@@ -208,17 +205,11 @@
       </ul>
     </div>
     {% endif %}
-    <div class="container">
-      {% block content %}
-      {% endblock %}
-    </div>
-
-    <!-- Agrega el cuadrado amarillo con letra negra -->
+    <!-- Contenido principal... -->
     <div class="small-yellow-block">
       <p class="is-size-7">Encargada Coordinación de Áreas CAi: María Olga Barriga</p>
       <p class="is-size-7">Si tienes problemas, contactar por correo: olguita.barriga@caiuc.cl</p>
     </div>
-
     <div class="container" style="margin-top: 20px;">
       <a class="button is-white" href="https://github.com/caiuc/pagina-solicitudes">
         Código fuente
@@ -229,28 +220,4 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
