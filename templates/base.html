@@ -27,14 +27,20 @@
       /* Línea negra debajo del logo */
     }
 
+    .navbar-brand {
+      justify-content: flex-start; /* Alinea la marca a la izquierda */
+      padding-left: 20px; /* Ajusta el espacio a la izquierda según sea necesario */
+    }
+
     .navbar-brand .navbar-item img {
       height: auto;
       max-height: 100px;
       /* Ajusta la altura máxima del logo aquí */
     }
 
-    .navbar-brand .navbar-item {
-      text-align: center;
+    .navbar-brand .logo-text {
+      margin-left: 10px; /* Ajusta el margen izquierdo según sea necesario */
+      text-align: left;
     }
 
     .navbar-brand .navbar-item p {
@@ -54,14 +60,16 @@
 <body>
 
   <!-- Agrega la sección del logo del Centro de Alumnos con fondo blanco -->
-  <div class="container has-text-centered logo-container">
-    <a href="{% url 'home' %}">
-      {% load static %}
-      <img src="{% static "img/cai.png" %}" alt="logo cai" style="max-height: 100px;" />
-    </a>
-    <div>
-      <p class="has-text-weight-bold is-size-6">Centro de Alumnos</p>
-      <p class="is-size-7">Ingeniería UC</p>
+  <div class="container has-text-left logo-container">
+    <div class="navbar-brand">
+      <a href="{% url 'home' %}">
+        {% load static %}
+        <img src="{% static "img/cai.png" %}" alt="logo cai" style="max-height: 100px;" />
+      </a>
+      <div class="logo-text">
+        <p class="has-text-weight-bold is-size-6">Centro de Alumnos</p>
+        <p class="is-size-7">Ingeniería UC</p>
+      </div>
     </div>
     <hr style="border-top: 1px solid black; margin-top: 5px; margin-bottom: 5px;">
   </div>
@@ -171,6 +179,7 @@
 </body>
 
 </html>
+
 
 
 
