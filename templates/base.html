@@ -32,9 +32,8 @@
       background-color: white;
       display: flex;
       align-items: center;
-      justify-content: space-between; /* Ajuste para centrar contenido en la barra */
-      padding-left: 20px;
-      padding-right: 20px; /* Añadido espacio a la derecha */
+      justify-content: center; /* Ajuste para centrar contenido en la barra */
+      padding: 10px; /* Añadido espacio alrededor del logo y texto */
     }
 
     .navbar-brand .navbar-item img {
@@ -47,6 +46,7 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
+      margin-left: 10px; /* Espacio entre el logo y el texto */
     }
 
     .logo-text p {
@@ -80,6 +80,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column; /* Alinea los elementos verticalmente */
     }
 
     .extra-text {
@@ -212,12 +213,8 @@
     </div>
     {% endif %}
     <div class="container">
-      <div class="is-flex">
-        <div class="is-flex-grow-1">
-          {% block content %}
-          {% endblock %}
-        </div>
-      </div>
+      {% block content %}
+      {% endblock %}
     </div>
 
     <!-- Agrega el cuadrado amarillo con letra negra -->
@@ -236,6 +233,7 @@
 </body>
 
 </html>
+
 
 
 
