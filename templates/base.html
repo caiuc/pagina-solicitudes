@@ -24,8 +24,8 @@
     .navbar {
       background-color: white;
       border-bottom: 1px solid black;
-      margin-bottom: 0; /* Quita el margen inferior del navbar */
-      margin-right: 0; /* Quita el margen derecho del navbar */
+      margin-bottom: 0;
+      margin-right: 0;
     }
 
     .navbar-brand {
@@ -84,8 +84,8 @@
 
     .container {
       width: 100%;
-      padding: 0; /* Quita el padding de la clase container */
-      margin: 0; /* Quita el margen de la clase container */
+      padding: 0;
+      margin: 0;
     }
 
     .extra-text {
@@ -94,12 +94,26 @@
     }
 
     .yellow-block {
-      background-color: #fff8dc; /* Cambia el color a un tono más claro */
+      background-color: #fff8dc;
       padding: 10px;
       margin-top: 20px;
     }
 
     .yellow-block p {
+      color: black;
+    }
+
+    .small-yellow-block {
+      background-color: #fff8dc;
+      padding: 10px;
+      margin-top: 20px;
+      width: 200px; /* Ancho del cuadrado */
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .small-yellow-block p {
       color: black;
     }
   </style>
@@ -214,8 +228,8 @@
       </div>
     </div>
 
-    <!-- Agrega el bloque amarillo con letra negra -->
-    <div class="has-background-warning">
+    <!-- Agrega el cuadrado amarillo con letra negra -->
+    <div class="small-yellow-block">
       <p class="is-size-7">Encargada Coordinación de Áreas CAi: María Olga Barriga</p>
       <p class="is-size-7">Si tienes problemas, contactar por correo: olguita.barriga@caiuc.cl</p>
     </div>
@@ -230,6 +244,7 @@
 </body>
 
 </html>
+
 
 
 
