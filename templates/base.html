@@ -123,29 +123,21 @@
         <p class="sub-text">Ingeniería UC</p>
       </div>
     </div>
-    <div class="navbar-end">
-      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-        data-target="navbarBasicExample"
-        onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-      <div id="navbarBasicExample" class="navbar-menu">
-        <div class="navbar-start">
-          <a class="navbar-item" href="{% url 'home' %}">
-            Inicio
-          </a>
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="{% url 'home' %}">
+          Inicio
+        </a>
 
-          <a class="navbar-item" href="{% url 'calendar' %}">
-            Calendario de actividades
-          </a>
+        <a class="navbar-item" href="{% url 'calendar' %}">
+          Calendario de actividades
+        </a>
 
-          {% if user.is_authenticated %}
+        {% if user.is_authenticated %}
           {% if user.is_staff %}
-          <a class="navbar-item" href="/admin">
-            Modificar espacios y equipamiento
-          </a>
+            <a class="navbar-item" href="/admin">
+              Modificar espacios y equipamiento
+            </a>
           {% endif %}
 
           <div class="navbar-item has-dropdown is-hoverable">
@@ -160,35 +152,34 @@
                 Nueva solicitud
               </a>
               {% if user.is_staff %}
-              <hr class="navbar-divider">
-              <a class="navbar-item" href="{% url 'activities_list_staff' %}">
-                Solicitudes pendientes
-              </a>
-              <a class="navbar-item" href="{% url 'activities_list_staff_all' %}">
-                Todas las solicitudes
-              </a>
+                <hr class="navbar-divider">
+                <a class="navbar-item" href="{% url 'activities_list_staff' %}">
+                  Solicitudes pendientes
+                </a>
+                <a class="navbar-item" href="{% url 'activities_list_staff_all' %}">
+                  Todas las solicitudes
+                </a>
               {% endif %}
             </div>
           </div>
-          {% endif %}
-        </div>
+        {% endif %}
+      </div>
 
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="buttons">
-              {% if not user.is_authenticated %}
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            {% if not user.is_authenticated %}
               <a class="button is-black" href="{% url 'login' %}">
                 Entrar
               </a>
               <a class="button is-black" href="{% url 'signup' %}">
                 Registrarse
               </a>
-              {% else %}
+            {% else %}
               <a class="button is-black" href="{% url 'logout' %}">
                 Salir
               </a>
-              {% endif %}
-            </div>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -197,13 +188,13 @@
 
   <main>
     {% if messages %}
-    <div class="notification is-primary">
-      <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-      </ul>
-    </div>
+      <div class="notification is-primary">
+        <ul class="messages">
+          {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      </div>
     {% endif %}
     <!-- Contenido principal... -->
     <div class="small-yellow-block">
@@ -220,4 +211,3 @@
 </body>
 
 </html>
-
