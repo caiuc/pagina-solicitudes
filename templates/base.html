@@ -41,21 +41,27 @@
       margin: 0;
       /* Elimina el margen del párrafo */
     }
+
+    /* Agrega fondo blanco al área del logo */
+    .logo-container {
+      background-color: white;
+      padding: 10px; /* Ajusta el espaciado interior según sea necesario */
+    }
   </style>
 </head>
 
 <body>
 
-  <!-- Agrega la sección del logo del Centro de Alumnos -->
-  <div class="container has-text-centered">
+  <!-- Agrega la sección del logo del Centro de Alumnos con fondo blanco -->
+  <div class="container has-text-centered logo-container">
     <a href="{% url 'home' %}">
       {% load static %}
       <img src="{% static "img/cai.png" %}" alt="logo cai" style="max-height: 100px;" />
     </a>
     <div>
-          <p class="has-text-weight-bold is-size-6">Centro de Alumnos</p>
-          <p class="is-size-7">Ingeniería UC</p>
-        </div>
+      <p class="has-text-weight-bold is-size-6">Centro de Alumnos</p>
+      <p class="is-size-7">Ingeniería UC</p>
+    </div>
     <hr style="border-top: 1px solid black; margin-top: 5px; margin-bottom: 5px;">
   </div>
 
@@ -162,6 +168,9 @@
   </main>
 
 </body>
+
+</html>
+
 
 </html>
 
