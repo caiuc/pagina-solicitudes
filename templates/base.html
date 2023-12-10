@@ -188,13 +188,13 @@
 
   <main>
     {% if messages %}
-      <div class="notification is-primary">
-        <ul class="messages">
-          {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-          {% endfor %}
-        </ul>
-      </div>
+    <div class="notification is-primary">
+      <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    </div>
     {% endif %}
     <!-- Contenido principal... -->
     <div class="small-yellow-block">
