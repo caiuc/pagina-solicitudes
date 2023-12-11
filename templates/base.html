@@ -10,20 +10,24 @@
   <style>
     body {
       background-image: url('https://github.com/caiuc/pagina-solicitudes/raw/master/img/campus1.jpg');
-      background-size: cover; /* Ajusta el tamaño de la imagen al tamaño del contenedor */
-      background-position: center; /* Centra la imagen */
-      background-attachment: fixed; /* Fija la imagen para que no se desplace con el contenido */
-      margin: 0; /* Elimina los márgenes por defecto del cuerpo */
-      font-family: 'Arial', sans-serif; /* Establece una fuente de texto por defecto */
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      margin: 0;
+      font-family: 'Arial', sans-serif;
     }
 
     .navbar {
-      background-color: white; /* Fondo blanco para el navbar */
+      background-color: white;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000; /* Asegura que el navbar esté sobre otros elementos */
     }
 
     .navbar-brand .navbar-item img {
       height: auto;
-      max-height: 100px; /* Ajusta la altura máxima del logo aquí */
+      max-height: 100px;
     }
 
     .navbar-brand .navbar-item {
@@ -31,12 +35,12 @@
     }
 
     .navbar-brand .navbar-item p {
-      margin: 0; /* Elimina el margen del párrafo */
+      margin: 0;
     }
   </style>
 </head>
 
-<body class="has-navbar-fixed-top">
+<body class="has-navbar-fixed-top is-fixed-top">
   <div class="navbar">
     <div class="navbar-brand">
       <div class="navbar-item has-text-centered">
