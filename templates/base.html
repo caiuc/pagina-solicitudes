@@ -8,7 +8,13 @@
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   <title>{% block title %}Inicio{% endblock %}</title>
   <style>
-	@@ -20,142 +21,158 @@
+    body {
+      background-image: url('https://github.com/caiuc/pagina-solicitudes/raw/master/img/campus1.jpg');
+      background-size: cover; /* Ajusta el tamaño de la imagen al tamaño del contenedor */
+      background-position: center; /* Centra la imagen */
+      background-attachment: fixed; /* Fija la imagen para que no se desplace con el contenido */
+      margin: 0; /* Elimina los márgenes por defecto del cuerpo */
+      font-family: 'Arial', sans-serif; /* Establece una fuente de texto por defecto */
     }
 
     .navbar {
@@ -30,26 +36,25 @@
   </style>
 </head>
 
-<body>
-
-<div class="navbar">
+<body class="has-navbar-fixed-top">
+  <div class="navbar">
     <div class="navbar-brand">
-        <div class="navbar-item has-text-centered">
-            <a href="{% url 'home' %}">
-                {% load static %}
-                <img src="{% static "img/cai.png" %}" alt="logo cai" style="max-height: 100px;"/>
-            </a>
-            <div>
-                <p class="has-text-weight-bold is-size-6">Centro de Alumnos</p>
-                <p class="is-size-7">Ingeniería UC</p>
-            </div>
-        </div>
-
-        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
+      <div class="navbar-item has-text-centered">
+        <a href="{% url 'home' %}">
+          {% load static %}
+          <img src="{% static "img/cai.png" %}" alt="logo cai" style="max-height: 100px;"/>
         </a>
+        <div>
+          <p class="has-text-weight-bold is-size-6">Centro de Alumnos</p>
+          <p class="is-size-7">Ingeniería UC</p>
+        </div>
+      </div>
+
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
     </div>
 
     <div id="navbarBasicExample" class="navbar-menu">
