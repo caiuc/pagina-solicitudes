@@ -25,33 +25,83 @@
 {% block title %}{{ page_name }}{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="columns is-mobile">
-        <div class="column"></div>
-        <div class="column is-four-fifths">
-            <h3 class="title is-size-3">{{ page_name }}</h3>
-            <form method="post">
-                {% csrf_token %}
-                {% for non_field_error in form.non_field_errors %}
-                    <p class="help is-is-danger">{{ non_field_error }}</p>
-                {% endfor %}
-                {% for field in form.visible_fields %}
-                    <div class="field">
-                        <label for="{{ field.id_for_label }}" class="label">{{ field.label }}</label>
-                        {{ field }}<br>
-                    <p class="help is-is-info">{{ field.help_text }}</p>
-                    {% for error in field.errors %}
-                        <p class="help is-danger">{{ error }}</p>
-                    {% endfor %}
+  <div class="container has-background-white" style="margin-top: 20px; margin-bottom: 20px; padding: 20px;">
+    <h3 class="title is-size-3">{{ page_name }}</h3>
+    {% load static %}
+    <img src="{% static "img/mapa_ing.png" %}" alt="Mapa de la Escuela" width="100%">
+    <form method="post">
+        {% csrf_token %}
+        {% for non_field_error in form.non_field_errors %}
+            <p class="help is-danger">{{ non_field_error }}</p>
+        {% endfor %}
+        {% for field in form.visible_fields %}
+            <div class="field">
+                <label for="{{ field.id_for_label }}" class="label">{{ field.label }}</label>
+                
+                {% comment %} render field with dropdown differently {% endcomment %}
+                {% if field.name == 'space_1' or  field.name == 'space_2' or field.name == 'space_3' or field.name == 'equipment' %}
+                
+                  <div class="control">
+                    <div class="select">
+                      {{ field }}<br>
                     </div>
-                {% endfor %}
-                {% for hidden in form.hidden_fields %}
-                    {{ hidden.as_hidden }}
-                {% endfor %}
-                <input type="submit" value="{{ button }}" class="button is-success">
-            </form>
-        </div>
-        <div class="column"></div>
-    </div>
-</div>
+                  </div>
+
+                {% else %}
+                
+                  {{ field }}<br>
+                
+                {% endif %}
+
+            {% for error in field.errors %}
+                <p class="help is-danger">{{ error }}</p>
+            {% endfor %}
+            </div>
+
+            {% comment %} add message info after equipment field {% endcomment %}
+            {% if field.name == 'equipment' %}
+              <article class="message is-danger">
+                  <div class="message-header">
+                      <p>Uso de espacios y ruido</p>
+                  </div>
+                  <div class="message-body">
+                      <strong>IMPORTANTE:<strong> En caso de querer hacer uso de la sala de estudios Raúl Déves, deberás pedirla a través de la <a href="https://deg.ing.uc.cl/infraestructura/solicitud-de-salas/" target="_blank">página de solicitudes de salas de la Escuela</a>.
+                      <br>
+                      Recuerda que solamente se puede hacer ruido o poner música en los eventos entre las <strong>13:00 y las 14:00</strong> horas.
+                  </div>
+              </article>
+            {% endif %}
+
+          {% comment %}  {% endcomment %}
+          {% if field.name == 'date_finish' %}
+              <article class="message is-warning">
+                  <div class="message-header">
+                  <p>Actividades programadas</p>
+                  </div>
+                  <div class="message-body">
+                  Para evitar inconvenientes con topes de fechas y horarios, puedes <strong>revisar el <a href="{% url 'calendar' %}" target="_blank">calendario</a></strong> con las fechas que ya están agendadas.
+                  </div>
+              </article>
+            {% endif %}
+        {% endfor %}
+        
+        {% for hidden in form.hidden_fields %}
+            {{ hidden.as_hidden }}
+        {% endfor %}
+
+        <article class="message is-info">
+          <div class="message-header">
+            <p>Espacios que requieren link de aministración del campus</p>
+          </div>
+          <div class="message-body">
+            {% for name in required_links %}
+              <li>{{ name }}
+            {% endfor %}
+            <br>Para obtener el link puedes ir a <a href="http://gespacios.uc.cl/anonimo/nueva.php" target="_blank">página de solicitudes de administración del campus</a>.
+            <br><br>Luego de haber realizado la solicitud debes <strong>pegar el link que se te envia</strong> a tu correo electrónico en el espacio de arriba.
+          </div>
+        </article>
+        <input type="submit" value="{{ button }}" class="button is-success">
+    </form>
+  </div>
 {% endblock %}
