@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8">
   <link rel="icon" href="/static/img/cai.png">
-  <meta content='width=device-width, initial-scale=1' name='viewport'/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css"/>
+  <meta content='width=device-width, initial-scale=1' name='viewport' />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css" />
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Russo+One&display=swap">
   <title>{% block title %}Inicio{% endblock %}</title>
   <style>
     body {
@@ -22,7 +24,7 @@
       position: fixed;
       width: 100%;
       top: 0;
-      z-index: 1000; /* Asegura que el navbar esté sobre otros elementos */
+      z-index: 1000;
     }
 
     .navbar-brand .navbar-item img {
@@ -36,6 +38,7 @@
 
     .navbar-brand .navbar-item p {
       margin: 0;
+      font-family: 'Russo One', sans-serif; /* Cambiar el tipo de letra */
     }
   </style>
 </head>
@@ -44,19 +47,17 @@
   <div class="navbar">
     <div class="navbar-brand">
       <div class="navbar-item has-text-centered">
-  <a href="{% url 'home' %}">
-    {% load static %}
-    <img src="{% static "img/cai.png" %}" alt="logo cai" style="max-height: 100px;"/>
-  </a>
-  <div>
-    <p class="has-text-weight-bold is-size-6 has-text-black">Centro de Alumnos</p>
-    <p class="is-size-7 has-text-black">Ingeniería UC</p>
-    <p class="is-size-7 has-text-black">Coordinadora de Áreas: María Olga Barriga</p>
-    <p class="is-size-7 has-text-black">Dudas escribir a <a href="mailto:olguita.barriga@caiuc.cl" class="has-text-black">olguita.barriga@caiuc.cl</a></p>
-  </div>
-</div>
-
-
+        <a href="{% url 'home' %}">
+          {% load static %}
+          <img src="{% static "img/cai.png" %}" alt="logo cai" style="max-height: 100px;" />
+        </a>
+        <div>
+          <p class="has-text-weight-bold is-size-6 has-text-black">Centro de Alumnos</p>
+          <p class="is-size-7 has-text-black">Ingeniería UC</p>
+          <p class="is-size-7 has-text-black">Coordinadora de Áreas: María Olga Barriga</p>
+          <p class="is-size-7 has-text-black">Dudas escribir a <a href="mailto:olguita.barriga@caiuc.cl" class="has-text-black">olguita.barriga@caiuc.cl</a></p>
+        </div>
+      </div>
 
       <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
         <span aria-hidden="true"></span>
