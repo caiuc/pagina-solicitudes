@@ -44,17 +44,18 @@
   <div class="navbar">
     <div class="navbar-brand">
       <div class="navbar-item has-text-centered">
-        <a href="{% url 'home' %}">
-          {% load static %}
-          <img src="{% static "img/cai.png" %}" alt="logo cai" style="max-height: 100px;"/>
-        </a>
-        <div>
-          <p class="has-text-weight-bold is-size-6">Centro de Alumnos</p>
-          <p class="is-size-7">Ingeniería UC</p>
-          <p class="is-size-7 has-text-info">Coordinadora de Áreas: María Olga Barriga</p>
-          <p class="is-size-7">Dudas escribir a <a href="mailto:olguita.barriga@caiuc.cl">olguita.barriga@caiuc.cl</a></p>
-        </div>
-      </div>
+  <a href="{% url 'home' %}">
+    {% load static %}
+    <img src="{% static "img/cai.png" %}" alt="logo cai" style="max-height: 100px;"/>
+  </a>
+  <div>
+    <p class="has-text-weight-bold is-size-6 has-text-black">Centro de Alumnos</p>
+    <p class="is-size-7 has-text-black">Ingeniería UC</p>
+    <p class="is-size-7 has-text-black">Coordinadora de Áreas: María Olga Barriga</p>
+    <p class="is-size-7 has-text-black">Dudas escribir a <a href="mailto:olguita.barriga@caiuc.cl" class="has-text-black">olguita.barriga@caiuc.cl</a></p>
+  </div>
+</div>
+
 
 
       <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
