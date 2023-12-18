@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="utf-8">
   <link rel="icon" href="/static/img/cai.png">
-  <meta content='width=device-width, initial-scale=1' name='viewport' />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css" />
+  <meta content='width=device-width, initial-scale=1' name='viewport'/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css"/>
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   <title>{% block title %}Inicio{% endblock %}</title>
   <style>
@@ -23,7 +22,7 @@
       position: fixed;
       width: 100%;
       top: 0;
-      z-index: 1000;
+      z-index: 1000; /* Asegura que el navbar esté sobre otros elementos */
     }
 
     .navbar-brand .navbar-item img {
@@ -38,14 +37,6 @@
     .navbar-brand .navbar-item p {
       margin: 0;
     }
-
-    .coordinator-info {
-      margin-top: 20px;
-    }
-
-    .coordinator-info .notification {
-      margin-bottom: 0;
-    }
   </style>
 </head>
 
@@ -55,7 +46,7 @@
       <div class="navbar-item has-text-centered">
         <a href="{% url 'home' %}">
           {% load static %}
-          <img src="{% static "img/cai.png" %}" alt="logo cai" style="max-height: 100px;" />
+          <img src="{% static "img/cai.png" %}" alt="logo cai" style="max-height: 100px;"/>
         </a>
         <div>
           <p class="has-text-weight-bold is-size-6">Centro de Alumnos</p>
@@ -63,8 +54,7 @@
         </div>
       </div>
 
-      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample"
-        onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
@@ -72,57 +62,99 @@
     </div>
 
     <div id="navbarBasicExample" class="navbar-menu">
-      <div class="navbar-start">
-        <!-- ... (código existente) ... -->
-      </div>
+        <div class="navbar-start">
+          <a class="navbar-item" href="{% url 'home' %}">
+            Inicio
+          </a>
 
-      <div class="navbar-end">
-        <!-- ... (código existente) ... -->
-      </div>
+          <a class="navbar-item" href="{% url 'calendar' %}">
+              Calendario de actividades
+          </a>
+
+          {% if user.is_authenticated %}
+            {% if user.is_staff %}
+              <a class="navbar-item" href="/admin">
+                Modificar espacios y equipamiento
+              </a>
+            {% endif %}
+
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                Solicitudes
+              </a>
+              <div class="navbar-dropdown">
+                <a class="navbar-item" href="{% url 'activities_list' %}">
+                  Mis solicitudes
+                </a>
+                <a class="navbar-item" href="{% url 'new_activity' %}">
+                  Nueva solicitud
+                </a>
+                {% if user.is_staff %}
+                  <hr class="navbar-divider">
+                  <a class="navbar-item" href="{% url 'activities_list_staff' %}">
+                    Solicitudes pendientes
+                  </a>
+                  <a class="navbar-item" href="{% url 'activities_list_staff_all' %}">
+                    Todas las solicitudes
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              {% if not user.is_authenticated %}
+                <a class="button is-black" href="{% url 'login' %}">
+                  Entrar
+                </a>
+                 <a class="button is-black" href="{% url 'signup' %}">
+                Registrarse
+              </a>
+               {% else %}
+              <a class="button is-black" href="{% url 'logout' %}">
+                Salir
+              </a>
+              {% endif %}
+
+            </div>
+          </div>
+        </div>
     </div>
-  </div>
+</div>
 
-  <!-- Nueva sección para la información de la Coordinadora de Áreas -->
-  <div class="coordinator-info">
-    <div class="container">
-      <div class="notification is-info">
-        <p class="has-text-weight-bold">Coordinadora de Áreas: María Olga Barriga</p>
-        <p>Dudas escribir a <a href="mailto:olguita.barriga@caiuc.cl">olguita.barriga@caiuc.cl</a></p>
-      </div>
-    </div>
-  </div>
-
-  <main>
-    {% if messages %}
+<main>
+  {% if messages %}
     <div class="notification is-primary">
       <ul class="messages">
         {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
         {% endfor %}
       </ul>
     </div>
-    {% endif %}
-    <div class="container">
-      <div class="columns is-mobile">
-        <div class="column"></div>
-        <div class="column is-four-fifths">
-          {% block content %}
-          {% endblock %}
-        </div>
-        <div class="column"></div>
+  {% endif %}
+  <div class="container">
+    <div class="columns is-mobile">
+      <div class="column"></div>
+      <div class="column is-four-fifths">
+        {% block content %}
+        {% endblock %}
       </div>
+      <div class="column"></div>
     </div>
+  </div>
 
-    <!-- Agrega el enlace "Código fuente" aquí -->
-    <div class="container" style="margin-top: 20px;">
-      <a class="button is-white" href="https://github.com/caiuc/pagina-solicitudes">
-        Código fuente
-      </a>
-    </div>
-  </main>
+  <!-- Agrega el enlace "Código fuente" aquí -->
+  <div class="container" style="margin-top: 20px;">
+    <a class="button is-white" href="https://github.com/caiuc/pagina-solicitudes">
+      Código fuente
+    </a>
+  </div>
+</main>
 
 </body>
-
 </html>
 
 
