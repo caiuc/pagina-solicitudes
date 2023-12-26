@@ -84,6 +84,11 @@
               Calendario de actividades
           </a>
 
+          <a class="navbar-item" href="{% url 'tutorial' %}">
+            Tutorial para pedir espacios
+          </a>
+
+
           {% if user.is_authenticated %}
             {% if user.is_staff %}
               <a class="navbar-item" href="/admin">
