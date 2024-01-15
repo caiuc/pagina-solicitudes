@@ -6,36 +6,49 @@
     <div class="form-container">
         <h3 class="title is-size-3">{{ page_name }} - {{ activity.name }}</h3>
         {% include 'activities/detailed_view_template.html' %}
-        <form method="post" class="form">
-            {% csrf_token %}
-            {% for non_field_error in form.non_field_errors %}
-                <p class="help is-danger">{{ non_field_error }}</p>
-            {% endfor %}
-            {% for field in form.visible_fields %}
-                <div class="field">
-                    <label for="{{ field.id_for_label }}" class="label">Estado</label>
-                    {{ field }}<br>
-                    {% for error in field.errors %}
-                        <p class="help is-danger">{{ error }}</p>
-                    {% endfor %}
-                </div>
-            {% endfor %}
-            {% for hidden in form.hidden_fields %}
-                {{ hidden.as_hidden }}
-            {% endfor %}
-            <input type="submit" value="{{ button }}" class="button is-primary">
-        </form>
+
+        <div class="white-box">
+            <form method="post" class="form">
+                {% csrf_token %}
+                {% for non_field_error in form.non_field_errors %}
+                    <p class="help is-danger">{{ non_field_error }}</p>
+                {% endfor %}
+                {% for field in form.visible_fields %}
+                    <div class="field">
+                        <label for="{{ field.id_for_label }}" class="label">Estado</label>
+                        {{ field }}<br>
+                        {% for error in field.errors %}
+                            <p class="help is-danger">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                {% for hidden in form.hidden_fields %}
+                    {{ hidden.as_hidden }}
+                {% endfor %}
+                <input type="submit" value="{{ button }}" class="button is-primary">
+            </form>
+        </div>
     </div>
 {% endblock %}
 
 <style>
     .form-container {
-        background-color: #ffffff; /* Fondo blanco para el contenedor del formulario */
+        /* Estilos para el contenedor del formulario */
+        margin: 20px 0;
+    }
+
+    .white-box {
+        background-color: #ffffff; /* Fondo blanco para el cuadro */
         padding: 20px; /* Espaciado interno */
         border-radius: 8px; /* Bordes redondeados (opcional) */
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave (opcional) */
-        margin: 20px 0; /* Espaciado externo (opcional) */
     }
+
+    .form {
+        /* Agrega estilos adicionales para el formulario si es necesario */
+    }
+</style>
+
 
     .form {
         /* Agrega estilos adicionales para el formulario si es necesario */
