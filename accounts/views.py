@@ -9,7 +9,7 @@ from django.shortcuts import render
 from django.views import View
 
 class TutorialView(View):
-    template_name = "activitiestutorial.html"
+    template_name = "activities/tutorial.html"
 
     def get(self, request, *args, **kwargs):
         # Puedes agregar lógica adicional aquí si es necesario
