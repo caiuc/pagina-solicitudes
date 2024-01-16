@@ -5,6 +5,15 @@ from .models import Profile
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from django.shortcuts import render
+from django.views import View
+
+class TutorialView(View):
+    template_name = "tutorial.html"
+
+    def get(self, request, *args, **kwargs):
+        # Puedes agregar lógica adicional aquí si es necesario
+        return render(request, self.template_name, {})
 
 class SignUp(generic.CreateView):
     model = User
