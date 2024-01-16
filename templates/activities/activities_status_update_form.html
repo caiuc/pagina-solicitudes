@@ -3,6 +3,9 @@
 {% block title %}{{ page_name }} - {{ activity.name }}{% endblock %}
 
 {% block content %}
+    <h3 class="title is-size-3">{{ page_name }} - {{ activity.name }}</h3>
+    {% include 'activities/detailed_view_template.html' %}
+
     <div class="white-box">
         <form method="post" class="form">
             {% csrf_token %}
@@ -11,26 +14,20 @@
             {% endfor %}
 
             <div class="label-container">
-                <label for="{{ form.visible_fields.0.id_for_label }}" class="label label-white-text">Estado</label>
+                <label for="{{ form.visible_fields.0.id_for_label }}" class="label">Estado</label>
             </div>
 
-            <div class="fields-container">
-                {% for field in form.visible_fields %}
-                    <div class="field">
-                        {{ field }}<br>
-                        {% for error in field.errors %}
-                            <p class="help is-danger">{{ error }}</p>
-                        {% endfor %}
-                    </div>
-                {% endfor %}
-            </div>
-
-            <div class="hidden-fields-container">
-                {% for hidden in form.hidden_fields %}
-                    {{ hidden.as_hidden }}
-                {% endfor %}
-            </div>
-
+            {% for field in form.visible_fields %}
+                <div class="field">
+                    {{ field }}<br>
+                    {% for error in field.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden.as_hidden }}
+            {% endfor %}
             <input type="submit" value="{{ button }}" class="button is-primary">
         </form>
     </div>
@@ -38,7 +35,7 @@
 
 <style>
     .white-box {
-        background-color: #ffffff; /* Fondo blanco para el cuadro */
+        background-color: #ffffff; /* Fondo blanco para el cuadro de "Estado" */
         padding: 20px; /* Espaciado interno */
         border-radius: 8px; /* Bordes redondeados (opcional) */
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave (opcional) */
@@ -50,24 +47,14 @@
         display: inline-block; /* Hace que ocupe solo el ancho del contenido */
         padding: 8px; /* Espaciado interno del label-container */
         border-radius: 8px; /* Bordes redondeados (opcional) */
-        margin-bottom: 10px; /* Espaciado inferior (opcional) */
     }
 
-    .label-white-text {
-        color: #ffffff; /* Texto blanco para el label "Estado" */
+    .label {
+        margin-bottom: 0; /* Evitar espacio adicional debajo del label */
     }
 
-    .fields-container,
-    .hidden-fields-container {
-        /* Ajustes de estilo según sea necesario */
-    }
-
-    .field {
-        margin-bottom: 10px; /* Espaciado inferior entre campos (opcional) */
-    }
-
-    .button {
-        /* Ajustes de estilo para el botón si es necesario */
+    .form {
+        /* Agrega estilos adicionales para el formulario si es necesario */
     }
 </style>
 
