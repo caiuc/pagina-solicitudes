@@ -24,7 +24,9 @@
             {% for hidden in form.hidden_fields %}
                 {{ hidden.as_hidden }}
             {% endfor %}
-            <input type="submit" value="{{ button }}" class="button is-primary">
+            <div class="button-container">
+                <input type="submit" value="{{ button }}" class="button is-primary">
+            </div>
         </form>
     </div>
 {% endblock %}
@@ -41,7 +43,14 @@
     .form {
         /* Agrega estilos adicionales para el formulario si es necesario */
     }
+
+    .button-container {
+        background-color: #ffffff; /* Fondo blanco para el contenedor del botón */
+        text-align: center; /* Alineación del texto del botón */
+        padding: 10px; /* Espaciado interno del contenedor del botón */
+    }
 </style>
+
 
 
 
