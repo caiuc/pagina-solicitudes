@@ -5,15 +5,17 @@ from .models import Profile
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from django.shortcuts import render
-from django.views import View
-
-class TutorialView(View):
+class TutorialView(generic.CreateView):
+    model = User
+    form_class = RegistrationForm
+    success_url = reverse_lazy("login")
     template_name = "activities/tutorial.html"
 
-    def get(self, request, *args, **kwargs):
-        # Puedes agregar lógica adicional aquí si es necesario
-        return render(request, self.template_name, {})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_name"] = "Nuevo usuario"
+        context["button"] = "Crear"
+        return context
 
 class SignUp(generic.CreateView):
     model = User
