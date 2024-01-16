@@ -14,7 +14,7 @@
             {% endfor %}
 
             <div class="label-container">
-                <label for="{{ form.visible_fields.0.id_for_label }}" class="label-white-background">Estado</label>
+                <label for="{{ form.visible_fields.0.id_for_label }}" class="label">Estado</label>
             </div>
 
             {% for field in form.visible_fields %}
@@ -44,11 +44,12 @@
 
     .label-container {
         background-color: #ffffff; /* Fondo blanco para el label "Estado" */
+        display: inline-block; /* Hace que ocupe solo el ancho del contenido */
         padding: 8px; /* Espaciado interno del label-container */
         border-radius: 8px; /* Bordes redondeados (opcional) */
     }
 
-    .label-white-background {
+    .label {
         margin-bottom: 0; /* Evitar espacio adicional debajo del label */
     }
 
@@ -56,5 +57,6 @@
         /* Agrega estilos adicionales para el formulario si es necesario */
     }
 </style>
+
 
 
