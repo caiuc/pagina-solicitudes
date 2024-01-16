@@ -12,13 +12,9 @@
             {% for non_field_error in form.non_field_errors %}
                 <p class="help is-danger">{{ non_field_error }}</p>
             {% endfor %}
-
-            <div class="label-container">
-                <label for="{{ form.visible_fields.0.id_for_label }}" class="label">Estado</label>
-            </div>
-
             {% for field in form.visible_fields %}
                 <div class="field">
+                    <label for="{{ field.id_for_label }}" class="label">Estado</label>
                     {{ field }}<br>
                     {% for error in field.errors %}
                         <p class="help is-danger">{{ error }}</p>
@@ -40,17 +36,6 @@
         border-radius: 8px; /* Bordes redondeados (opcional) */
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave (opcional) */
         margin: 20px 0; /* Espaciado externo (opcional) */
-    }
-
-    .label-container {
-        background-color: #ffffff; /* Fondo blanco para el label "Estado" */
-        display: inline-block; /* Hace que ocupe solo el ancho del contenido */
-        padding: 8px; /* Espaciado interno del label-container */
-        border-radius: 8px; /* Bordes redondeados (opcional) */
-    }
-
-    .label {
-        margin-bottom: 0; /* Evitar espacio adicional debajo del label */
     }
 
     .form {
