@@ -68,22 +68,12 @@ class RegistrationForm(UserCreationForm):
 
             return user
 class WhiteBoxRegistrationForm(UserCreationForm):
-    class Meta:
-        model = User
-        fields = [
-            "username",
-            "first_name",
-            "last_name",
-            "email",
-            "password1",
-            "password2",
-        ]
-
     def __init__(self, *args, **kwargs):
         super(WhiteBoxRegistrationForm, self).__init__(*args, **kwargs)
 
         for field_name, field in self.fields.items():
-            field.widget.attrs.update({"class": "input-label"})
+            # Aplica clases personalizadas a los campos de etiquetas
+            field.widget.attrs.update({"class": "input-field"})
 
 class ProfileForm(forms.ModelForm):
     rut = forms.CharField(
