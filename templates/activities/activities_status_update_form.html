@@ -3,10 +3,10 @@
 {% block title %}{{ page_name }} - {{ activity.name }}{% endblock %}
 
 {% block content %}
-    <h3 class="title is-size-3">{{ page_name }} - {{ activity.name }}</h3>
-    {% include 'activities/detailed_view_template.html' %}
+    <div style="background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); margin: 20px 0;">
+        <h3 class="title is-size-3">{{ page_name }} - {{ activity.name }}</h3>
+        {% include 'activities/detailed_view_template.html' %}
 
-    <div class="white-box">
         <form method="post" class="form">
             {% csrf_token %}
             {% for non_field_error in form.non_field_errors %}
@@ -31,25 +31,6 @@
     </div>
 {% endblock %}
 
-<style>
-    .white-box {
-        background-color: #ffffff; /* Fondo blanco para el cuadro de "Estado" */
-        padding: 20px; /* Espaciado interno */
-        border-radius: 8px; /* Bordes redondeados (opcional) */
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave (opcional) */
-        margin: 20px 0; /* Espaciado externo (opcional) */
-    }
-
-    .form {
-        /* Agrega estilos adicionales para el formulario si es necesario */
-    }
-
-    .button-container {
-        background-color: #ffffff; /* Fondo blanco para el contenedor del botón */
-        text-align: center; /* Alineación del texto del botón */
-        padding: 10px; /* Espaciado interno del contenedor del botón */
-    }
-</style>
 
 
 
