@@ -2,9 +2,13 @@
 
 {% block title %}{{ page_name }}{% endblock %}
 
-
 {% block content %}
-
     <h3 class="title is-size-3">{{ page_name }}</h3>
 
+    <div class="video-container">
+        <video width="640" height="360" controls>
+            <source src="{% static 'img/video.mp4' %}" type="video/mp4">
+            Tu navegador no soporta la etiqueta de video.
+        </video>
+    </div>
 {% endblock content %}
