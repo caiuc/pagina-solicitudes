@@ -230,12 +230,14 @@ class ActivityStatusNotification(LoginRequiredMixin, FillInformation, Permission
 
     def form_valid(self, form):
         activity = Activity.objects.get(pk=self.kwargs["pk"])
-        form.send_email(
-            form.data["subject"],
-            form.data["body"],
-            "olguita.barriga@caiuc.cl",
-            [activity.in_charge],
-        )
+        
+        # Aquí puedes personalizar el contenido del correo según tu necesidad
+        subject = form.cleaned_data["subject"]
+        body = form.cleaned_data["body"]
+        
+        # Aquí envías el correo electrónico
+        self.send_notification_email(subject, body, "olguita.barriga@caiuc.cl", [activity.in_charge])
+
         messages.info(self.request, f"Se ha enviado un correo a {activity.in_charge}")
         return redirect("activities_list_staff")
 
@@ -244,6 +246,15 @@ class ActivityStatusNotification(LoginRequiredMixin, FillInformation, Permission
         context["page_name"] = "Notificar cambio de estado"
         context["button"] = "Enviar correo"
         return context
+
+    def send_notification_email(self, subject, body, from_email, recipient_list):
+        # Aquí puedes utilizar la lógica de envío de correos electrónicos
+        # Puedes usar la función send_mail o cualquier método que prefieras
+        # Asegúrate de configurar adecuadamente las configuraciones de correo en tu settings.py
+
+        from django.core.mail import send_mail
+
+        send_mail(subject, body, from_email, recipient_list)
 
 
 class Calendar(generic.TemplateView):
