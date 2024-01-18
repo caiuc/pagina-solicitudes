@@ -14,6 +14,9 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils.html import strip_tags
 from django.views import generic
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib.auth import get_user_model
 
 from accounts.models import Profile
 from activities.forms import ActivityForm, NotificationForm
@@ -280,3 +283,15 @@ class HomeWithCalendar(LoginRequiredMixin, FillInformation, generic.TemplateView
         for space in Space.objects.all():
             spaces.append(space)
         return HttpResponse(template.render({"events": json.dumps(events), "spaces": spaces}, request))
+# Función para enviar el correo de confirmación
+def enviar_correo_confirmacion(sender, instance, created, **kwargs):
+    if created:
+        # Aquí defines el contenido del correo
+        subject = 'Nueva actividad creada'
+        message = f'Se ha creado una nueva actividad: {instance}'
+        from_email = 'tu_email@gmail.com'  # Coloca tu dirección de correo
+        recipient_list = ['olguita.barriga@caiuc.cl']  # Lista de destinatarios
+        send_mail(subject, message, from_email, recipient_list)
+
+# Registra la señal para la función enviar_correo_confirmacion
+post_save.connect(enviar_correo_confirmacion, sender=NewActivity)
