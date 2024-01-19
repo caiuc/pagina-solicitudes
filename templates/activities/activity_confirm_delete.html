@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ page_name }} - {{ activity.name }}{% endblock %}
+{% block title %}
+    <div style="margin: 20px;">
+        {{ page_name }} - {{ activity.name }}
+    </div>
+{% endblock %}
 
 {% block content %}
 
-    <form method="post">{% csrf_token %}
-        <h3 class="title is-size-3">¿Seguro que quieres eliminar el evento "{{ object }}"?</h3>
+    <form method="post" style="margin: 20px;">{% csrf_token %}
+        <h3 class="title is-size-3" style="margin-top: 20px;">¿Seguro que quieres eliminar el evento "{{ object }}"?</h3>
         {% include 'activities/detailed_view_template.html' %}
         <input class="button is-danger" type="submit" value="{{ button }}">
     </form>
