@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    <div class="title-block" style="margin-top: 30px;">
+    <div class="title-block" style="margin-top: 50px;">
         {{ page_name }} - {{ activity.name }}
     </div>
 {% endblock %}
 
 {% block content %}
-    <div class="content" style="margin-top: 40px;">
+    <div class="content" style="margin-top: 60px;">
         <h3 class="title is-size-3">{{ page_name }} - {{ activity.name }}</h3>
         {% include 'activities/detailed_view_template.html' %}
     </div>
 {% endblock %}
+
