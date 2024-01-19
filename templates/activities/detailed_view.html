@@ -2,13 +2,12 @@
 
 {% block title %}
     <div class="title-block" style="margin-top: 120px;">
-        {{ page_name }} - {{ activity.name }}
+        <h3 class="title is-size-3">{{ page_name }} - {{ activity.name }}</h3>
     </div>
 {% endblock %}
 
 {% block content %}
     <div class="content" style="margin-top: 150px;">
-        <h3 class="title is-size-3">{{ page_name }} - {{ activity.name }}</h3>
         {% include 'activities/detailed_view_template.html' %}
     </div>
 {% endblock %}
