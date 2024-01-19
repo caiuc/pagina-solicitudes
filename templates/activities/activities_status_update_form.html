@@ -15,7 +15,7 @@
             {% endfor %}
             {% for field in form.visible_fields %}
                 <div class="field">
-                    <label for="{{ field.id_for_label }}" class="label">Estado</label>
+                    <label for="{{ field.id_for_label }}" class="label">Estado Actual</label>
                     {{ field }}<br>
                     {% for error in field.errors %}
                         <p class="help is-danger">{{ error }}</p>
