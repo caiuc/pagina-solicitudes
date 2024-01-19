@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ page_name }} - {{ activity.name }}{% endblock %}
-
 {% block content %}
     <div style="background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); margin: 40px 0 20px;">
-        <h3 class="title is-size-3">{{ page_name }} - {{ activity.name }}</h3>
+        <div style="margin-top: 20px;">  <!-- Puedes ajustar el valor de margin-top según sea necesario -->
+            <h3 class="title is-size-3">{{ page_name }} - {{ activity.name }}</h3>
+        </div>
         {% include 'activities/detailed_view_template.html' %}
 
         <form method="post" class="form">
@@ -30,6 +30,7 @@
         </form>
     </div>
 {% endblock %}
+
 
 
 
