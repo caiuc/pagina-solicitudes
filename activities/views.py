@@ -232,7 +232,7 @@ class ActivityChangeState(LoginRequiredMixin, FillInformation, PermissionMixin, 
         context = super().get_context_data(**kwargs)
         context["creator"] = Profile.objects.get(user=self.get_object().creator)
         context["required_links"] = list(Space.objects.filter(admin_required=True))
-        context["page_name"] = "Cambio de estado de la solicitud"
+        context["page_name"] = "Cambio de estado solicitud"
         context["button"] = "Cambiar estado de actividad"
         return context
 
