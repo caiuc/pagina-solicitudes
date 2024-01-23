@@ -236,6 +236,26 @@ class ActivityChangeState(LoginRequiredMixin, FillInformation, PermissionMixin, 
         context["button"] = "Cambiar estado de actividad"
         return context
 
+    success_url = "activities/notify_status_change.html"
+
+    def form_valid(self, form):
+        activity = Activity.objects.get(pk=self.kwargs["pk"])
+
+        # Lógica de procesamiento del formulario
+
+        # Aquí puedes personalizar el contenido del correo según tu necesidad
+        subject = form.cleaned_data["subject"]
+        body = form.cleaned_data["body"]
+
+        # Aquí envías el correo electrónico
+        self.send_notification_email(subject, body, "olguita.barriga@caiuc.cl", [activity.in_charge])
+
+        messages.info(self.request, f"Se ha enviado un correo a {activity.in_charge}")
+        return redirect(self.get_success_url())
+
+    def get_success_url(self):
+        return self.success_url
+
 
 class ActivityStatusNotification(LoginRequiredMixin, FillInformation, PermissionMixin, generic.FormView):
     form_class = NotificationForm
