@@ -73,9 +73,20 @@
           <a class="navbar-item" href="{% url 'calendar' %}">
               Calendario de actividades
           </a>
-          <a class="navbar-item" href="{% url 'calendar' %}">
-              Calendario de CAi, Iniciativas Estudiantiles y Capítulos
-          </a>
+          <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                Calendario
+              </a>
+              <div class="navbar-dropdown">
+                <a class="navbar-item" href="{% url 'calendar' %}">
+                  Calendario General
+                </a>
+                <a class="navbar-item" href="{% url 'calendar' %}">
+                  Calendario del CAI, Iniciativas Estudiantiles y Capítulos.
+                </a>
+      
+              </div>
+            </div>
           <a class="navbar-item" href="{% url 'tutorial' %}">
           Tutorial
         </a>
