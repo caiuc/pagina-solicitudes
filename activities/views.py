@@ -55,7 +55,7 @@ class FillInformation:
 
 class NewActivity(LoginRequiredMixin, FillInformation, PermissionMixin, generic.CreateView):
     form_class = ActivityForm
-    model = NewActivity
+    model = Activity
     page_name = "new"
     template_name = "activities/activity_form.html"
     success_url = reverse_lazy("activities_list")
