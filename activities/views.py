@@ -78,20 +78,14 @@ class NewActivity(LoginRequiredMixin, FillInformation, PermissionMixin, generic.
 
     def form_valid(self, form):
         response = super().form_valid(form)
-
-        # Llama a la función que envía el correo
-        self.enviar_correo_confirmacion()
-
+        self.enviar_correo_confirmacion()  # Llama a la función que envía el correo
         messages.success(self.request, "Actividad creada exitosamente.")
         return response
 
     def enviar_correo_confirmacion(self):
-        # Obteniendo detalles de la actividad recién creada
-        activity = self.object
-
         # Aquí defines el contenido del correo
         subject = 'Nueva actividad creada'
-        message = f'Se ha creado una nueva actividad: {activity}'
+        message = f'Se ha creado una nueva actividad: {self.object}'
         from_email = 'tu_email@gmail.com'  # Coloca tu dirección de correo
         recipient_list = ['olguita.barriga@caiuc.cl']  # Lista de destinatarios
         send_mail(subject, message, from_email, recipient_list)
