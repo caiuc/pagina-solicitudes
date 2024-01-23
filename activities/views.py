@@ -78,14 +78,20 @@ class NewActivity(LoginRequiredMixin, FillInformation, PermissionMixin, generic.
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        self.enviar_correo_confirmacion()  # Llama a la función que envía el correo
+
+        # Llama a la función que envía el correo
+        self.enviar_correo_confirmacion()
+
         messages.success(self.request, "Actividad creada exitosamente.")
         return response
 
     def enviar_correo_confirmacion(self):
+        # Obteniendo detalles de la actividad recién creada
+        activity = self.object
+
         # Aquí defines el contenido del correo
         subject = 'Nueva actividad creada'
-        message = f'Se ha creado una nueva actividad: {self.object}'
+        message = f'Se ha creado una nueva actividad: {activity}'
         from_email = 'tu_email@gmail.com'  # Coloca tu dirección de correo
         recipient_list = ['olguita.barriga@caiuc.cl']  # Lista de destinatarios
         send_mail(subject, message, from_email, recipient_list)
@@ -236,25 +242,6 @@ class ActivityChangeState(LoginRequiredMixin, FillInformation, PermissionMixin, 
         context["button"] = "Cambiar estado de actividad"
         return context
 
-    success_url = "activities/notify_status_change.html"
-
-    def form_valid(self, form):
-        activity = Activity.objects.get(pk=self.kwargs["pk"])
-
-        # Lógica de procesamiento del formulario
-
-        # Aquí puedes personalizar el contenido del correo según tu necesidad
-        subject = form.cleaned_data["subject"]
-        body = form.cleaned_data["body"]
-
-        # Aquí envías el correo electrónico
-        self.send_notification_email(subject, body, "olguita.barriga@caiuc.cl", [activity.in_charge])
-
-        messages.info(self.request, f"Se ha enviado un correo a {activity.in_charge}")
-        return redirect(self.get_success_url())
-
-    def get_success_url(self):
-        return self.success_url
 
 
 class ActivityStatusNotification(LoginRequiredMixin, FillInformation, PermissionMixin, generic.FormView):
