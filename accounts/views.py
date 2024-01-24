@@ -17,6 +17,18 @@ class TutorialView(generic.CreateView):
         context["button"] = "Crear"
         return context
 
+class GuardiaPar(generic.CreateView):
+    model = User
+    form_class = RegistrationForm
+    success_url = reverse_lazy("login")
+    template_name = "activities/guardia.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_name"] = "Nuevo usuario"
+        context["button"] = "Crear"
+        return context
+
 class SignUp(generic.CreateView):
     model = User
     form_class = RegistrationForm
