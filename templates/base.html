@@ -87,6 +87,9 @@
           <a class="navbar-item" href="{% url 'tutorial' %}">
           Tutorial
         </a>
+          <a class="navbar-item" href="{% url 'home' %}">
+            Guardias Pares
+          </a>
           {% if user.is_authenticated %}
             {% if user.is_staff %}
               <a class="navbar-item" href="/admin">
