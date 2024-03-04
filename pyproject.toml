@@ -13,7 +13,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "3.10.13"
-django = { extras = ["argon2"], version = "^4.2.3" }
+django = { extras = ["argon2"], version = "^4.2.10" }
 python-dotenv = "^1.0.0"
 requests = "^2.31.0"
 sendgrid = "^6.10.0"
