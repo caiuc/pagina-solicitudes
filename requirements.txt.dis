@@ -11,6 +11,7 @@ idna==2.8
 mccabe==0.6.1
 pycodestyle==2.5.0
 pyflakes==2.1.1
+psycopg2 --no-binary :all:
 python-dotenv==0.10.3
 python-http-client==3.1.0
 pytz==2019.1
