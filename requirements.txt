@@ -14,7 +14,7 @@ pyflakes==2.1.1
 python-dotenv==0.10.3
 python-http-client==3.1.0
 pytz==2019.1
-requests==2.27.1
+requests==2.31.0
 sendgrid==6.0.5
 six==1.12.0
 sqlparse==0.3.0
