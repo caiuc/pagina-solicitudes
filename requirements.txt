@@ -9,10 +9,10 @@ future==0.17.1
 gunicorn==19.9.0
 idna==2.8
 mccabe==0.6.1
-psycopg2==2.8.3
 pycodestyle==2.5.0
 pyflakes==2.1.1
 python-dotenv==0.10.3
+psycopg2 --no-binary :all:
 python-http-client==3.1.0
 pytz==2019.1
 requests==2.27.1
