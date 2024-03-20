@@ -25,7 +25,7 @@ whitenoise = { extras = ["brotli"], version = "^6.5.0" }
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.0.277"
-black = "^23.3.0"
+black = "^24.3.0"
 
 [build-system]
 requires = ["poetry-core"]
